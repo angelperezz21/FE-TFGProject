@@ -1,1 +1,98 @@
-<p>registro works!</p>
+<div class="formularioInicio">
+    <div class="col-lg">
+        <div class="card-body">
+            <h5 class="titulo"> Regístrate </h5>
+            <form [formGroup]="form">
+                <div class="radioButtons">
+                  <a *ngIf="this.form.get('tipoUsuario')?.untouched && pulsado" style="color: red;">
+                    Selecciona un tipo</a>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tipoUsuario" id="empresa" value="empresa" formControlName="tipoUsuario" (change)="onTipoUsuarioChange($event)">
+                        <label class="form-check-label" for="empresa">
+                          Empresa
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tipoUsuario" id="beneficiario" value="beneficiario" formControlName="tipoUsuario" (change)="onTipoUsuarioChange($event)">
+                        <label class="form-check-label" for="beneficiario">
+                          Beneficiario
+                        </label>
+                      </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                      <a *ngIf="this.form.get('email')?.valid && pulsado" style="color: green;">Válido</a>
+                      <a *ngIf="this.form.get('email')?.invalid  && pulsado" style="color: red;">
+                        El formato es inválido</a>
+                      <div class="input-group input-group-lg" >
+                        <input formControlName="email" type="text" class="form-control" placeholder="email@gmail.com">
+                     
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <a *ngIf="this.form.get('contrasenya')?.valid && pulsado" style="color: green;">Válido</a>
+                      <a *ngIf="this.form.get('contrasenya')?.invalid && pulsado" style="color: red;">
+                        Como mínimo debe tener 9 caracteres</a>
+                      <div class="input-group input-group-lg">
+                        <input formControlName="contrasenya" maxlength="16" type="text" class="form-control" placeholder="Contraseña">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <a *ngIf="this.form.get('nombre')?.valid && pulsado" style="color: green;" >Válido</a>
+                      <a *ngIf="this.form.get('nombre')?.invalid  && pulsado" style="color: red;">
+                        Campo requerido</a>
+                      <div class="input-group input-group-lg">
+                        <input formControlName="nombre" type="text" class="form-control" placeholder="Nombre">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <a *ngIf="this.form.get('telefono')?.valid && pulsado" style="color: green;" >Válido</a>
+                      <a *ngIf="this.form.get('telefono')?.invalid && pulsado" style="color: red;">
+                        Debe contener 9 dígitos</a>
+                      <div class="input-group input-group-lg">
+                        <input formControlName="telefono" maxlength="9"  class="form-control" placeholder="Teléfono">   
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <a *ngIf="this.form.get('direccion')?.valid && pulsado " style="color: green;" >Válido</a>
+                      <a *ngIf="this.form.get('direccion')?.invalid && pulsado " style="color: red;">
+                        Campo requerido</a>
+                      <div class="input-group input-group-lg">
+                        <input formControlName="direccion" type="text" class="form-control" placeholder="Dirección">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <a *ngIf=" this.form.get('web')?.valid && pulsado" style="color: green;" >Válido</a>
+                      <a *ngIf="this.form.get('web')?.invalid && pulsado" style="color: red;">
+                        Formato inválido</a>
+                      <div class="input-group input-group-lg">
+                        <input formControlName="web"  type="text" class="form-control" placeholder="https://www.tuweb.com">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <a *ngIf="this.form.get('categoria')?.invalid && pulsado" style="color: red;">
+                      Selecciona una categoría</a>
+                    <div class="form-group text-center">
+                      <div class="btn-group btn-group-lg mb-3">
+                        <select class="btn btn-secondary dropdown-toggle text-left text-end"   formControlName="categoria" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (change)="onDropdownChange($event)">
+                          <option value="" disabled selected>Categoría</option>
+                          <option class="dropdown-item" *ngFor="let value of dropdownValues" [value]="value.id">{{ value.name }}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  
+                
+                <div class="d-grid gap-2 mb-3">
+                    <button class="botonInicio"  type="submit" (click)="registro()">
+                        <i class="fas fa-database">Regístrame</i> </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

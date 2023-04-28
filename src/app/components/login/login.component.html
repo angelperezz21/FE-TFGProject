@@ -1,1 +1,40 @@
-<p>login works!</p>
+<div class="formularioInicio">
+    <div class="col-lg">
+        <div class="card-body">
+            <h5 class="titulo"> Inicio sesión </h5>
+            <h3 class="registro"> ¿Todavía no tienes cuenta? <a routerLink="/Registro">Regístrate</a></h3>
+            <form [formGroup]="form">
+                <div class="radioButtons">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tipoUsuario" id="empresa" value="empresa" formControlName="tipoUsuario" (change)="onTipoUsuarioChange($event)">
+                        <label class="form-check-label" for="empresa">
+                          Empresa
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tipoUsuario" id="beneficiario" value="beneficiario" (change)="onTipoUsuarioChange($event)">
+                        <label class="form-check-label" for="beneficiario">
+                          Beneficiario
+                        </label>
+                      </div>
+                </div>
+                <div class="input-group input-group-lg mb-3">
+                    <input formControlName="email" type="text" class="form-control" placeholder="Email">
+                </div>
+                <div class="input-group input-group-lg mb-3">
+                    <input formControlName="contrasenya" maxlength="16" type="password" class="form-control" placeholder="Contraseña">
+                </div>
+                <div class="d-grip gap-2 mb-3">
+                    <div class="mb-2"*ngIf="loginError" style="color: red;">{{ loginError }}</div>
+                </div>
+                <div class="d-grid gap-2 mb-3">
+                    <button class="botonInicio" type="submit" (click)="iniciarSesion()">
+                        <i class="fas fa-database">Acceder</i> </button>
+                </div>
+                <div class="d-grid gap-2">
+                    <a style="text-align: center;">¿Has olvidado la contraseña?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

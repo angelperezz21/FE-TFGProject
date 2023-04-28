@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./pantalla-inicial.component.css']
 })
 export class PantallaInicialComponent {
+  
 
 }
