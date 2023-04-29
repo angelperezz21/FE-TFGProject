@@ -8,11 +8,22 @@ import { Observable } from 'rxjs';
 export class BeneficiarioService {
 
   private myAppUrl = "https://localhost:44318/";
-  private myApiUrl = 'api/Beneficiario/register'
+  private myApiUrl = 'api/Beneficiario'
 
   constructor(private http: HttpClient) { }
 
   registro(beneficiario: any): Observable<any>{
-    return this.http.post(this.myAppUrl + this.myApiUrl, beneficiario);
+    return this.http.post(this.myAppUrl + this.myApiUrl + '/register', beneficiario);
   }
+
+  seguirEmpresa(idEmpresa: number, idBeneficiario: number,  httpOptions: any): Observable<any>{
+    const body = { idEmpresa, idBeneficiario};
+    return this.http.post(this.myAppUrl + this.myApiUrl + '/seguirEmpresa', body, httpOptions)
+  }
+
+  getListaSeguidos(idBeneficiario: number, httpOptions: any): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/listaEmpresasSeguidos/' + `${idBeneficiario}`, httpOptions);
+  }
+
+
 }

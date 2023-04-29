@@ -1,0 +1,20 @@
+.container{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.card-img-top {
+    width: 200px;
+    height: 230px;
+    object-fit: cover;
+    display: flex;
+    flex-direction: column;
+    z-index: 0;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+  }

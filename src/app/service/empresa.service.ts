@@ -23,4 +23,13 @@ export class EmpresaService {
   getEmpresa(id: number, httpOptions: any): Observable<any>{
     return this.http.get(`${this.myAppUrl}${this.myApiUrl}${id}`, httpOptions);
   }
+
+  contrasenyaEmpresa(email: string): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + 'recuperarContrasenya/' + `${email}`);
+  }
+
+  getListaEmpresas(): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + 'listaEmpresas');
+  }
+ 
 }

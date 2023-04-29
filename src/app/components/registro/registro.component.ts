@@ -50,7 +50,8 @@ export class RegistroComponent {
   prueba(){
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    this._empresaService.getEmpresa(1, {headers}).subscribe(data=>{
+    console.log(headers)
+    this._empresaService.getEmpresa(1004, {headers}).subscribe(data=>{
       console.log(data)
     })
   }
@@ -67,6 +68,7 @@ export class RegistroComponent {
       Categoria: this.categoria,
       Contacto: this.form.get('telefono')?.value,
       Descripcion: "",    
+      imgUrl:"",
     }
 
     if(this.tipoUsuario === "empresa"){

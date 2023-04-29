@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { LoginService } from 'src/app/service/login.service';
 import { Router } from '@angular/router';
+import { EmpresaService } from 'src/app/service/empresa.service';
 
 @Component({
   selector: 'app-login',
@@ -13,13 +14,17 @@ export class LoginComponent {
   id: number | undefined;
   loginError: string | undefined;
   tipoUsuario: string | undefined;
+  isModalOpen = false;
   
   constructor(private fb: FormBuilder, 
     private _loginService: LoginService,
+    private _empresaService: EmpresaService,
     private router: Router) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
       contrasenya: ['', ],
+      tipoUsuario: ['', Validators.required],
+      tipoBeneficiario: ['', Validators.required],
     })
    }
 
@@ -27,8 +32,25 @@ export class LoginComponent {
 
   }
 
+ 
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  onModalConfirm() {
+    this.isModalOpen = false;
+    this._empresaService.contrasenyaEmpresa(this.form.get('email')?.value).subscribe(data=>{
+      console.log(data)
+    })
+  }
+
   onTipoUsuarioChange(event: any) {
     this.tipoUsuario = event.target.id;
+    console.log(this.tipoUsuario)
   }
 
   iniciarSesion(){

@@ -6,13 +6,13 @@
             <form [formGroup]="form">
                 <div class="radioButtons">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="tipoUsuario" id="empresa" value="empresa" formControlName="tipoUsuario" (change)="onTipoUsuarioChange($event)">
+                        <input class="form-check-input" type="radio"  name="tipoUsuario" id="empresa" value="empresa" formControlName="tipoUsuario" (change)="onTipoUsuarioChange($event)">
                         <label class="form-check-label" for="empresa">
                           Empresa
                         </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="tipoUsuario" id="beneficiario" value="beneficiario" (change)="onTipoUsuarioChange($event)">
+                        <input class="form-check-input" type="radio"  name="tipoUsuario"  id="beneficiario" formControlName="tipoBeneficiario" value="beneficiario" (change)="onTipoUsuarioChange($event)">
                         <label class="form-check-label" for="beneficiario">
                           Beneficiario
                         </label>
@@ -32,8 +32,16 @@
                         <i class="fas fa-database">Acceder</i> </button>
                 </div>
                 <div class="d-grid gap-2">
-                    <a style="text-align: center;">¿Has olvidado la contraseña?</a>
+                    
+                    <a  class="olvidada" style="text-align: center;" *ngIf="(this.form.get('tipoUsuario')?.valid || this.form.get('tipoBeneficiario')?.valid) && loginError" (click)="openModal()">
+                        ¿Has olvidado la contraseña?
+                    </a>
                 </div>
+
+                <app-modal *ngIf="isModalOpen" title="Recuperar contraseña" (closeModalEvent)="closeModal()" (confirm)="onModalConfirm()">
+                <p>¿Quieres recuperar tu contraseña? Se te enviará un correo a tu cuenta</p>
+                </app-modal>
+                                
             </form>
         </div>
     </div>
