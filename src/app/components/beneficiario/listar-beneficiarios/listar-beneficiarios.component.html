@@ -1,1 +1,56 @@
-<p>listar-beneficiarios works!</p>
+<div class="form-container">
+    <form [formGroup]="form">
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" formControlName="nombre" (keyup)="applyFilter($event)" class="form-control" id="nombre" placeholder="Nombre del beneficiario">
+      </div>
+      <div class="form-group">
+        <label for="categoria">Categoría:</label>
+        <select class="form-control" id="categoria" (change)="onDropdownChange($event); applyFilter($event); ">
+          <option value="">Selecciona una categoría</option>
+          <option class="dropdown-item" *ngFor="let value of dropdownValues" [value]="value.id">{{ value.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="ubicacion">Ubicación:</label>
+        <input type="text" formControlName="ubi" (keyup)="applyFilter($event)" class="form-control" id="ubicacion" placeholder="Ubicación de la empresa">
+      </div>
+      <div class="form-group form-check" *ngIf="logged && role === 'Empresa'">
+        <input type="checkbox" class="form-check-input" id="siguiendo" formControlName="beneficiariosSeguidas"  (change)=" applyFilter($event); ">
+        <label class="form-check-label" for="siguiendo">Mostrar solo los beneficiarios que sigo</label>
+      </div>    
+    </form>
+  </div>
+  
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mb-2" *ngFor="let beneficiario of beneficiariosFiltro">
+        <div class="card" id="{{ beneficiario.id }}">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="assets/pantallaInicio.jpg" class="card-img-top float-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h4 class="">{{ beneficiario.nombre }}</h4>
+                <p class="card-text">{{ beneficiario.descripcion }}</p>
+                <p class="card-text">{{ beneficiario.categoria }}</p>
+                <p class="card-text">{{ beneficiario.direccion }}</p>
+                <a class="card-text" href="{{beneficiario.web}}">{{ beneficiario.web }}</a>
+                <div class="d-flex justify-content-between align-items-center">
+                  <a href="/VerBeneficiario" class="btn btn-primary mt-2">Más info...</a>
+                  <a *ngIf="logged && role === 'Empresa'" class="btn btn-success" 
+                    (click)="beneficiarioSeguido(beneficiario) ? dejarSeguir(beneficiario.id) : seguir(beneficiario.id)">
+                    {{ (beneficiarioSeguido(beneficiario)) ? 'Dejar de seguir' : 'Seguir' }}
+                  </a>         
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

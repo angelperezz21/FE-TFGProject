@@ -1,6 +1,31 @@
+<div class="form-container">
+  <form [formGroup]="form">
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" formControlName="nombre" (keyup)="applyFilter($event)" class="form-control" id="nombre" placeholder="Nombre de la empresa">
+    </div>
+    <div class="form-group">
+      <label for="categoria">Categoría:</label>
+      <select class="form-control" id="categoria" (change)="onDropdownChange($event); applyFilter($event); ">
+        <option value="">Selecciona una categoría</option>
+        <option class="dropdown-item" *ngFor="let value of dropdownValues" [value]="value.id">{{ value.name }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="ubicacion">Ubicación:</label>
+      <input type="text" formControlName="ubi" (keyup)="applyFilter($event)" class="form-control" id="ubicacion" placeholder="Ubicación de la empresa">
+    </div>
+    <div class="form-group form-check" *ngIf="logged && role === 'Beneficiario'">
+      <input type="checkbox" class="form-check-input" id="siguiendo" formControlName="empresasSeguidas"  (change)=" applyFilter($event); ">
+      <label class="form-check-label" for="siguiendo">Mostrar solo las empresas que sigo</label>
+    </div>    
+  </form>
+</div>
+
+
 <div class="container">
   <div class="row">
-    <div class="col-md-6 mb-2" *ngFor="let empresa of empresas">
+    <div class="col-md-6 mb-2" *ngFor="let empresa of empresasFiltro">
       <div class="card" id="{{ empresa.id }}">
         <div class="row g-0">
           <div class="col-md-4">
@@ -17,8 +42,8 @@
                 <a href="/VerEmpresa" class="btn btn-primary mt-2">Más info...</a>
                 <a *ngIf="logged && role === 'Beneficiario'" class="btn btn-success" 
                   (click)="empresaSeguida(empresa) ? dejarSeguir(empresa.id) : seguir(empresa.id)">
-                  {{ empresaSeguida(empresa) ? 'Dejar de seguir' : 'Seguir' }}
-                </a>
+                  {{ (empresaSeguida(empresa)) ? 'Dejar de seguir' : 'Seguir' }}
+                </a>         
               </div>
             </div>
           </div>

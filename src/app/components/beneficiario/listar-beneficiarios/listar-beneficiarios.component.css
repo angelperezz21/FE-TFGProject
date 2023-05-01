@@ -1,0 +1,34 @@
+.container{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.card-img-top {
+    width: 200px;
+    height: 230px;
+    object-fit: cover;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    z-index: 0;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  .form-group,
+  .form-check {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 20px;
+    margin-left: 7.3%;
+  }
