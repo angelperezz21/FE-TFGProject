@@ -47,15 +47,6 @@ export class RegistroComponent {
    this.categoria = this.dropdownValues.find(value => value.id+"" === selectedValue.target.value)?.name;    
   }
 
-  prueba(){
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    console.log(headers)
-    this._empresaService.getEmpresa(1004, {headers}).subscribe(data=>{
-      console.log(data)
-    })
-  }
-
   registro(){
     this.pulsado = true;
     const user: any= {
@@ -69,6 +60,7 @@ export class RegistroComponent {
       Contacto: this.form.get('telefono')?.value,
       Descripcion: "",    
       imgUrl:"",
+      PasswordSinHash: this.form.get('contrasenya')?.value
     }
 
     if(this.tipoUsuario === "empresa"){

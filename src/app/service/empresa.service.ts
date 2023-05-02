@@ -21,7 +21,11 @@ export class EmpresaService {
   }
 
   getEmpresa(id: number, httpOptions: any): Observable<any>{
-    return this.http.get(`${this.myAppUrl}${this.myApiUrl}${id}`, httpOptions);
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/' + `${id}`, httpOptions);
+  }
+
+  updateEmpresa(id: number, empresa: any, httpOptions: any): Observable<any>{
+    return this.http.put(this.myAppUrl + this.myApiUrl + '/update', empresa, httpOptions);
   }
 
   contrasenyaEmpresa(email: string): Observable<any>{
