@@ -21,6 +21,7 @@ export class VerPerfilComponent implements OnInit {
   dropdownValues = CategoriaValue.values;
   categoria: string | undefined;
   form: any;
+  formEnabled!: boolean;
   
 
   constructor(private fb: FormBuilder,
@@ -38,10 +39,12 @@ export class VerPerfilComponent implements OnInit {
       categoria: ['', Validators.required],
       descripcion: ['', Validators.required]
     })
+
   }
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
+    this.form.disable();
     if(token!==null){
       this.tokenId =  this.helper.decodeToken(token);
       this.id = this.tokenId.unique_name;
@@ -79,6 +82,15 @@ export class VerPerfilComponent implements OnInit {
     });
   }
 
+  enableForm(){
+    this.formEnabled = !this.formEnabled;
+    if (this.formEnabled) {
+      this.form.enable();
+    } else {
+      this.form.disable();
+    }
+  }
+
   onDropdownChange(selectedValue: any) {
     this.categoria = this.dropdownValues.find(value => value.id+"" === selectedValue.target.value)?.name;    
    }
@@ -92,7 +104,7 @@ export class VerPerfilComponent implements OnInit {
       Telefono: this.form.get('telefono')?.value,
       Direccion: this.form.get('ubi')?.value,
       Web: this.form.get('web')?.value,
-      Categoria: this.form.get('categoria')?.value,
+      Categoria: this.categoria,
       Contacto: this.form.get('email')?.value,
       Descripcion: this.form.get('descripcion')?.value,    
       imgUrl:""
@@ -103,12 +115,11 @@ export class VerPerfilComponent implements OnInit {
     console.log(this.usuario)
     if(this.role === 'Empresa'){
       if(this.id!=null){this._empresaService.updateEmpresa(this.id, this.usuario,{headers}).subscribe(data=>{
-        //window.location.reload()
+        window.location.reload()
       })}
     }else{
       if(this.id!=null){this._beneficiarioService.updateBeneficiario(this.id,this.usuario,{headers}).subscribe(data=>{
-        window.location.reload()
-        
+        window.location.reload()        
       })}
     }
   }

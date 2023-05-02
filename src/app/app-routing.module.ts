@@ -14,6 +14,8 @@ import { EditarPerfilComponent } from './components/perfil/editar-perfil/editar-
 import { HistorialPerfilComponent } from './components/perfil/historial-perfil/historial-perfil.component';
 import { PantallaInicialComponent } from './components/pantalla-inicial/pantalla-inicial.component';
 import { VerDonacionComponent } from './components/donacion/ver-donacion/ver-donacion.component';
+import { CrearEditarRecursoComponent } from './components/recurso/crear-editar-recurso/crear-editar-recurso.component';
+import { CrearEditarNecesitaComponent } from './components/necesita/crear-editar-necesita/crear-editar-necesita.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'Inicio', pathMatch: 'full' },
@@ -28,6 +30,8 @@ const routes: Routes = [
   {path:'Beneficiario', component: VerBeneficiarioComponent},
   {path:'Empresa', component: VerEmpresaComponent},
   {path:'Donacion', component: VerDonacionComponent},
+  {path:'Recurso', component: CrearEditarRecursoComponent},
+  {path:'Necesita', component: CrearEditarNecesitaComponent},
   {path:'MiPerfil/:id', component: VerPerfilComponent},
   {path:'EditarPerfil/:id', component: EditarPerfilComponent},
   {path:'HistorialDonaciones/:id', component: HistorialPerfilComponent},

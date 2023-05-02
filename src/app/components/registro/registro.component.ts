@@ -42,7 +42,7 @@ export class RegistroComponent {
   onTipoUsuarioChange(event: any) {
     this.tipoUsuario = event.target.id;
   }
-
+  
   onDropdownChange(selectedValue: any) {
    this.categoria = this.dropdownValues.find(value => value.id+"" === selectedValue.target.value)?.name;    
   }

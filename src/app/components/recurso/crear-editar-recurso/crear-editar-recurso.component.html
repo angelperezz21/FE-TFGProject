@@ -1,1 +1,40 @@
-<p>crear-editar-recurso works!</p>
+<div class="container">
+    <div class="row flex-column flex-sm-row">
+        <div class="col-sm-6 d-flex align-items-center justify-content-center">
+          <div class="row mb-3 justify-content-center">
+            <img class="img-fluid" src="assets/pantallaInicio.jpg" alt="Imagen">
+            <p class="text-center">Texto de la parte izquierda</p>
+          </div>
+        </div>
+        <div class="col-sm-6 d-flex align-items-center justify-content-center">
+            <form [formGroup]="form" class="justify-content-center">
+                <h5 class="titulo"> Crear recurso </h5>
+                <div class="row mb-3 justify-content-center">
+                    <div class="form-group ">
+                      <label for="recurso">Recurso:</label>
+                      <input [class.red-icon]="this.form.get('recurso')?.invalid && this.form.get('recurso')?.touched" type="text" style="width: 60%;"class="form-control" id="recurso" placeholder="Recurso" formControlName="recurso" value="">
+                    </div>
+                    <div class="form-group ">
+                      <label for="precio">Precio Unitario:</label>
+                      <input type="number" [class.red-icon]="this.form.get('precio')?.invalid && this.form.get('precio')?.touched" style="width: 60%;" class="form-control" id="precio" placeholder="Precio" formControlName="precio" value="">
+                    </div>
+                    <div class="form-group ">
+                      <label for="cantidad">Cantidad:</label>
+                      <input type="number" [class.red-icon]="this.form.get('cantidad')?.invalid && this.form.get('cantidad')?.touched" style="width: 60%;" class="form-control" id="cantidad" placeholder="Cantidad" formControlName="cantidad" value="">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="metodo">Método Entrega:</label>
+                        <select class="form-control" style="width: 60%;"  [class.red-icon]="this.form.get('metodo')?.invalid && this.form.get('metodo')?.touched" id="categoria" formControlName="metodo" (change)="dropdownMetodo($event) ">
+                            <option class="dropdown-item" *ngFor="let value of dropdownValues" [value]="value.id">{{ value.name }}</option>
+                          </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success" [disabled]="this.form.invalid" type="submit" (click)="publicar()">
+                            <i class="fas fa-database">Publicar</i> </button>
+                    </div>
+                    
+                </div>
+              </form>
+        </div>
+      </div>
+  </div>

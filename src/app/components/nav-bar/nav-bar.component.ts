@@ -12,6 +12,7 @@ export class NavBarComponent {
   id = null;
   helper = new JwtHelperService();
   tokenId: any;
+  role!: string;
 
   ngDoCheck() {
     const token = localStorage.getItem('token');
@@ -19,6 +20,7 @@ export class NavBarComponent {
       if(token!==""){        
         this.tokenId =  this.helper.decodeToken(token);
         this.id = this.tokenId.unique_name;
+        this.role = this.tokenId.role;
       }
     }
     this.logged = token !== "";
@@ -26,5 +28,6 @@ export class NavBarComponent {
 
   cerrarSesion(){
     localStorage.setItem('token',"")
+    window.location.reload();
   }
 }

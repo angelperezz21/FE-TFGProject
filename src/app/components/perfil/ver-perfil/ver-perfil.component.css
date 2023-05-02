@@ -15,3 +15,15 @@
     height: 100%;
     object-fit: cover; /* Para que la imagen ocupe todo el espacio del contenedor */
   }
+
+  .editar{
+    cursor: pointer;
+  }
+  
+  input[type="radio"]:checked + label {
+    color: black;
+  }
+  
+  input[type="radio"]:not(:checked) + label {
+    color: gray;
+  }
