@@ -11,6 +11,7 @@ export class RecursoService {
   private myApiUrl = 'api/Recurso'
 
   constructor(private http: HttpClient) { }
+  
 
   getRecurso(id: number, httpOptions: any): Observable<any>{
     return this.http.get(this.myAppUrl + this.myApiUrl + '/' + `${id}`, httpOptions);
@@ -22,6 +23,10 @@ export class RecursoService {
 
   putRecurso(id: number, httpOptions: any): Observable<any>{
     return this.http.put(this.myAppUrl + this.myApiUrl + '/' + `${id}`, httpOptions);
+  }
+
+  getListRecursos(): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/listaRecursosPublicados');
   }
   
 }

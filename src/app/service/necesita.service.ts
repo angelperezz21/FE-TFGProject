@@ -23,5 +23,9 @@ export class NecesitaService {
   putNecesita(id: number, httpOptions: any): Observable<any>{
     return this.http.put(this.myAppUrl + this.myApiUrl + '/' + `${id}`, httpOptions);
   }
+
+  getListNecesidades(): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/listaNecesidadesPublicadas');
+  }
   
 }

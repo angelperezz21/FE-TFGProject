@@ -1,1 +1,19 @@
-<p>listar-necesita works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 mb-2" *ngFor="let necesidad of necesidadFiltro">
+        <div class="card" id="{{ necesidad.id }}">
+          <div class="row g-0">
+            <div class="col-md-8">
+              <div class="card-body">
+                <h4 class="">{{ necesidad.nombre }}</h4>
+                <p class="card-text">{{ necesidad.cantidad }}</p>
+                <p class="card-text">{{ necesidad.precio }}</p>
+                <p class="card-text">{{ necesidad.descripcion }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

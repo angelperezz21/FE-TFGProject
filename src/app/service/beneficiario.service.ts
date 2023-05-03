@@ -25,7 +25,7 @@ export class BeneficiarioService {
   }
 
   updateBeneficiario(id: number, beneficiario: any, httpOptions: any): Observable<any>{
-    return this.http.put(this.myAppUrl + this.myApiUrl + '/' + `${id}`, {beneficiario}, httpOptions);
+    return this.http.put(this.myAppUrl + this.myApiUrl + '/' + `${id}`, beneficiario, httpOptions);
   }
 
   contrasenyaBeneficiario(email: string): Observable<any>{

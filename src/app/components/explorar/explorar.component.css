@@ -1,0 +1,19 @@
+.container{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.form-group,
+  .form-check {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 20px;
+    margin-left: 7.3%;
+  }

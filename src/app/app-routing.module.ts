@@ -10,12 +10,12 @@ import { ListarRecursosComponent } from './components/recurso/listar-recursos/li
 import { ListarNecesitaComponent } from './components/necesita/listar-necesita/listar-necesita.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component';
-import { EditarPerfilComponent } from './components/perfil/editar-perfil/editar-perfil.component';
 import { HistorialPerfilComponent } from './components/perfil/historial-perfil/historial-perfil.component';
 import { PantallaInicialComponent } from './components/pantalla-inicial/pantalla-inicial.component';
 import { VerDonacionComponent } from './components/donacion/ver-donacion/ver-donacion.component';
 import { CrearEditarRecursoComponent } from './components/recurso/crear-editar-recurso/crear-editar-recurso.component';
 import { CrearEditarNecesitaComponent } from './components/necesita/crear-editar-necesita/crear-editar-necesita.component';
+import { ExplorarComponent } from './components/explorar/explorar.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'Inicio', pathMatch: 'full' },
@@ -25,15 +25,13 @@ const routes: Routes = [
   {path:'ListaBeneficiarios', component: ListarBeneficiariosComponent},
   {path:'ListaEmpresas', component: ListarEmpresasComponent},
   {path:'ListaDonaciones', component: ListarDonacionesComponent},
-  {path:'ListaRecursos', component: ListarRecursosComponent},
-  {path:'ListaNecesidades', component: ListarNecesitaComponent},
+  {path:'Explorar', component: ExplorarComponent},
   {path:'Beneficiario', component: VerBeneficiarioComponent},
   {path:'Empresa', component: VerEmpresaComponent},
   {path:'Donacion', component: VerDonacionComponent},
   {path:'Recurso', component: CrearEditarRecursoComponent},
   {path:'Necesita', component: CrearEditarNecesitaComponent},
   {path:'MiPerfil/:id', component: VerPerfilComponent},
-  {path:'EditarPerfil/:id', component: EditarPerfilComponent},
   {path:'HistorialDonaciones/:id', component: HistorialPerfilComponent},
   { path: '**',  redirectTo: 'Inicio', pathMatch: 'full' }
 ];

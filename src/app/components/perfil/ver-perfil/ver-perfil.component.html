@@ -17,44 +17,45 @@
       <div class="row mb-3">
         <div class="form-group col">
           <label for="nombre">Nombre:</label>
-          <input type="text" class="form-control" id="nombre" placeholder="Nombre" formControlName="nombre" value="{{usuario.nombre}}">
+          <input type="text" class="form-control" id="nombre" placeholder="Nombre" formControlName="nombre" value="{{usuario.nombre}}" [class.red-icon]="this.form.get('nombre')?.invalid && this.form.get('nombre')?.touched">
         </div>
         <div class="form-group col">
           <label for="email">Correo:</label>
-          <input type="email" class="form-control" id="apellido" placeholder="Correo" formControlName="email" value="{{usuario.email}}">
+          <input type="email" class="form-control" id="apellido" placeholder="Correo" formControlName="email" value="{{usuario.email}}" [class.red-icon]="this.form.get('email')?.invalid && this.form.get('email')?.touched">
         </div>
         <div class="form-group col">
           <label for="password">Contraseña:</label>
-          <input type="password" class="form-control" id="password" placeholder="Contraseña" formControlName="contrasenya" value="********">
+          <input type="password" class="form-control" id="password" placeholder="Contraseña" formControlName="contrasenya"  [class.red-icon]="this.form.get('recurso')?.invalid && this.form.get('recurso')?.touched">
         </div>
       </div>
       <div class="row mb-3">
           <div class="form-group col">
             <label for="categoria">Categoría:</label>   
-            <select class="form-control" id="categoria" (change)="onDropdownChange($event);"   >
+            <select class="form-control" id="categoria" [disabled]="!formEnabled" (change)="onDropdownChange($event);"   >
+              <option value="categoriaUser">{{categoriaUser}}</option>
               <option class="dropdown-item" *ngFor="let value of dropdownValues" [value]="value.name">{{ value.name }}</option>
             </select>
           </div>
           <div class="form-group col">
             <label for="telefono">Teléfono:</label>
-            <input type="text" class="form-control" id="telefono" placeholder="telefono" formControlName="telefono" value="{{usuario.telefono}}">
+            <input type="text" class="form-control" maxlength="9" id="telefono" placeholder="telefono" formControlName="telefono" value="{{usuario.telefono}}" [class.red-icon]="this.form.get('telefono')?.invalid && this.form.get('telefono')?.touched">
           </div>
           <div class="form-group col">
             <label for="direccion">Dirección:</label>
-            <input type="ext" class="form-control" id="ubi" placeholder="direccion" formControlName="ubi" value="{{usuario.direccion}}">
+            <input type="ext" class="form-control" id="ubi" placeholder="direccion" formControlName="ubi" value="{{usuario.direccion}}" [class.red-icon]="this.form.get('ubi')?.invalid && this.form.get('ubi')?.touched">
           </div>
       </div>
       <div class="row mb-3">
         <div class="form-group col">
           <label for="nombre">Web:</label>
-          <input type="text" class="form-control" id="web" placeholder="Web" formControlName="web" value="{{usuario.web}}">
+          <input type="text" class="form-control" id="web" placeholder="Web" formControlName="web" value="{{usuario.web}}" [class.red-icon]="this.form.get('web')?.invalid && this.form.get('web')?.touched">
         </div>
         <div class="form-group col">
           <label for="descripcion">Descripcion:</label>
           <textarea type="" class="form-control" id="descripcion" placeholder="Descripcion" formControlName="descripcion" value="{{usuario.descripcion}}"></textarea>
         </div>
       </div>
-      <button type="submit" *ngIf="formEnabled" class="btn btn-primary mt-2" (click)="usuarioModificado()">Guardar cambios</button>
+      <button type="submit" *ngIf="formEnabled" [disabled]="this.form.invalid" class="btn btn-primary mt-2" (click)="usuarioModificado()">Guardar cambios</button>
       <button type="submit" *ngIf="formEnabled" class="btn btn-danger mt-2 float-end" (click)="enableForm()"> Cancelar</button>
       
     </form>

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,12 @@ import { Injectable } from '@angular/core';
 })
 export class DonacionService {
 
-  constructor() { }
+  private readonly API_URL = 'https://serviciosweb.registradores.org/api/v1/cif/'
+
+  constructor(private http: HttpClient) { }
+
+  verificarEmpresaPorCIF(cif: string) {
+    const url = `${this.API_URL}${cif}`;
+    return this.http.get(url);
+  }
 }

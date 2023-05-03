@@ -29,5 +29,6 @@ export class NavBarComponent {
   cerrarSesion(){
     localStorage.setItem('token',"")
     window.location.reload();
+    window.location.href='/Inicio';
   }
 }

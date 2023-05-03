@@ -9,7 +9,7 @@
         <div class="col-sm-6 d-flex align-items-center justify-content-center">
             <form [formGroup]="form" class="justify-content-center">
                 <h5 class="titulo"> Crear recurso </h5>
-                <div class="row mb-3 justify-content-center">
+                <div class="row mb-3 justify-content-center gap-1">
                     <div class="form-group ">
                       <label for="recurso">Recurso:</label>
                       <input [class.red-icon]="this.form.get('recurso')?.invalid && this.form.get('recurso')?.touched" type="text" style="width: 60%;"class="form-control" id="recurso" placeholder="Recurso" formControlName="recurso" value="">

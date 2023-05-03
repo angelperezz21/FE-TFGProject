@@ -29,6 +29,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './components/modal/modal.component';
+import { ExplorarComponent } from './components/explorar/explorar.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ModalComponent } from './components/modal/modal.component';
     NavBarComponent,
     FooterComponent,
     ModalComponent,
+    ExplorarComponent,
   ],
   imports: [
     BrowserModule,

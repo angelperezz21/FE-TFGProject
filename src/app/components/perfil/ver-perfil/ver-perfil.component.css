@@ -27,3 +27,7 @@
   input[type="radio"]:not(:checked) + label {
     color: gray;
   }
+
+  .red-icon {
+    border-color: #dc3545
+  }

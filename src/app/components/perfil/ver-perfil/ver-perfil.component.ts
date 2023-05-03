@@ -19,7 +19,7 @@ export class VerPerfilComponent implements OnInit {
   helper = new JwtHelperService();
   usuario: any;
   dropdownValues = CategoriaValue.values;
-  categoria: string | undefined;
+  categoriaUser: string | undefined;
   form: any;
   formEnabled!: boolean;
   
@@ -31,13 +31,13 @@ export class VerPerfilComponent implements OnInit {
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
-      contrasenya: ['', [Validators.required,Validators.pattern(/^.{8,16}$/)]],
+      contrasenya: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
       telefono: ['', [Validators.required, Validators.pattern(/^[0-9]{9}$/)]],
       ubi: ['', [Validators.required]],
-      web: ['', [Validators.required, Validators.pattern('^(http(s)?:\/\/)?([w]{3}\.)?[a-zA-Z0-9]+\.[a-zA-Z]+(\/[a-zA-Z0-9#]+\/?)*$')]],      
-      categoria: ['', Validators.required],
-      descripcion: ['', Validators.required]
+      web: ['', [Validators.required, Validators.pattern('^(http(s)?:\/\/)?([w]{3}\.)?[a-zA-Z0-9]+\.[a-zA-Z]+(\/[a-zA-Z0-9#]+\/?)*$')]],
+      descripcion: ['', ],
+      categoria: ['', Validators.required]
     })
 
   }
@@ -52,11 +52,10 @@ export class VerPerfilComponent implements OnInit {
     }
 
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    console.log(this.role)
+  
     if(this.role === 'Empresa'){
       if(this.id!=null){this._empresaService.getEmpresa(this.id,{headers}).subscribe(data=>{
         this.usuario = data;
-        console.log(data)
         this.asignarValores()
       })}
     }else{
@@ -69,17 +68,19 @@ export class VerPerfilComponent implements OnInit {
   }
 
   asignarValores(){
+    this.categoriaUser=this.usuario.categoria;
     this.form.setValue({
       email: this.usuario.email,
       contrasenya: this.usuario.contrasenya,
       nombre: this.usuario.nombre,
       telefono: this.usuario.telefono,
       ubi: this.usuario.direccion,
-      web: this.usuario.web,      
-      categoria: new FormControl(this.usuario.categoria),
+      web: this.usuario.web,
+      categoria: new FormControl(this.categoriaUser),
       descripcion: this.usuario.descripcion
       
     });
+    
   }
 
   enableForm(){
@@ -88,14 +89,27 @@ export class VerPerfilComponent implements OnInit {
       this.form.enable();
     } else {
       this.form.disable();
+      this.categoriaUser=this.usuario.categoria;
+      this.form.setValue({
+        email: this.usuario.email,
+        contrasenya: this.usuario.contrasenya,
+        nombre: this.usuario.nombre,
+        telefono: this.usuario.telefono,
+        ubi: this.usuario.direccion,
+        web: this.usuario.web,
+        categoria: new FormControl(this.categoriaUser),
+        descripcion: this.usuario.descripcion
+      });
     }
   }
 
   onDropdownChange(selectedValue: any) {
-    this.categoria = this.dropdownValues.find(value => value.id+"" === selectedValue.target.value)?.name;    
+    this.categoriaUser = selectedValue.target.value;  
+    
    }
  
   usuarioModificado(){
+    console.log(this.categoriaUser)
     this.usuario = {
       Id: this.usuario.id,
       Email: this.form.get('email')?.value,
@@ -104,21 +118,22 @@ export class VerPerfilComponent implements OnInit {
       Telefono: this.form.get('telefono')?.value,
       Direccion: this.form.get('ubi')?.value,
       Web: this.form.get('web')?.value,
-      Categoria: this.categoria,
+      Categoria: this.categoriaUser,
       Contacto: this.form.get('email')?.value,
       Descripcion: this.form.get('descripcion')?.value,    
       imgUrl:""
     }
 
     const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    console.log(this.usuario)
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });  
+    console.log(token)  
     if(this.role === 'Empresa'){
       if(this.id!=null){this._empresaService.updateEmpresa(this.id, this.usuario,{headers}).subscribe(data=>{
         window.location.reload()
       })}
     }else{
       if(this.id!=null){this._beneficiarioService.updateBeneficiario(this.id,this.usuario,{headers}).subscribe(data=>{
+        console.log(data)
         window.location.reload()        
       })}
     }

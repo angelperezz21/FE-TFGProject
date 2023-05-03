@@ -58,7 +58,6 @@ export class CrearEditarRecursoComponent implements OnInit{
       MetodoEntrega: this.metodo,
       IdEmpresa: this.id
     }
-    console.log(recurso)
     this._recursoService.postRecurso(recurso, {headers} ).subscribe(data=> 
       this.form.reset()
     );
