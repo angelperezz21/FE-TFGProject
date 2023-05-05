@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { ListarNecesidadesService } from 'src/app/service/listar-necesidades.service';
 import { NecesitaService } from 'src/app/service/necesita.service';
 
@@ -10,6 +11,11 @@ import { NecesitaService } from 'src/app/service/necesita.service';
 export class ListarNecesitaComponent implements OnInit{
   necesita: any;
   necesidadFiltro: any;
+  tokenId: any;
+  id: any;
+  role: any;
+  helper = new JwtHelperService();
+  logged=false;
 
   constructor(private _serviceListarNecesidades: ListarNecesidadesService,
       private _necesitaService: NecesitaService ) {
@@ -19,10 +25,23 @@ export class ListarNecesitaComponent implements OnInit{
     this._serviceListarNecesidades.disparador.subscribe(data=>{
       this.aplicarFiltros(data.nombre,data.cantidad,data.precio);
     })
-    this.obtenerRecursos();
+    this.obtenerNecesidades();
   }
 
-  obtenerRecursos(){
+  ngDoCheck() {
+    const token = localStorage.getItem('token');
+    if(token!==null){
+      if(token!==""){        
+        this.tokenId =  this.helper.decodeToken(token);
+        this.id = this.tokenId.unique_name;
+        this.role = this.tokenId.role;
+        
+      }
+    }
+    this.logged = token !== "";
+  }
+
+  obtenerNecesidades(){
     this._necesitaService.getListNecesidades().subscribe(data=>{
       this.necesita=data;
       this.necesidadFiltro = data;
@@ -30,6 +49,11 @@ export class ListarNecesitaComponent implements OnInit{
       
     })
   }
+
+  solicitarNecesidad(){
+
+  }
+
   aplicarFiltros(nombre:string,cantidad:string,precio:string){
     this.necesidadFiltro = this.necesita.filter((necesita : any) => 
   { 

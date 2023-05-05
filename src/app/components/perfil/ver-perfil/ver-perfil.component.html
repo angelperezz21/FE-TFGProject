@@ -64,19 +64,27 @@
     
     <div style="display:flex; gap: 2rem; ">
       <div class="form-check">
-        <input class="form-check-input" type="radio"   style="display: none;" name="tipoUsuario"  id="empresa" value="empresa" >
-        <label class="apartados" for="empresa">
+        <input class="form-check-input" type="radio"  checked style="display: none;" name="tipoUsuario"  id="objeto" value="objeto" (change)="onTipoInfo($event)" >
+        <label class="apartados" for="objeto">
           {{ role==='Empresa' ? 'Mis Recursos' : 'Mis Necesidades' }}
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio"   style="display: none;" name="tipoUsuario"  id="beneficiario" value="beneficiario" >
-        <label class="apartados" for="beneficiario">
+        <input class="form-check-input" type="radio"   style="display: none;" name="tipoUsuario"  id="donacion" value="donacion" (change)="onTipoInfo($event)" >
+        <label class="apartados" for="donacion">
           Mis Donaciones
         </label>
       </div>
-    </div>
-    
+      <div class="form-check">
+        <input class="form-check-input" type="radio"   style="display: none;" name="tipoUsuario"  id="seguidos" value="seguidos" (change)="onTipoInfo($event)" >
+        <label class="apartados" for="seguidos">
+          Mis Seguidos
+        </label>
+      </div>
+    </div>    
     <hr>
+    <app-listar-mis-recursos *ngIf="info==='objeto' && role==='Empresa'"></app-listar-mis-recursos>
+    <app-listar-necesita *ngIf="info==='objeto' && role==='Beneficiario'"></app-listar-necesita>
+    <app-listar-donaciones *ngIf="info==='donacion'"></app-listar-donaciones>
   </div>
 </div>

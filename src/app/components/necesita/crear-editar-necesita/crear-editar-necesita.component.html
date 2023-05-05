@@ -22,9 +22,24 @@
                       <label for="cantidad">Cantidad:</label>
                       <input type="number" [class.red-icon]="this.form.get('cantidad')?.invalid && this.form.get('cantidad')?.touched" style="width: 60%;" class="form-control" id="cantidad" placeholder="Cantidad" formControlName="cantidad" value="">
                     </div>
-                    <div class="form-group mb-3">
+                    <div class="form-group">
                       <label for="descripcion">Descripcion:</label>
                       <textarea type="" style="width: 60%;" class="form-control" id="descripcion" placeholder="Descripcion" formControlName="descripcion" ></textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                      <label for="metodo">Certificado donación:</label>
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="tipoUsuario" id="si" value="true" formControlName="si" (change)="onCertificado($event)">
+                          <label class="form-check-label" for="si">
+                              Si
+                          </label>
+                      </div>
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" checked name="tipoUsuario"  id="no" formControlName="no" value="false" (change)="onCertificado($event)">
+                          <label class="form-check-label" for="no">
+                              No
+                          </label>
+                      </div>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-success" [disabled]="this.form.invalid" type="submit" (click)="publicar()">

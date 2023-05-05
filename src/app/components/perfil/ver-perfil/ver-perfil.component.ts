@@ -22,6 +22,7 @@ export class VerPerfilComponent implements OnInit {
   categoriaUser: string | undefined;
   form: any;
   formEnabled!: boolean;
+  info!:string;
   
 
   constructor(private fb: FormBuilder,
@@ -51,17 +52,32 @@ export class VerPerfilComponent implements OnInit {
       this.role = this.tokenId.role;
     }
 
+    this.info="objeto";
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
   
     if(this.role === 'Empresa'){
       if(this.id!=null){this._empresaService.getEmpresa(this.id,{headers}).subscribe(data=>{
         this.usuario = data;
         this.asignarValores()
+        if(this.usuario.notificacion!==0){
+          this.usuario.notificacion = 0;
+          this._empresaService.updateEmpresa(this.id,this.usuario,{headers}).subscribe(data=>{
+          }) 
+          this._empresaService.disparadorNotificaciones.emit(0)
+        }
+        
       })}
     }else{
       if(this.id!=null){this._beneficiarioService.getBeneficiario(this.id,{headers}).subscribe(data=>{
         this.usuario = data;
         this.asignarValores()
+        if(this.usuario.notificacion!==0){
+          this.usuario.notificacion = 0;
+          this._beneficiarioService.updateBeneficiario(this.id,this.usuario,{headers}).subscribe(data=>{
+          }) 
+          this._beneficiarioService.disparadorNotificaciones.emit(0)
+        }
+        
       })}
     }
     
@@ -107,6 +123,11 @@ export class VerPerfilComponent implements OnInit {
     this.categoriaUser = selectedValue.target.value;  
     
    }
+
+  onTipoInfo(selectedValue: any){
+    this.info = selectedValue.target.value;  
+    console.log(this.info)
+  }
  
   usuarioModificado(){
     console.log(this.categoriaUser)

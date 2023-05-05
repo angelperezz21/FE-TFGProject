@@ -7,8 +7,13 @@
               <div class="card-body">
                 <h4 class="">{{ necesidad.nombre }}</h4>
                 <p class="card-text">{{ necesidad.cantidad }}</p>
-                <p class="card-text">{{ necesidad.precio }}</p>
-                <p class="card-text">{{ necesidad.descripcion }}</p>
+                <p class="card-text">{{ necesidad.precio }}</p>              
+                <div class="d-flex ">
+                  <p class="card-text">{{ necesidad.descripcion }}</p>
+                  <a  class="btn btn-success ms-auto" (click)="solicitarNecesidad()" *ngIf="logged && role === 'Empresa'">
+                    Solicitar
+                  </a>
+                </div>
               </div>
             </div>
           </div>

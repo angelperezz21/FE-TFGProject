@@ -20,6 +20,7 @@ export class CrearEditarRecursoComponent implements OnInit{
   form: any;
   metodo: string | undefined;
   dropdownValues = MetodoValue.values;
+  certificado: any;
   
   constructor(private fb: FormBuilder,
     private _recursoService: RecursoService,    
@@ -28,7 +29,8 @@ export class CrearEditarRecursoComponent implements OnInit{
       recurso: ['', [Validators.required]],
       cantidad: ['', [Validators.required]],
       precio: ['', [Validators.required]],
-      metodo: ['', [Validators.required]]
+      metodo: ['', [Validators.required]],
+
     })
 
   }
@@ -45,6 +47,12 @@ export class CrearEditarRecursoComponent implements OnInit{
     this.metodo = this.dropdownValues.find(value => value.id+"" === selectedValue.target.value)?.name;    
    }
 
+   
+   onCertificado(event: any) {
+    this.certificado = event.target.id;    
+  }
+
+
   publicar(){
     
     const token = localStorage.getItem('token');
@@ -56,7 +64,8 @@ export class CrearEditarRecursoComponent implements OnInit{
       Precio: this.form.get('precio')?.value,
       Cantidad: this.form.get('cantidad')?.value,
       MetodoEntrega: this.metodo,
-      IdEmpresa: this.id
+      IdEmpresa: this.id,
+      Certificado: this.certificado==='true' ? true : false
     }
     this._recursoService.postRecurso(recurso, {headers} ).subscribe(data=> 
       this.form.reset()

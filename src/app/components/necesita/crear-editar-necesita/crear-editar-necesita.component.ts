@@ -19,6 +19,7 @@ export class CrearEditarNecesitaComponent implements OnInit{
   form: any;
   metodo: string | undefined;
   dropdownValues = MetodoValue.values;
+  certificado: any;
   
   constructor(private fb: FormBuilder,
     private _necesitaService: NecesitaService,    
@@ -27,7 +28,7 @@ export class CrearEditarNecesitaComponent implements OnInit{
       necesita: ['', [Validators.required]],
       cantidad: ['', [Validators.required]],
       precio: ['', [Validators.required]],    
-      descripcion: ['', []],    
+      descripcion: ['', []],      
     })
 
   }
@@ -44,6 +45,11 @@ export class CrearEditarNecesitaComponent implements OnInit{
     this.metodo = this.dropdownValues.find(value => value.id+"" === selectedValue.target.value)?.name;    
    }
 
+   
+   onCertificado(event: any) {
+    this.certificado = event.target.id;    
+  }
+
   publicar(){
     
     const token = localStorage.getItem('token');
@@ -55,10 +61,13 @@ export class CrearEditarNecesitaComponent implements OnInit{
       Precio: this.form.get('precio')?.value,
       Cantidad: this.form.get('cantidad')?.value,      
       Descripcion: this.form.get('descripcion')?.value,    
-      IdBeneficiario: this.id
+      IdBeneficiario: this.id,
+      Certificado: this.certificado==='true' ? true : false
     }    
-    this._necesitaService.postNecesita(necesidad, {headers} ).subscribe(data=> 
-      this.form.reset()
+    this._necesitaService.postNecesita(necesidad, {headers} ).subscribe(data=> {
+      console.log(data);
+      console.log("hola");
+      this.form.reset()}
     );
   }
   

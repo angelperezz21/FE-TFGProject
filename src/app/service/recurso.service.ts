@@ -21,12 +21,23 @@ export class RecursoService {
     return this.http.post(this.myAppUrl + this.myApiUrl, recurso, httpOptions);
   }
 
-  putRecurso(id: number, httpOptions: any): Observable<any>{
-    return this.http.put(this.myAppUrl + this.myApiUrl + '/' + `${id}`, httpOptions);
+  solicitarRecurso(idRecurso: number, idBeneficiario: number,httpOptions: any): Observable<any>{
+    return this.http.put(this.myAppUrl + this.myApiUrl + '/solicitarRecurso/' + `${idRecurso}`,{idRecurso,idBeneficiario}, httpOptions);
+  }
+
+  aceptarRecurso(idRecurso: number, idBeneficiario: number,httpOptions: any): Observable<any>{
+    return this.http.put(this.myAppUrl + this.myApiUrl + '/aceptarRecurso/' + `${idRecurso}`,{idRecurso,idBeneficiario}, httpOptions);
   }
 
   getListRecursos(): Observable<any>{
     return this.http.get(this.myAppUrl + this.myApiUrl + '/listaRecursosPublicados');
   }
+
+  getMyListRecursos(id: number, httpOptions: any): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/listaRecursosEmpresa/' + `${id}`, httpOptions);
+  }
   
+  getNotificaciones(id: number, httpOptions: any): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/GetNotificaciones/' + `${id}`, httpOptions);
+  }
 }

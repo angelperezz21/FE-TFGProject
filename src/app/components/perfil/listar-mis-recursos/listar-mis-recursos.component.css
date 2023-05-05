@@ -1,0 +1,10 @@
+.form-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+  }
+
+  .prueba{
+    display: inline-block;
+    margin-right: 12rem;
+  }

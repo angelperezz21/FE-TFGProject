@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 mb-2" *ngFor="let recurso of recursosFiltro">
+        <div class="card" id="{{ recurso.id }}">
+          <div class="row g-0">
+            <div class="">
+              <div class="card-body">                
+                <div class="d-flex ">
+                    <h4 class="">{{ recurso.nombre }}</h4>                               
+                  </div>
+                <p class="card-text">{{ recurso.cantidad }}</p>
+                <p class="card-text">{{ recurso.precio }}</p>
+                <div class="form-container" style="display: inline-block;">
+                  <p class="prueba">{{ recurso.metodoEntrega }}</p> 
+                  <p class="prueba" *ngIf="recurso.estado===2" style="color: red;">Donación realizada</p> 
+                  <a  class="prueba btn btn-success"  *ngIf="recurso.solicitantes!==null && recurso.solicitantes!==''" (click)="openModal(recurso.id)">
+                    Aceptar solicitud
+                  </a>
+
+                  <app-modal *ngIf="isModalOpen" title="Aceptar solicitud" (closeModalEvent)="closeModal()" (confirm)="aceptarRecurso()">
+                    <p>Elige a la empresa a la que aceptar la solicitud</p>
+                    <select class="select form-control"  id="categoria" (change)="onDropdownChange($event);">          
+                      <option class="" *ngFor="let value of solicitantes" [value]="value.id">{{ value.nombre }}</option>
+                    </select>
+                    </app-modal>
+                </div>
+              </div>              
+            </div>            
+          </div>
+        </div>        
+      </div>
+    </div>
+  </div>
+  

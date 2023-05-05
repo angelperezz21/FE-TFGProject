@@ -21,3 +21,23 @@
   .navbar-nav {
     margin-left: auto;
   }
+
+  .notificacion {
+    position: relative;
+  background-color: rgb(255, 0, 0);
+  color: rgb(0, 0, 0);
+  padding: 2px 6px;
+  border-radius: 5px;
+  margin-left: 5px;
+    
+  }
+  .notificacion::before{
+    content: "";
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent rgb(255, 0, 0) transparent transparent;
+    transform: translateY(-50%);
+  }

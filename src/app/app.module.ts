@@ -30,6 +30,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './components/modal/modal.component';
 import { ExplorarComponent } from './components/explorar/explorar.component';
+import { ListarMisRecursosComponent } from './components/perfil/listar-mis-recursos/listar-mis-recursos.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -57,6 +61,7 @@ import { ExplorarComponent } from './components/explorar/explorar.component';
     FooterComponent,
     ModalComponent,
     ExplorarComponent,
+    ListarMisRecursosComponent,
   ],
   imports: [
     BrowserModule,

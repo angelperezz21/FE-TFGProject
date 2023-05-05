@@ -43,9 +43,17 @@ export class LoginComponent {
 
   onModalConfirm() {
     this.isModalOpen = false;
+    if(this.tipoUsuario === "empresa"){
+      this._empresaService.contrasenyaEmpresa(this.form.get('email')?.value).subscribe(data=>{
+        console.log(data)
+      })
+    }
+    if(this.tipoUsuario==='beneficiario'){      
     this._empresaService.contrasenyaEmpresa(this.form.get('email')?.value).subscribe(data=>{
       console.log(data)
     })
+    }
+    
   }
 
   onTipoUsuarioChange(event: any) {
@@ -60,8 +68,8 @@ export class LoginComponent {
       userType: this.tipoUsuario === "empresa" ? 1 : 0
     }
       this._loginService.iniciarSesion(user).subscribe(data=>{
-        localStorage.setItem('token', data.token);
-        this.router.navigateByUrl('/principal');
+        localStorage.setItem('token', data.token);        
+        this.router.navigateByUrl('/Inicio');        
       },
       (error) => {
         console.log(error)

@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmpresaService {
-  
+
+  @Output() disparadorNotificaciones = new EventEmitter<any>();
+
   private myAppUrl = "https://localhost:44318/";
   private myApiUrl = 'api/Empresa'
 
@@ -25,7 +27,7 @@ export class EmpresaService {
   }
 
   updateEmpresa(id: number, empresa: any, httpOptions: any): Observable<any>{
-    return this.http.put(this.myAppUrl + this.myApiUrl + '/update', empresa, httpOptions);
+    return this.http.put(this.myAppUrl + this.myApiUrl + '/update/' + `${id}`, empresa, httpOptions);
   }
 
   contrasenyaEmpresa(email: string): Observable<any>{
@@ -50,5 +52,10 @@ export class EmpresaService {
     return this.http.get(this.myAppUrl + this.myApiUrl + '/listaBeneficiariosSeguidos/' + `${idEmpresa}`, httpOptions);
   }
 
+  getNotificaciones(id: number, httpOptions: any): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/Notificaciones/' + `${id}`, httpOptions);
+  }
+
+  
  
 }
