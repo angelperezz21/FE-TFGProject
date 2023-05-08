@@ -20,11 +20,11 @@ export class NecesitaService {
     return this.http.post(this.myAppUrl + this.myApiUrl , necesita, httpOptions);
   }
 
-  solicitarRecurso(idNecesidad: number, idEmpresa: number,httpOptions: any): Observable<any>{
+  solicitarNecesidad(idNecesidad: number, idEmpresa: number,httpOptions: any): Observable<any>{
     return this.http.put(this.myAppUrl + this.myApiUrl + '/solicitarNecesidad/' + `${idNecesidad}`,{idNecesidad,idEmpresa}, httpOptions);
   }
 
-  aceptarRecurso(idNecesidad: number, idEmpresa: number,httpOptions: any): Observable<any>{
+  aceptarNecesidad(idNecesidad: number, idEmpresa: number,httpOptions: any): Observable<any>{
     return this.http.put(this.myAppUrl + this.myApiUrl + '/aceptarNecesidad/' + `${idNecesidad}`,{idNecesidad,idEmpresa}, httpOptions);
   }
 
@@ -32,12 +32,16 @@ export class NecesitaService {
     return this.http.get(this.myAppUrl + this.myApiUrl + '/listaNecesidadesPublicadas');
   }
 
-  getMyListNecesidades(id: number, httpOptions: any): Observable<any>{
-    return this.http.get(this.myAppUrl + this.myApiUrl + '/listaNecesidadesBeneficiario/' + `${id}`, httpOptions);
+  getMyListNecesidades(id: number): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/listaNecesidadesBeneficiario/' + `${id}`);
   }
 
   getNotificaciones(id: number, httpOptions: any): Observable<any>{
     return this.http.get(this.myAppUrl + this.myApiUrl + '/GetNotificaciones/' + `${id}`, httpOptions);
+  }
+
+  getMySolicitudesNecesitas(id: number, httpOptions: any): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/solicitudesNecesitas/' + `${id}`, httpOptions);
   }
   
 }

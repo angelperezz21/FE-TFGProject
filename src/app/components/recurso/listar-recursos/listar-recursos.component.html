@@ -10,9 +10,10 @@
                 <p class="card-text">{{ recurso.precio }}</p>
                 <div class="d-flex ">
                   <p class="card-text">{{ recurso.metodoEntrega }}</p>
-                  <a  class="btn btn-success ms-auto" (click)="solicitarRecurso(recurso.id)" *ngIf="logged && role === 'Beneficiario'">
-                    Solicitar
-                  </a>
+                  <button  class="btn btn-success ms-auto" (click)="recursoSolicitado(recurso) ? null : solicitarRecurso(recurso.id) "
+                  [disabled]="recursoSolicitado(recurso)" *ngIf="logged && role === 'Beneficiario'">
+                    {{recursoSolicitado(recurso) ? 'Solicitado' : 'Solicitar'}}
+                  </button>
                 </div>
               </div>              
             </div>            

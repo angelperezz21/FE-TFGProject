@@ -2,7 +2,7 @@
   <div class="profile text-left mb-5" >
     <div class="d-flex align-items-center justify-content-left gap-3 mb-3">
       <div class="profile-picture mr-2">
-        <img src="assets/pantallaInicio.jpg" alt="Tu Foto" class="img-fluid rounded-circle">
+        <img  [src]="usuario.imgUrl ? 'https://localhost:44318/' + usuario.imgUrl : 'https://localhost:44318/uploads/user'" alt="Tu Foto" class="img-fluid rounded-circle">
       </div>
       <h4 >{{usuario.nombre}}</h4> 
       <a class="editar mb-1" (click)="enableForm()">
@@ -21,7 +21,7 @@
         </div>
         <div class="form-group col">
           <label for="email">Correo:</label>
-          <input type="email" class="form-control" id="apellido" placeholder="Correo" formControlName="email" value="{{usuario.email}}" [class.red-icon]="this.form.get('email')?.invalid && this.form.get('email')?.touched">
+          <input type="email" class="form-control" [disabled]=true id="apellido" placeholder="Correo" formControlName="email" value="{{usuario.email}}" [class.red-icon]="this.form.get('email')?.invalid && this.form.get('email')?.touched">
         </div>
         <div class="form-group col">
           <label for="password">Contraseña:</label>
@@ -53,6 +53,10 @@
         <div class="form-group col">
           <label for="descripcion">Descripcion:</label>
           <textarea type="" class="form-control" id="descripcion" placeholder="Descripcion" formControlName="descripcion" value="{{usuario.descripcion}}"></textarea>
+        </div>
+        <div class="form-group col">
+          <label for="foto">Foto:</label>
+          <input type="file" class="form-control" id="foto" formControlName="foto" value="" (change)="onFileSelected($event)">
         </div>
       </div>
       <button type="submit" *ngIf="formEnabled" [disabled]="this.form.invalid" class="btn btn-primary mt-2" (click)="usuarioModificado()">Guardar cambios</button>
@@ -86,5 +90,6 @@
     <app-listar-mis-recursos *ngIf="info==='objeto' && role==='Empresa'"></app-listar-mis-recursos>
     <app-listar-necesita *ngIf="info==='objeto' && role==='Beneficiario'"></app-listar-necesita>
     <app-listar-donaciones *ngIf="info==='donacion'"></app-listar-donaciones>
+    <app-listar-seguidos *ngIf="info==='seguidos'"></app-listar-seguidos>
   </div>
 </div>

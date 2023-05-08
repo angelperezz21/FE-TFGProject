@@ -16,7 +16,6 @@
                   <a  class="prueba btn btn-success"  *ngIf="recurso.solicitantes!==null && recurso.solicitantes!==''" (click)="openModal(recurso.id)">
                     Aceptar solicitud
                   </a>
-
                   <app-modal *ngIf="isModalOpen" title="Aceptar solicitud" (closeModalEvent)="closeModal()" (confirm)="aceptarRecurso()">
                     <p>Elige a la empresa a la que aceptar la solicitud</p>
                     <select class="select form-control"  id="categoria" (change)="onDropdownChange($event);">          

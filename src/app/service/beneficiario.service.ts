@@ -26,6 +26,10 @@ export class BeneficiarioService {
     return this.http.get(this.myAppUrl + this.myApiUrl + '/' + `${id}`, httpOptions);
   }
 
+  getPerfilBeneficiario(id: number): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/beneficiarioPerfil/' + `${id}`);
+  }
+
   updateBeneficiario(id: number, beneficiario: any, httpOptions: any): Observable<any>{
     return this.http.put(this.myAppUrl + this.myApiUrl + '/update', beneficiario, httpOptions);
   }
@@ -54,6 +58,10 @@ export class BeneficiarioService {
 
   getNotificaciones(id: number, httpOptions: any): Observable<any>{
     return this.http.get(this.myAppUrl + this.myApiUrl + '/Notificaciones/' + `${id}`, httpOptions);
+  }
+
+  uploadPhoto(foto: any): Observable<any>{
+    return this.http.post(this.myAppUrl + this.myApiUrl + '/upload', foto);
   }
 
 

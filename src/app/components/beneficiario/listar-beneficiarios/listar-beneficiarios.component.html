@@ -29,7 +29,7 @@
         <div class="card" id="{{ beneficiario.id }}">
           <div class="row g-0">
             <div class="col-md-4">
-              <img src="assets/pantallaInicio.jpg" class="card-img-top float-start" alt="...">
+              <img [src]="beneficiario.imgUrl ? 'https://localhost:44318/' + beneficiario.imgUrl : 'https://localhost:44318/uploads/user.png'" class="card-img-top float-start" alt="Tu Foto">       
             </div>
             <div class="col-md-8">
               <div class="card-body">
@@ -39,7 +39,7 @@
                 <p class="card-text">{{ beneficiario.direccion }}</p>
                 <a class="card-text" href="{{beneficiario.web}}">{{ beneficiario.web }}</a>
                 <div class="d-flex justify-content-between align-items-center">
-                  <a href="/VerBeneficiario" class="btn btn-primary mt-2">Más info...</a>
+                  <a href="/Beneficiario/{{beneficiario.id}}" class="btn btn-primary mt-2">Más info...</a>
                   <a *ngIf="logged && role === 'Empresa'" class="btn btn-success" 
                     (click)="beneficiarioSeguido(beneficiario) ? dejarSeguir(beneficiario.id) : seguir(beneficiario.id)">
                     {{ (beneficiarioSeguido(beneficiario)) ? 'Dejar de seguir' : 'Seguir' }}

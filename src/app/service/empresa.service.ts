@@ -26,6 +26,10 @@ export class EmpresaService {
     return this.http.get(this.myAppUrl + this.myApiUrl + '/' + `${id}`, httpOptions);
   }
 
+  getPerfilEmpresa(id: number): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/empresaPerfil/' + `${id}`);
+  }
+
   updateEmpresa(id: number, empresa: any, httpOptions: any): Observable<any>{
     return this.http.put(this.myAppUrl + this.myApiUrl + '/update/' + `${id}`, empresa, httpOptions);
   }
@@ -54,6 +58,10 @@ export class EmpresaService {
 
   getNotificaciones(id: number, httpOptions: any): Observable<any>{
     return this.http.get(this.myAppUrl + this.myApiUrl + '/Notificaciones/' + `${id}`, httpOptions);
+  }
+
+  uploadPhoto(foto: any): Observable<any>{
+    return this.http.post(this.myAppUrl + this.myApiUrl + '/upload', foto);
   }
 
   

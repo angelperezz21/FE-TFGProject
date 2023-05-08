@@ -23,7 +23,8 @@ export class VerPerfilComponent implements OnInit {
   form: any;
   formEnabled!: boolean;
   info!:string;
-  
+  file!: File;
+  path!: string;
 
   constructor(private fb: FormBuilder,
     private _empresaService: EmpresaService,
@@ -38,7 +39,8 @@ export class VerPerfilComponent implements OnInit {
       ubi: ['', [Validators.required]],
       web: ['', [Validators.required, Validators.pattern('^(http(s)?:\/\/)?([w]{3}\.)?[a-zA-Z0-9]+\.[a-zA-Z]+(\/[a-zA-Z0-9#]+\/?)*$')]],
       descripcion: ['', ],
-      categoria: ['', Validators.required]
+      categoria: ['', Validators.required],
+      foto: ['',]
     })
 
   }
@@ -57,7 +59,8 @@ export class VerPerfilComponent implements OnInit {
   
     if(this.role === 'Empresa'){
       if(this.id!=null){this._empresaService.getEmpresa(this.id,{headers}).subscribe(data=>{
-        this.usuario = data;
+        this.usuario = data;        
+        this.path=data.imgUrl;
         this.asignarValores()
         if(this.usuario.notificacion!==0){
           this.usuario.notificacion = 0;
@@ -93,8 +96,8 @@ export class VerPerfilComponent implements OnInit {
       ubi: this.usuario.direccion,
       web: this.usuario.web,
       categoria: new FormControl(this.categoriaUser),
-      descripcion: this.usuario.descripcion
-      
+      descripcion: this.usuario.descripcion ,
+      foto: this.usuario.imgUrl
     });
     
   }
@@ -103,8 +106,9 @@ export class VerPerfilComponent implements OnInit {
     this.formEnabled = !this.formEnabled;
     if (this.formEnabled) {
       this.form.enable();
+      this.form.get('email').disable();      
     } else {
-      this.form.disable();
+      this.form.disable();      
       this.categoriaUser=this.usuario.categoria;
       this.form.setValue({
         email: this.usuario.email,
@@ -114,19 +118,37 @@ export class VerPerfilComponent implements OnInit {
         ubi: this.usuario.direccion,
         web: this.usuario.web,
         categoria: new FormControl(this.categoriaUser),
-        descripcion: this.usuario.descripcion
+        descripcion: this.usuario.descripcion,
+        foto: this.usuario.imgUrl
       });
     }
   }
 
   onDropdownChange(selectedValue: any) {
-    this.categoriaUser = selectedValue.target.value;  
-    
+    this.categoriaUser = selectedValue.target.value;      
    }
 
   onTipoInfo(selectedValue: any){
     this.info = selectedValue.target.value;  
     console.log(this.info)
+  }
+
+  onFileSelected(selectedValue: any){
+    this.file = selectedValue.target.files[0]; 
+    console.log(this.file)// Obtiene el archivo seleccionado por el usuario
+    const formData = new FormData();
+    formData.append('image', this.file,this.file.name);
+    console.log(formData)
+    if(this.role==='Empresa'){
+      this._empresaService.uploadPhoto(formData).subscribe(data=>{    
+        this.path = data.imagePath;      
+      })    
+    }else{
+      this._beneficiarioService.uploadPhoto(formData).subscribe(data=>{    
+        this.path = data.imagePath;      
+      })    
+    }
+    
   }
  
   usuarioModificado(){
@@ -142,19 +164,18 @@ export class VerPerfilComponent implements OnInit {
       Categoria: this.categoriaUser,
       Contacto: this.form.get('email')?.value,
       Descripcion: this.form.get('descripcion')?.value,    
-      imgUrl:""
+      imgUrl: this.path
     }
 
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });  
-    console.log(token)  
+    console.log(this.usuario)  
     if(this.role === 'Empresa'){
       if(this.id!=null){this._empresaService.updateEmpresa(this.id, this.usuario,{headers}).subscribe(data=>{
         window.location.reload()
       })}
     }else{
-      if(this.id!=null){this._beneficiarioService.updateBeneficiario(this.id,this.usuario,{headers}).subscribe(data=>{
-        console.log(data)
+      if(this.id!=null){this._beneficiarioService.updateBeneficiario(this.id,this.usuario,{headers}).subscribe(data=>{        
         window.location.reload()        
       })}
     }

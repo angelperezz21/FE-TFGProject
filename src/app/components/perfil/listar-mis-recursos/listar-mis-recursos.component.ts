@@ -72,7 +72,7 @@ export class ListarMisRecursosComponent implements OnInit{
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     if(token!==null){
-      this._recursoService.getMyListRecursos(this.helper.decodeToken(token).unique_name, {headers}).subscribe(data=>{
+      this._recursoService.getMyListRecursos(this.helper.decodeToken(token).unique_name).subscribe(data=>{
         this.recursos=data;
         this.recursosFiltro = data;        
       })

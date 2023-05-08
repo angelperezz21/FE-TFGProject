@@ -1,1 +1,29 @@
-<p>listar-seguidos works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 mb-2" *ngFor="let seguido of seguidos">
+        <div class="card" id="{{ seguido.id }}">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="assets/pantallaInicio.jpg" class="card-img-top float-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h4 class="">{{ seguido.nombre }}</h4>
+                <p class="card-text">{{ seguido.descripcion }}</p>
+                <p class="card-text">{{ seguido.categoria }}</p>
+                <p class="card-text">{{ seguido.direccion }}</p>
+                <a class="card-text" href="{{seguido.web}}">{{ seguido.web }}</a>
+                <div class="d-flex justify-content-between align-items-center">
+                  <a href="role==='Empresa' ? '/Beneficiario/{{seguido.id}}' : '/Empresa/{{seguido.id}}'" class="btn btn-primary mt-2">Más info...</a>
+                  <a class="btn btn-success" 
+                    (click)="dejarSeguir(seguido.id)">
+                        Dejar de seguir
+                  </a>         
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

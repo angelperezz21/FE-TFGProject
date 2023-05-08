@@ -10,9 +10,10 @@
                 <p class="card-text">{{ necesidad.precio }}</p>              
                 <div class="d-flex ">
                   <p class="card-text">{{ necesidad.descripcion }}</p>
-                  <a  class="btn btn-success ms-auto" (click)="solicitarNecesidad()" *ngIf="logged && role === 'Empresa'">
-                    Solicitar
-                  </a>
+                  <button  class="btn btn-success ms-auto" (click)="necesidadSolicitado(necesidad) ? null : solicitarNecesidad(necesidad.id) "
+                    [disabled]="necesidadSolicitado(necesidad)" *ngIf="logged && role === 'Empresa'">
+                      {{necesidadSolicitado(necesidad) ? 'Solicitado' : 'Solicitar'}}
+                    </button>
                 </div>
               </div>
             </div>

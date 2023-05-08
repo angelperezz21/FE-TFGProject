@@ -12,6 +12,7 @@ import { RecursoService } from 'src/app/service/recurso.service';
 export class ListarRecursosComponent implements OnInit{
   recursos: any;
   recursosFiltro: any;
+  recursosSolicitados: any;
   tokenId: any;
   helper = new JwtHelperService();
   id: any;
@@ -29,6 +30,15 @@ export class ListarRecursosComponent implements OnInit{
       this.aplicarFiltros(data.nombre,data.cantidad,data.precio);
     })
     this.obtenerRecursos();
+    const token = localStorage.getItem('token');
+    if(token!==null){
+      if(token!==""){  
+        this.tokenId =  this.helper.decodeToken(token);
+        this.id = this.tokenId.unique_name;
+        this.role = this.tokenId.role;
+        this.misRecursosSolicitados();
+      }
+    }
   }
 
   ngDoCheck() {
@@ -54,13 +64,28 @@ export class ListarRecursosComponent implements OnInit{
     })
   }
 
+  recursoSolicitado(recurso: any): boolean {        
+    return this.recursosSolicitados.some((x: any) => x.id === recurso.id);
+    
+  }
 
   solicitarRecurso(idRecurso: number){
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    this._recursoService.solicitarRecurso(idRecurso,this.id,{headers}).subscribe(data=>{console.log("hola")});
+    this._recursoService.solicitarRecurso(idRecurso,this.id,{headers}).subscribe(data=>{
+      console.log("recurso Solicitado")
+      this.misRecursosSolicitados();
+    });
   }
 
+  misRecursosSolicitados(){
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+
+    this._recursoService.getMySolicitudesRecursos(this.id,{headers}).subscribe(data=>{      
+      this.recursosSolicitados = data;      
+    })
+  }
 
   aplicarFiltros(nombre:string,cantidad:string,precio:string){
     this.recursosFiltro = this.recursos.filter((recurso : any) => 

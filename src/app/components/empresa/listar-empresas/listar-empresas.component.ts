@@ -71,10 +71,8 @@ export class ListarEmpresasComponent implements OnInit {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     if(this.id!=null){this._beneficiarioService.unfollowEmpresa(idEmpresa,this.id,{headers}).subscribe(data=>{
-      console.log(data)
+      this.obtenerMisSeguidos();
     })}
-
-    window.location.reload();
   }
 
   ngDoCheck() {
@@ -94,9 +92,8 @@ export class ListarEmpresasComponent implements OnInit {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     if(this.id!=null){this._beneficiarioService.seguirEmpresa(idEmpresa,this.id,{headers}).subscribe(data=>{
-      console.log(data)
-    })}
-    window.location.reload();
+      this.obtenerMisSeguidos()
+    })}    
   }
 
   obtenerEmpresas(){

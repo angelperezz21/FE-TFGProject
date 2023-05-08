@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ListarNecesidadesService } from 'src/app/service/listar-necesidades.service';
@@ -16,6 +17,8 @@ export class ListarNecesitaComponent implements OnInit{
   role: any;
   helper = new JwtHelperService();
   logged=false;
+  necesidades: any;
+  necesidadesSolicitados: any;
 
   constructor(private _serviceListarNecesidades: ListarNecesidadesService,
       private _necesitaService: NecesitaService ) {
@@ -26,6 +29,21 @@ export class ListarNecesitaComponent implements OnInit{
       this.aplicarFiltros(data.nombre,data.cantidad,data.precio);
     })
     this.obtenerNecesidades();
+
+    const token = localStorage.getItem('token');
+    if(token!==null){
+      if(token!==""){  
+        this.tokenId =  this.helper.decodeToken(token);
+        this.id = this.tokenId.unique_name;
+        this.role = this.tokenId.role;
+        this.misNecesidadesSolicitadas();
+      }
+    }
+    this.logged = token !== "";
+  }
+
+  necesidadSolicitado(necesidad: any): boolean {        
+    return this.necesidadesSolicitados.some((x: any) => x.id === necesidad.id);    
   }
 
   ngDoCheck() {
@@ -50,8 +68,22 @@ export class ListarNecesitaComponent implements OnInit{
     })
   }
 
-  solicitarNecesidad(){
+  solicitarNecesidad(idNecesidad: number){
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    this._necesitaService.solicitarNecesidad(idNecesidad,this.id,{headers}).subscribe(data=>{
+      this.misNecesidadesSolicitadas();
+    });
+  }
 
+  misNecesidadesSolicitadas(){
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+
+    this._necesitaService.getMySolicitudesNecesitas(this.id,{headers}).subscribe(data=>{      
+      this.necesidadesSolicitados = data;
+      //this.misRecursosSolicitados();
+    })
   }
 
   aplicarFiltros(nombre:string,cantidad:string,precio:string){

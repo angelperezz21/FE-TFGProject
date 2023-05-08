@@ -33,8 +33,6 @@ import { ExplorarComponent } from './components/explorar/explorar.component';
 import { ListarMisRecursosComponent } from './components/perfil/listar-mis-recursos/listar-mis-recursos.component';
 
 
-
-
 @NgModule({
   declarations: [
     AppComponent,

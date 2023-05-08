@@ -33,11 +33,15 @@ export class RecursoService {
     return this.http.get(this.myAppUrl + this.myApiUrl + '/listaRecursosPublicados');
   }
 
-  getMyListRecursos(id: number, httpOptions: any): Observable<any>{
-    return this.http.get(this.myAppUrl + this.myApiUrl + '/listaRecursosEmpresa/' + `${id}`, httpOptions);
+  getMyListRecursos(id: number): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/listaRecursosEmpresa/' + `${id}`);
   }
   
   getNotificaciones(id: number, httpOptions: any): Observable<any>{
     return this.http.get(this.myAppUrl + this.myApiUrl + '/GetNotificaciones/' + `${id}`, httpOptions);
+  }
+
+  getMySolicitudesRecursos(id: number, httpOptions: any): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/solicitudesRecursos/' + `${id}`, httpOptions);
   }
 }
