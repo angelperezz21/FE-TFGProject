@@ -1,11 +1,11 @@
-<div class="container mb-1">
-    <img class="image"src="assets/inicio.jpg" alt="Ejemplo de imagen">
-    <div class="search-box">
+<div class="image-container">
+    <img class="image2" src="assets/inicio.jpg" alt="Ejemplo de imagen">
+    <div class="search-container">
         <h3>¿Empezamos?</h3>
         <div class="form-container mb-2">
             <form >
-              <div class="form-group">                
-                <select class="form-control" id="categoria" (change)="onDropdownChange($event);">
+              <div class="form-group" style="width: 70%;">                
+                <select class="form-control" style="font-family: 'Roboto', sans-serif; " id="categoria" (change)="onDropdownChange($event);">
                     <option class="dropdown-item"  value="/Explorar">Recursos</option>                  
                     <option class="dropdown-item"  value="/Explorar">Necesidades</option>                  
                     <option class="dropdown-item"  value="/ListaEmpresas">Empresas</option>                  
@@ -21,15 +21,30 @@
             Buscar
         </button>
     </div>
-    <div class="rectangulo-blanco">
-        <div style="background-color: white; margin-bottom: -10px; width: 100%; height: 100px; position: absolute; bottom: 0; text-align: center;">
-            <span style="display: inline-block; padding-right: 200px;">{{empresas}} Empresas </span>
-            <span style="display: inline-block; padding: 10px;">{{beneficiarios}} Beneficiarios</span>
-            <span style="display: inline-block; padding-left: 200px;">{{donaciones}} Donaciones</span>
-            <hr>
+    <div class="rectangulo-blanco mb-2">
+        <div style="background-color: white; margin-bottom: 0px; width: 100%; height: 100px; position: absolute; bottom: 0; text-align: center;">
+
+            <div class="recuadroText mt-4">
+                <div class="columnText">
+                  <p>{{empresas}} Empresas</p>
+                </div>
+                <div class="columnText">
+                  <p>{{beneficiarios}} Beneficiarios</p>
+                </div>
+                <div class="columnText">
+                  <p>{{donaciones}} Donaciones</p>
+                </div>
+            </div>
+            <hr>  
         </div>        
     </div>
-</div>
+    
+  </div>
+
+  
+ 
+
+
 <div style="text-align: center; margin-bottom: 2rem;">
     <h3 style="margin-bottom: 2rem;">¿Qué es lo que hacemos?</h3>
     <div style="display: flex; justify-content: center;">
@@ -56,52 +71,38 @@
     </div>    
 </div>
 
+
 <div style="text-align: center; margin-bottom: 2rem;">
-    <h3 style="margin-bottom: 2rem;">Nuevos recursos publicados</h3>
-    <div style="display: flex; justify-content: center;">
-        <div class="containerCards"  >
-            <div class="card-wrapper" *ngFor="let necesidad of necesidades">
-              <div class="card mb-3" style="max-width: 540px;">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="assets/inicio.jpg" class="card-img" alt="A">
-                    </div>
-                    <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a </p>                        
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>       
-    </div>    
+    <h3 style="margin-bottom: 2rem;">Nuevas necesidades publicadas</h3>    
+    <div class="card-row">
+        <div class="card mb-3" *ngFor="let necesidad of necesidades">
+            <img [src]="necesidad.imgUrl ? 'https://localhost:44318/' + necesidad.imgUrl : 'https://localhost:44318/publicaciones/foto.jpg'">
+            <h3>{{necesidad.nombre}}</h3>
+            <p>Cantidad: {{necesidad.cantidad}}</p>
+            <p class="mb-3">Precio unitario: {{necesidad.precio}} €</p>
+            <p class="mb-3" style="font-weight: bold;">Publicado hace {{tiempo(necesidad.fechaCreacionNecesita)}}</p>
+            <a class="card-button" *ngIf="role==='Empresa'"> Solicitar</a>
+        </div>        
+    </div>
+</div>
+
+<div style="text-align: center; margin-bottom: 2rem;">
+    <h3 style="margin-bottom: 2rem;">Nuevos recursos publicados</h3>    
+    <div class="card-row">
+        <div class="card mb-3" *ngFor="let recurso of recursos">
+            <img [src]="recurso.imgUrl ? 'https://localhost:44318/' + recurso.imgUrl : 'https://localhost:44318/publicaciones/foto.jpg'">
+            <h3>{{recurso.nombre}}</h3>
+            <p>Cantidad: {{recurso.cantidad}}</p>
+            <p>Precio unitario: {{recurso.precio}} €</p>
+            <p class="mb-3">Método entrega: {{recurso.metodoEntrega}}</p>
+            <p class="mb-3" style="font-weight: bold;">Publicado hace {{tiempo(recurso.fechaCreacionRecurso)}}</p>
+            <a class="card-button" *ngIf="role==='Beneficiario'"> Solicitar</a>
+        </div>        
+    </div>
 </div>
 
 
-<div style="text-align: center; margin-bottom: 2rem;">
-    <h3 style="margin-bottom: 2rem;">Nuevos recursos publicados</h3>
-    <div style="display: flex; justify-content: center;">
-        <div class="containerCards"  >
-            <div class="card-wrapper" *ngFor="let recurso of recursos">
-              <div class="cardR">                
-                <div class="row no-gutters">
-                    <div class="col-md-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/inicio.jpg" class="cardimg" alt="A">
-                    </div>                                          
-                    <div class="col-md-6 ">
-                      <div class="">
-                        <h5 >{{ recurso.nombre }}</h5>
-                        <p class="">{{ recurso.cantidad }}</p>
-                        <p class="">{{ recurso.precio }}</p>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-            </div>
-        </div>       
-    </div>    
-</div>
 
-<button (click)="haz()">CERTI</button>
+
+
+<!-- <button (click)="haz()">CERTI</button> -->

@@ -47,5 +47,9 @@ export class NecesitaService {
   getNecesidadesNuevas(){
     return this.http.get(this.myAppUrl + this.myApiUrl + '/listaNecesidadesNuevas' );
   }
+
+  uploadPhoto(foto: any): Observable<any>{
+    return this.http.post(this.myAppUrl + this.myApiUrl + '/upload', foto);
+  }
   
 }

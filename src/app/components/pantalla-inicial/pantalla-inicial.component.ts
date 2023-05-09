@@ -1,5 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { BeneficiarioService } from 'src/app/service/beneficiario.service';
 import { DonacionService } from 'src/app/service/donacion.service';
 import { EmpresaService } from 'src/app/service/empresa.service';
@@ -18,6 +19,10 @@ export class PantallaInicialComponent implements OnInit {
   beneficiarios: any;
   recursos: any;
   necesidades: any;
+  tokenId: any;
+  id: any;
+  role: any;
+  helper = new JwtHelperService();
   /**
    *
    */
@@ -32,6 +37,15 @@ export class PantallaInicialComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    if(token!==null){
+      if(token!==""){  
+        this.tokenId =  this.helper.decodeToken(token);
+        this.id = this.tokenId.unique_name;
+        this.role = this.tokenId.role;      
+      }
+    }
+    
     this.busqueda='/Explorar'    
     this._donacion.getTotalDonaciones().subscribe(data=>{
       this.donaciones=data;
@@ -44,9 +58,11 @@ export class PantallaInicialComponent implements OnInit {
     })
     this._necesita.getNecesidadesNuevas().subscribe(data=>{
       this.necesidades=data;
+      console.log(data)
     })
     this._recurso.getRecursosNuevos().subscribe(data=>{
       this.recursos=data;
+      
     })
   }
 
@@ -57,6 +73,20 @@ export class PantallaInicialComponent implements OnInit {
 
   buscar(){
     window.location.href=this.busqueda;
+  }
+
+  tiempo(fecha: Date): string{
+    var diferenciaMs = new Date().getTime() - new Date(fecha).getTime();
+    var diferencia = Math.floor(diferenciaMs / (1000 * 60)) + " minutos" ;
+    const minutos = Math.floor(diferenciaMs / (1000 * 60));
+    if(minutos>60) {      
+      const horas = Math.floor(minutos / 60);
+      diferencia = horas + " horas";
+      if(horas>24){
+        diferencia = Math.floor(horas / 24) + " días";
+      }
+    }
+    return diferencia;
   }
 
   haz(){

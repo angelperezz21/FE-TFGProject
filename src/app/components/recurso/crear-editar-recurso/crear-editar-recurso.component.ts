@@ -21,6 +21,8 @@ export class CrearEditarRecursoComponent implements OnInit{
   metodo: string | undefined;
   dropdownValues = MetodoValue.values;
   certificado: any;
+  file: any;
+  path: any;
   
   constructor(private fb: FormBuilder,
     private _recursoService: RecursoService,    
@@ -52,12 +54,24 @@ export class CrearEditarRecursoComponent implements OnInit{
     this.certificado = event.target.id;    
   }
 
+  onFileSelected(selectedValue: any){
+    this.file = selectedValue.target.files[0]; 
+    console.log(this.file)// Obtiene el archivo seleccionado por el usuario
+    const formData = new FormData();
+    formData.append('image', this.file,this.file.name);
+    
+    this._recursoService.uploadPhoto(formData).subscribe(data=>{
+      this.path = data.imagePath;
+    })
+         
+  }
+
 
   publicar(){
     
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    
+    console.log(this.path)
     const recurso = {
       Estado: 1,
       Nombre: this.form.get('recurso')?.value,
@@ -65,7 +79,8 @@ export class CrearEditarRecursoComponent implements OnInit{
       Cantidad: this.form.get('cantidad')?.value,
       MetodoEntrega: this.metodo,
       IdEmpresa: this.id,
-      Certificado: this.certificado==='true' ? true : false
+      Certificado: this.certificado==='true' ? true : false,
+      imgUrl: this.path
     }
     this._recursoService.postRecurso(recurso, {headers} ).subscribe(data=> 
       this.form.reset()

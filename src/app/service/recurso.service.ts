@@ -48,4 +48,8 @@ export class RecursoService {
   getRecursosNuevos(){
     return this.http.get(this.myAppUrl + this.myApiUrl + '/listaRecursosNuevos' );
   }
+
+  uploadPhoto(foto: any): Observable<any>{
+    return this.http.post(this.myAppUrl + this.myApiUrl + '/upload', foto);
+  }
 }
