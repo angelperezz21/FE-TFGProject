@@ -43,5 +43,9 @@ export class NecesitaService {
   getMySolicitudesNecesitas(id: number, httpOptions: any): Observable<any>{
     return this.http.get(this.myAppUrl + this.myApiUrl + '/solicitudesNecesitas/' + `${id}`, httpOptions);
   }
+
+  getNecesidadesNuevas(){
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/listaNecesidadesNuevas' );
+  }
   
 }

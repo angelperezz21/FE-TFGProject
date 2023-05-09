@@ -64,5 +64,7 @@ export class BeneficiarioService {
     return this.http.post(this.myAppUrl + this.myApiUrl + '/upload', foto);
   }
 
-
+  getTotalBeneficiarios():Observable <any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/beneficiariosTotales')
+  }
 }

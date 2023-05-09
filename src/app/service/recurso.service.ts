@@ -44,4 +44,8 @@ export class RecursoService {
   getMySolicitudesRecursos(id: number, httpOptions: any): Observable<any>{
     return this.http.get(this.myAppUrl + this.myApiUrl + '/solicitudesRecursos/' + `${id}`, httpOptions);
   }
+
+  getRecursosNuevos(){
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/listaRecursosNuevos' );
+  }
 }

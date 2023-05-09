@@ -20,4 +20,8 @@ export class DonacionService {
     const url = `${this.myAppUrl}${this.myApiUrl}/${idDonacion}`;
     return this.http.get(url, httpOptions);
   }
+
+  getTotalDonaciones():Observable <any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/donacionesTotales')
+  }
 }

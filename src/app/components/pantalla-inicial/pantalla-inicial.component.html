@@ -1,5 +1,107 @@
-<p>pantalla-inicial works!</p>
-<button (click)="haz()">CERTI</button>
+<div class="container mb-1">
+    <img class="image"src="assets/inicio.jpg" alt="Ejemplo de imagen">
+    <div class="search-box">
+        <h3>¿Empezamos?</h3>
+        <div class="form-container mb-2">
+            <form >
+              <div class="form-group">                
+                <select class="form-control" id="categoria" (change)="onDropdownChange($event);">
+                    <option class="dropdown-item"  value="/Explorar">Recursos</option>                  
+                    <option class="dropdown-item"  value="/Explorar">Necesidades</option>                  
+                    <option class="dropdown-item"  value="/ListaEmpresas">Empresas</option>                  
+                    <option class="dropdown-item"  value="/ListaBeneficiarios">Beneficiarios</option>                  
+                </select>
+              </div>  
+            </form>
+          </div>        
+        <button class="btn btn-primary" (click)="buscar()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+            Buscar
+        </button>
+    </div>
+    <div class="rectangulo-blanco">
+        <div style="background-color: white; margin-bottom: -10px; width: 100%; height: 100px; position: absolute; bottom: 0; text-align: center;">
+            <span style="display: inline-block; padding-right: 200px;">{{empresas}} Empresas </span>
+            <span style="display: inline-block; padding: 10px;">{{beneficiarios}} Beneficiarios</span>
+            <span style="display: inline-block; padding-left: 200px;">{{donaciones}} Donaciones</span>
+            <hr>
+        </div>        
+    </div>
+</div>
+<div style="text-align: center; margin-bottom: 2rem;">
+    <h3 style="margin-bottom: 2rem;">¿Qué es lo que hacemos?</h3>
+    <div style="display: flex; justify-content: center;">
+        <div class="cardI" style="padding: 15px;">        
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
+                <path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z"/>
+                <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V1Zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3V1Z"/>
+              </svg>
+            <p>En muchas ocasiones las empresas disponen de recursos que ya no necesitan. Y en muchas ocasiones llegan a tirar los recursos por no saber que hacer.</p>
+        </div>
+        <div class="cardI" style="padding: 15px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-hospital" viewBox="0 0 16 16">
+                <path d="M8.5 5.034v1.1l.953-.55.5.867L9 7l.953.55-.5.866-.953-.55v1.1h-1v-1.1l-.953.55-.5-.866L7 7l-.953-.55.5-.866.953.55v-1.1h1ZM13.25 9a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM13 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Zm.25 1.75a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5Zm-11-4a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5A.25.25 0 0 0 3 9.75v-.5A.25.25 0 0 0 2.75 9h-.5Zm0 2a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM2 13.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Z"/>
+                <path d="M5 1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1a1 1 0 0 1 1 1v4h3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1V1Zm2 14h2v-3H7v3Zm3 0h1V3H5v12h1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3Zm0-14H6v1h4V1Zm2 7v7h3V8h-3Zm-8 7V8H1v7h3Z"/>
+              </svg>
+            <p>Las ONGs necesitan muchos recursos y en ciertos momentos no saben como acceder a ellos ya sea por que son pequeñas o por que no encuentran donantes.</p>
+        </div>
+        <div class="cardI" style="padding: 15px;"> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/>
+            </svg>
+            <p>Por lo que como solución, aparece easyDonation, plataforma en la que cualquier empresa y ONG puede contactar o ver que es lo que se puede donar, haciendo así una conexión directa entre ambas sin intermediarios.</p>
+        </div>        
+    </div>    
+</div>
 
-<img src="assets/pantallaInicio.jpg" alt="Ejemplo de imagen">
-<img src="assets/pantallaInicio.jpg" alt="Ejemplo de imagen">
+<div style="text-align: center; margin-bottom: 2rem;">
+    <h3 style="margin-bottom: 2rem;">Nuevos recursos publicados</h3>
+    <div style="display: flex; justify-content: center;">
+        <div class="containerCards"  >
+            <div class="card-wrapper" *ngFor="let necesidad of necesidades">
+              <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="assets/inicio.jpg" class="card-img" alt="A">
+                    </div>
+                    <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a </p>                        
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>       
+    </div>    
+</div>
+
+
+<div style="text-align: center; margin-bottom: 2rem;">
+    <h3 style="margin-bottom: 2rem;">Nuevos recursos publicados</h3>
+    <div style="display: flex; justify-content: center;">
+        <div class="containerCards"  >
+            <div class="card-wrapper" *ngFor="let recurso of recursos">
+              <div class="cardR">                
+                <div class="row no-gutters">
+                    <div class="col-md-6 d-flex align-items-center justify-content-center">
+                        <img src="assets/inicio.jpg" class="cardimg" alt="A">
+                    </div>                                          
+                    <div class="col-md-6 ">
+                      <div class="">
+                        <h5 >{{ recurso.nombre }}</h5>
+                        <p class="">{{ recurso.cantidad }}</p>
+                        <p class="">{{ recurso.precio }}</p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+        </div>       
+    </div>    
+</div>
+
+<button (click)="haz()">CERTI</button>

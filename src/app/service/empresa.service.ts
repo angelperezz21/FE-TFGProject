@@ -64,6 +64,10 @@ export class EmpresaService {
     return this.http.post(this.myAppUrl + this.myApiUrl + '/upload', foto);
   }
 
+  getTotalEmpresas():Observable <any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/empresasTotales')
+  }
+
   
  
 }
