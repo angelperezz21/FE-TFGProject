@@ -18,6 +18,8 @@ export class RegistroComponent {
   categoria: string | undefined;
   dropdownValues = CategoriaValue.values;
   pulsado = false ;
+  file: any;
+  path: any;
   
   constructor(private fb: FormBuilder, 
     private _empresaService: EmpresaService, 
@@ -32,7 +34,8 @@ export class RegistroComponent {
       direccion: ['', [Validators.required]],
       web: ['', [Validators.required, Validators.pattern('^(http(s)?:\/\/)?([w]{3}\.)?[a-zA-Z0-9]+\.[a-zA-Z]+(\/[a-zA-Z0-9#]+\/?)*$')]],
       tipoUsuario: ['', Validators.required],
-      categoria: ['', Validators.required]
+      categoria: ['', Validators.required],
+      cif: ['', Validators.required, Validators.pattern(/^[A-Za-z]\d{7}[A-Za-z]$/)]
     })
    }
 
@@ -57,10 +60,11 @@ export class RegistroComponent {
       Direccion: this.form.get('direccion')?.value,
       Web: this.form.get('web')?.value,
       Categoria: this.categoria,
-      Contacto: this.form.get('telefono')?.value,
+      Contacto: this.form.get('email')?.value,
       Descripcion: "",    
-      imgUrl:"",
-      PasswordSinHash: this.form.get('contrasenya')?.value
+      imgUrl:this.path,
+      PasswordSinHash: this.form.get('contrasenya')?.value,
+      CIF: this.form.get('cif')?.value
     }
 
     if(this.tipoUsuario === "empresa"){
@@ -77,7 +81,7 @@ export class RegistroComponent {
         console.log(error)                     
       });
     }
-    else{
+    else if(this.tipoUsuario === "beneficiario"){
       this._beneficiarioService.registro(user).subscribe(data=>{
         this._loginService.iniciarSesion({Email: data.email, Contrasenya: data.contrasenya, userType: 0}).subscribe(data=>{
           localStorage.setItem('token', data.token);
@@ -87,7 +91,25 @@ export class RegistroComponent {
       (error) => {
         console.log(error)                     
       });
+    }     
     }
-     
+
+
+
+    onFileSelected(selectedValue: any){
+      this.file = selectedValue.target.files[0]; 
+      console.log(this.file)// Obtiene el archivo seleccionado por el usuario
+      const formData = new FormData();
+      formData.append('image', this.file,this.file.name);
+      console.log(formData)
+      if(this.tipoUsuario === "empresa"){
+        this._empresaService.uploadPhoto(formData).subscribe(data=>{    
+          this.path = data.imagePath;      
+        })    
+      }else if(this.tipoUsuario === "beneficiario"){
+        this._beneficiarioService.uploadPhoto(formData).subscribe(data=>{    
+          this.path = data.imagePath;      
+        })    
+      }    
     }
 }

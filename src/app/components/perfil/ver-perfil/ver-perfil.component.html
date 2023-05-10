@@ -54,9 +54,9 @@
           <label for="descripcion">Descripcion:</label>
           <textarea type="" class="form-control" id="descripcion" placeholder="Descripcion" formControlName="descripcion" value="{{usuario.descripcion}}"></textarea>
         </div>
-        <div class="form-group col">
+        <div class="form-group col" *ngIf="formEnabled">
           <label for="foto">Foto:</label>
-          <input type="file" class="form-control" id="foto" formControlName="foto" value="" (change)="onFileSelected($event)">
+          <input type="file"   class="form-control" id="foto" formControlName="foto" value="" (change)="onFileSelected($event)">
         </div>
       </div>
       <button type="submit" *ngIf="formEnabled" [disabled]="this.form.invalid" class="btn btn-primary mt-2" (click)="usuarioModificado()">Guardar cambios</button>

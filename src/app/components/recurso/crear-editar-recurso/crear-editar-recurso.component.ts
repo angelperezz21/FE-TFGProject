@@ -32,7 +32,7 @@ export class CrearEditarRecursoComponent implements OnInit{
       cantidad: ['', [Validators.required]],
       precio: ['', [Validators.required]],
       metodo: ['', [Validators.required]],
-
+      descripcion: ['', []],      
     })
 
   }
@@ -80,7 +80,8 @@ export class CrearEditarRecursoComponent implements OnInit{
       MetodoEntrega: this.metodo,
       IdEmpresa: this.id,
       Certificado: this.certificado==='true' ? true : false,
-      imgUrl: this.path
+      imgUrl: this.path,
+      Descripcion: this.form.get('descripcion')?.value, 
     }
     this._recursoService.postRecurso(recurso, {headers} ).subscribe(data=> 
       this.form.reset()

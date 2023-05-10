@@ -65,8 +65,7 @@ export class ListarRecursosComponent implements OnInit{
   }
 
   recursoSolicitado(recurso: any): boolean {        
-    return this.recursosSolicitados.some((x: any) => x.id === recurso.id);
-    
+    return this.recursosSolicitados.some((x: any) => x.id === recurso.id);    
   }
 
   solicitarRecurso(idRecurso: number){

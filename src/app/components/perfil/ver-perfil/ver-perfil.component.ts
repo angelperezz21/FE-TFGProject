@@ -40,7 +40,7 @@ export class VerPerfilComponent implements OnInit {
       web: ['', [Validators.required, Validators.pattern('^(http(s)?:\/\/)?([w]{3}\.)?[a-zA-Z0-9]+\.[a-zA-Z]+(\/[a-zA-Z0-9#]+\/?)*$')]],
       descripcion: ['', ],
       categoria: ['', Validators.required],
-      foto: ['',]
+      foto: ['', Validators.required]
     })
 
   }
@@ -106,7 +106,7 @@ export class VerPerfilComponent implements OnInit {
     this.formEnabled = !this.formEnabled;
     if (this.formEnabled) {
       this.form.enable();
-      this.form.get('email').disable();      
+      this.form.get('email').disable();               
     } else {
       this.form.disable();      
       this.categoriaUser=this.usuario.categoria;
@@ -147,8 +147,7 @@ export class VerPerfilComponent implements OnInit {
       this._beneficiarioService.uploadPhoto(formData).subscribe(data=>{    
         this.path = data.imagePath;      
       })    
-    }
-    
+    }    
   }
  
   usuarioModificado(){

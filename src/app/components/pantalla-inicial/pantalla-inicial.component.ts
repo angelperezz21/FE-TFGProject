@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ToastrService } from 'ngx-toastr';
 import { BeneficiarioService } from 'src/app/service/beneficiario.service';
 import { DonacionService } from 'src/app/service/donacion.service';
 import { EmpresaService } from 'src/app/service/empresa.service';
@@ -23,6 +24,7 @@ export class PantallaInicialComponent implements OnInit {
   id: any;
   role: any;
   helper = new JwtHelperService();
+  objetosSolicitados: any;
   /**
    *
    */
@@ -33,7 +35,8 @@ export class PantallaInicialComponent implements OnInit {
     private _empresa: EmpresaService,
     private _beneficiario: BeneficiarioService,
     private _necesita: NecesitaService,
-    private _recurso: RecursoService) {
+    private _recurso: RecursoService,
+    private toastr: ToastrService) {
 
   }
   ngOnInit(): void {
@@ -42,7 +45,9 @@ export class PantallaInicialComponent implements OnInit {
       if(token!==""){  
         this.tokenId =  this.helper.decodeToken(token);
         this.id = this.tokenId.unique_name;
-        this.role = this.tokenId.role;      
+        this.role = this.tokenId.role;        
+        this.misObjetosSolicitados();
+        console.log("adios")
       }
     }
     
@@ -89,10 +94,54 @@ export class PantallaInicialComponent implements OnInit {
     return diferencia;
   }
 
+  objetoSolicitado(objeto: any): boolean {        
+    console.log(this.objetosSolicitados)
+    console.log(objeto)
+    return this.objetosSolicitados.some((x: any) => x.id === objeto.id);    
+  }
+
+  misObjetosSolicitados(){
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    if(this.role==='Beneficiario'){       
+      this._recurso.getMySolicitudesRecursos(this.id,{headers}).subscribe(data=>{      
+        this.objetosSolicitados = data;      
+      })
+    }    
+    if(this.role==='Empresa'){
+      this._necesita.getMySolicitudesNecesitas(this.id,{headers}).subscribe(data=>{      
+        this.objetosSolicitados = data;      
+      })
+    }
+  }
+
+
+  solicitarObjeto(idRecurso: number){
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    if(this.role==='Beneficiario'){
+      this._recurso.solicitarRecurso(idRecurso,this.id,{headers}).subscribe(data=>{        
+        this.misObjetosSolicitados();
+      });
+    }    
+    if(this.role==='Empresa'){
+      this._necesita.solicitarNecesidad(idRecurso,this.id,{headers}).subscribe(data=>{        
+        this.misObjetosSolicitados();
+      });
+    }
+  }
+
+
+
+
+
+
   haz(){
     const token = localStorage.getItem('token');             
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });  
-    
+    this.toastr.info("La tarjeta ha sido actualizada con exito", 'Tarjeta actualizada');
+    this.toastr.error("FALLO");
+    this.toastr.success("SUBIDO CON EXITO");
    // const options = { headers: header, responseType: 'blob' };
     this._donacion.getCertificado(6,{headers: headers}).subscribe((data)=>{        
       window.open('https://localhost:44318/' + data.certificadoPath, '_blank');
