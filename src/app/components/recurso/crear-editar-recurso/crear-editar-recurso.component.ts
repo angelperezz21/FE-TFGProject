@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ToastrService } from 'ngx-toastr';
 import { EmpresaService } from 'src/app/service/empresa.service';
 import { RecursoService } from 'src/app/service/recurso.service';
 import { MetodoValue } from 'src/app/shared/metodo.module';
@@ -20,19 +21,21 @@ export class CrearEditarRecursoComponent implements OnInit{
   form: any;
   metodo: string | undefined;
   dropdownValues = MetodoValue.values;
-  certificado: any;
   file: any;
   path: any;
   
   constructor(private fb: FormBuilder,
     private _recursoService: RecursoService,    
-    private aRoute: ActivatedRoute) {
+    private aRoute: ActivatedRoute,
+    private toastr: ToastrService){
     this.form = this.fb.group({
       recurso: ['', [Validators.required]],
       cantidad: ['', [Validators.required]],
       precio: ['', [Validators.required]],
       metodo: ['', [Validators.required]],
-      descripcion: ['', []],      
+      descripcion: ['', []],  
+      foto: ['', []],      
+          
     })
 
   }
@@ -50,9 +53,7 @@ export class CrearEditarRecursoComponent implements OnInit{
    }
 
    
-   onCertificado(event: any) {
-    this.certificado = event.target.id;    
-  }
+
 
   onFileSelected(selectedValue: any){
     this.file = selectedValue.target.files[0]; 
@@ -78,13 +79,14 @@ export class CrearEditarRecursoComponent implements OnInit{
       Precio: this.form.get('precio')?.value,
       Cantidad: this.form.get('cantidad')?.value,
       MetodoEntrega: this.metodo,
-      IdEmpresa: this.id,
-      Certificado: this.certificado==='true' ? true : false,
+      IdEmpresa: this.id,      
       imgUrl: this.path,
       Descripcion: this.form.get('descripcion')?.value, 
     }
-    this._recursoService.postRecurso(recurso, {headers} ).subscribe(data=> 
+    this._recursoService.postRecurso(recurso, {headers} ).subscribe(data=> {
+      this.toastr.info("Recurso publicado con éxito")
       this.form.reset()
+    }      
     );
   }
   

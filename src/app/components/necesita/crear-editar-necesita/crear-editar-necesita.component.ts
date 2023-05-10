@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ToastrService } from 'ngx-toastr';
 import { NecesitaService } from 'src/app/service/necesita.service';
 import { MetodoValue } from 'src/app/shared/metodo.module';
 
@@ -18,19 +19,20 @@ export class CrearEditarNecesitaComponent implements OnInit{
   helper = new JwtHelperService();
   form: any;
   metodo: string | undefined;
-  dropdownValues = MetodoValue.values;
-  certificado: any;
+  dropdownValues = MetodoValue.values;  
   file: any;
   path: any;
   
   constructor(private fb: FormBuilder,
     private _necesitaService: NecesitaService,    
-    private aRoute: ActivatedRoute) {
+    private aRoute: ActivatedRoute,
+    private toastr: ToastrService) {
     this.form = this.fb.group({
       necesita: ['', [Validators.required]],
       cantidad: ['', [Validators.required]],
       precio: ['', [Validators.required]],    
       descripcion: ['', []],      
+      foto: ['', []],      
     })
 
   }
@@ -47,9 +49,7 @@ export class CrearEditarNecesitaComponent implements OnInit{
     this.metodo = this.dropdownValues.find(value => value.id+"" === selectedValue.target.value)?.name;    
    }
 
-   onCertificado(event: any) {
-    this.certificado = event.target.id;    
-  }
+
 
   onFileSelected(selectedValue: any){
     this.file = selectedValue.target.files[0]; 
@@ -74,13 +74,13 @@ export class CrearEditarNecesitaComponent implements OnInit{
       Precio: this.form.get('precio')?.value,
       Cantidad: this.form.get('cantidad')?.value,      
       Descripcion: this.form.get('descripcion')?.value,    
-      IdBeneficiario: this.id,
-      Certificado: this.certificado==='true' ? true : false,
+      IdBeneficiario: this.id,      
       imgUrl: this.path
     }    
     this._necesitaService.postNecesita(necesidad, {headers} ).subscribe(data=> {
       console.log(data);
       console.log("hola");
+      this.toastr.info("Necesidad publicada con éxito")
       this.form.reset()}
     );
   }

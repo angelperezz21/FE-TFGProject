@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { LoginService } from 'src/app/service/login.service';
 import { Router } from '@angular/router';
 import { EmpresaService } from 'src/app/service/empresa.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent {
   constructor(private fb: FormBuilder, 
     private _loginService: LoginService,
     private _empresaService: EmpresaService,
-    private router: Router) {
+    private router: Router,
+    private toastr: ToastrService) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
       contrasenya: ['', ],
@@ -46,11 +48,13 @@ export class LoginComponent {
     if(this.tipoUsuario === "empresa"){
       this._empresaService.contrasenyaEmpresa(this.form.get('email')?.value).subscribe(data=>{
         console.log(data)
+        this.toastr.success("Contraseña enviada con éxito")
       })
     }
     if(this.tipoUsuario==='beneficiario'){      
     this._empresaService.contrasenyaEmpresa(this.form.get('email')?.value).subscribe(data=>{
       console.log(data)
+      this.toastr.success("Contraseña enviada con éxito")
     })
     }
     

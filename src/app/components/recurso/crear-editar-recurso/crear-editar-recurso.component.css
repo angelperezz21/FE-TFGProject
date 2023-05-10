@@ -8,16 +8,38 @@
   }
   
   .img{
-    width: 500px;
-    height: 500px;
+    width: 90%;
+    height: 90%;
     object-fit: cover;
+    justify-content: center;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    border-radius: 5px;
+    border-radius: 40px;
     z-index: 0;
   }
 
+  .form-control{
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .buttonPD {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    width: 100%;
+    background-color: #006eff;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+  }
   
+  .buttonPD:hover {
+    text-decoration: none;
+    background-color: #0037a4;
+    color: #fff;
+    cursor: pointer;
+  }
 
   .titulo{
     text-align: center;
