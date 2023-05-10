@@ -1,4 +1,4 @@
-<div class="form-container">
+<!-- <div class="form-container">
   <form [formGroup]="form">
     <div class="form-group">
       <label for="nombre">Nombre:</label>
@@ -20,30 +20,63 @@
       <label class="form-check-label" for="siguiendo">Mostrar solo las empresas que sigo</label>
     </div>    
   </form>
-</div>
-
+</div> -->
 
 <div class="container">
-  <div class="row">
-    <div class="col-md-6 mb-2" *ngFor="let empresa of empresasFiltro">
-      <div class="card" id="{{ empresa.id }}">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img [src]="empresa.imgUrl ? 'https://localhost:44318/' + empresa.imgUrl : 'https://localhost:44318/uploads/user.png'" class="card-img-top float-start" alt="Tu Foto">            
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h4 class="">{{ empresa.nombre }}</h4>
-              <p class="card-text">{{ empresa.descripcion }}</p>
-              <p class="card-text">{{ empresa.categoria }}</p>
-              <p class="card-text">{{ empresa.direccion }}</p>
-              <a class="card-text" href="{{empresa.web}}">{{ empresa.web }}</a>
-              <div class="d-flex justify-content-between align-items-center">
-                <a href="/Empresa/{{empresa.id}}" class="btn btn-primary mt-2">Más info...</a>
-                <a *ngIf="logged && role === 'Beneficiario'" class="btn btn-success" 
-                  (click)="empresaSeguida(empresa) ? dejarSeguir(empresa.id) : seguir(empresa.id)">
-                  {{ (empresaSeguida(empresa)) ? 'Dejar de seguir' : 'Seguir' }}
-                </a>         
+  <div class="sidebar">
+    <h3>Filtros</h3>
+    <hr>
+    <form>
+      <div>
+        <h5>Cateogoría:</h5>          
+        <div *ngFor="let categoria of dropdownValues" class="form-group">
+          <input class="form-check-input" type="checkbox" id="{{categoria.id }}" name="categoria" [value]="categoria.id">
+          <label class="form-check-label" [attr.for]="'categoria-' + categoria.id">{{ categoria.name }}</label>
+        </div>
+        
+      </div>
+      <hr>
+      <!-- <div>        
+        <h5>Precio:</h5> 
+        <input type="range" class="form-range" id="customRange1" min="0" [max]=rangoMax value="0">
+        <p id="rangeValue1"></p>        
+        <input type="range" class="form-range" id="customRange2" [min]=rangoMin max="10000" value="10000">
+        <p id="rangeValue2"></p>    
+      </div>
+      <hr> -->
+      <div >
+        <h5>Nombre:</h5>
+        <input class="form-control" type="text" id="nombre">
+      </div>
+      <hr>
+      <div>
+        <h5>Ubicación:</h5>
+        <input class="form-control" type="text" id="ubicación">
+      </div>      
+    </form>
+  </div>
+  <div class="results">
+    <div class="row">
+      <div class="col-md-6 mb-2" *ngFor="let empresa of empresasFiltro">
+        <div class="card" id="{{ empresa.id }}">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img [src]="empresa.imgUrl ? 'https://localhost:44318/' + empresa.imgUrl : 'https://localhost:44318/uploads/user.png'" class="card-img-top float-start" alt="Tu Foto">            
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h4 class="">{{ empresa.nombre }}</h4>
+                <p class="card-text">{{ empresa.descripcion }}</p>
+                <p class="card-text">{{ empresa.categoria }}</p>
+                <p class="card-text">{{ empresa.direccion }}</p>
+                <a class="card-text" href="{{empresa.web}}">{{ empresa.web }}</a>
+                <div class="d-flex justify-content-between align-items-center">
+                  <a href="/Empresa/{{empresa.id}}" class="btn btn-primary mt-2">Más info...</a>
+                  <a *ngIf="logged && role === 'Beneficiario'" class="btn btn-success" 
+                    (click)="empresaSeguida(empresa) ? dejarSeguir(empresa.id) : seguir(empresa.id)">
+                    {{ (empresaSeguida(empresa)) ? 'Dejar de seguir' : 'Seguir' }}
+                  </a>         
+                </div>
               </div>
             </div>
           </div>
@@ -52,4 +85,3 @@
     </div>
   </div>
 </div>
-
