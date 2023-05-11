@@ -22,10 +22,16 @@ export class ListarEmpresasComponent implements OnInit {
   tokenId: any;
   role: any;
   dropdownValues = CategoriaValue.values;
-  categoria: string | undefined;
+  categoria: any = [];
   form: FormGroup;  
   rangoMin!: number;
   rangoMax!: number;
+  isSeguidosOpen = false;
+  isOrdenarOpen = false;
+  isDropdownOpen = false;
+  isNombreOpen = false;
+  isUbiOpen = false;
+  tipoOrden: any;
 
   constructor( private _empresaService: EmpresaService,
     private _beneficiarioService: BeneficiarioService,
@@ -36,43 +42,43 @@ export class ListarEmpresasComponent implements OnInit {
         empresasSeguidas: ['', ],
         ubi: ['',],
       })
-   }
+   }  
 
   ngOnInit(): void {
     this.obtenerEmpresas();
     this.obtenerMisSeguidos();
 
 
-    const range1 = document.getElementById("customRange1") as HTMLInputElement;
-    const range2 = document.getElementById("customRange2") as HTMLInputElement;
-    const rangeValue1 = document.getElementById("rangeValue1") as HTMLParagraphElement;
-    const rangeValue2 = document.getElementById("rangeValue2") as HTMLParagraphElement;
+    // const range1 = document.getElementById("customRange1") as HTMLInputElement;
+    // const range2 = document.getElementById("customRange2") as HTMLInputElement;
+    // const rangeValue1 = document.getElementById("rangeValue1") as HTMLParagraphElement;
+    // const rangeValue2 = document.getElementById("rangeValue2") as HTMLParagraphElement;
         
-    let rangoMin = 0; // establecer el valor mínimo del segundo rango
+    // let rangoMin = 0; // establecer el valor mínimo del segundo rango
     
-    // función que se ejecuta cuando se cambia el valor de los rangos
-    function setRanges() {
-      const minRange1 = parseFloat(range1.value);
-      const maxRange2 = parseFloat(range2.value);
+    // // función que se ejecuta cuando se cambia el valor de los rangos
+    // function setRanges() {
+    //   const minRange1 = parseFloat(range1.value);
+    //   const maxRange2 = parseFloat(range2.value);
     
-      // actualiza el valor mínimo del segundo rango
-      range2.min = minRange1.toString();
-      rangoMin = minRange1;
+    //   // actualiza el valor mínimo del segundo rango
+    //   range2.min = minRange1.toString();
+    //   rangoMin = minRange1;
     
-      // actualiza el valor máximo del primer rango
-      range1.max = maxRange2.toString();
+    //   // actualiza el valor máximo del primer rango
+    //   range1.max = maxRange2.toString();
     
-      // muestra el valor actual de cada rango en los elementos p correspondientes
-      rangeValue1.textContent = `Valor: ${range1.value}`;
-      rangeValue2.textContent = `Valor: ${range2.value}`;
-    }
+    //   // muestra el valor actual de cada rango en los elementos p correspondientes
+    //   rangeValue1.textContent = `Valor: ${range1.value}`;
+    //   rangeValue2.textContent = `Valor: ${range2.value}`;
+    // }
     
-    range1.addEventListener("input", setRanges);
-    range2.addEventListener("input", setRanges);
+    // range1.addEventListener("input", setRanges);
+    // range2.addEventListener("input", setRanges);
     
-    // muestra los valores iniciales de los rangos en los elementos p correspondientes
-    rangeValue1.textContent = `Min: ${range1.value} €` ;
-    rangeValue2.textContent = `Max: ${range2.value} €`;
+    // // muestra los valores iniciales de los rangos en los elementos p correspondientes
+    // rangeValue1.textContent = `Min: ${range1.value} €` ;
+    // rangeValue2.textContent = `Max: ${range2.value} €`;
     
 
   }
@@ -139,10 +145,24 @@ export class ListarEmpresasComponent implements OnInit {
     })
   }
 
-  onDropdownChange(selectedValue: any) {
-    this.categoria = this.dropdownValues.find(value => value.id+"" === selectedValue?.target.value)?.name;    
+  onTipoOrdenChange(event: any) {
+    this.tipoOrden = event.target.id;
+    console.log(this.tipoOrden)
   }
-   
+
+  onDropdownChange(selectedValue: any) {
+     
+    const nombreSelected =this.dropdownValues.find(value => value.id+"" === selectedValue?.target.value)?.name;
+    if (selectedValue?.target.checked) {
+      this.categoria.push(nombreSelected?.toLowerCase());   
+    } else {
+      const index = this.categoria.indexOf(nombreSelected?.toLowerCase());
+      if (index > -1) {
+        this.categoria.splice(index, 1);
+      }
+    }
+  }
+
   applyFilter(event: Event) {
   var nombre =this.form.get('nombre')?.value;
   var ubi = this.form.get('ubi')?.value
@@ -152,20 +172,38 @@ export class ListarEmpresasComponent implements OnInit {
     const categoriaE = empresa.categoria?.toLowerCase();
     const ubicacionE = empresa.direccion?.toLowerCase();
     const nombreE = empresa.nombre?.toLowerCase();
-
-    console.log(this.categoria)
-    console.log(categoriaE)
-  
-    const categoriaValida = this.categoria ? categoriaE.includes(this.categoria.toLowerCase()) : true;
+    
+    // const orden = this.empresasFiltro.sort((a : any, b :any) => (a.nombre.toLowerCase() > b.nombre.toLowerCase()) ? -1 : 1);
+    
+    const categoriaValida = this.categoria ? categoriaE.includes(this.categoria) : true;
     const ubicacionValida = ubi ? ubicacionE.includes(ubi) : true;
     const nombreValido = nombre ? nombreE.includes(nombre) : true;
     const seguidosValido = followed ? this.seguidos.some((x: any) => x.nombre === empresa.nombre) : true;
   
-    return categoriaValida && ubicacionValida && nombreValido && seguidosValido;
+    return  categoriaValida && ubicacionValida && nombreValido && seguidosValido;
   } );
   }
 
+
+   toggleSeguidos() {
+     this.isSeguidosOpen = !this.isSeguidosOpen;
+   }
+
+   toggleOrdenar() {
+     this.isOrdenarOpen = !this.isOrdenarOpen;
+   }
   
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+  
+  toggleNombre() {
+    this.isNombreOpen = !this.isNombreOpen;
+  }
+
+  toggleUbi() {
+    this.isUbiOpen = !this.isUbiOpen;
+  }
   
   
 }

@@ -1,37 +1,21 @@
-/* .container{
-    margin-top: 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.dropdown {
+  display: none;
 }
 
-.card-img-top {
-    width: 200px;
-    height: 230px;
-    object-fit: cover;
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    z-index: 0;
-  }
-
-  .buttons {
-    display: flex;
-    justify-content: space-between;
-  }
-  .form-group,
-  .form-check {
-    display: inline-block;
-    margin-right: 10px;
-  }
-
-  .form-container {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    margin: 20px;
-    margin-left: 7.3%;
-  } */
+.dropdown-open {
+  display: block;
+}
+h2{
+  font-weight: bold;
+}
+h5{
+  font-family: 'Oswald', sans-serif;
+  font-weight: normal;
+}
+ h5 :hover{
+  cursor: pointer;
+  
+ }
 
   .container {
     display: flex;
@@ -53,13 +37,24 @@
   .form-control{
     font-family: 'Roboto', sans-serif;    
   }
-  
+
   
   .results {
     flex: 1;
     padding: 10px;
     
   }
+
+  .radio-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .radio-container {
+    display: flex;
+    align-items: center;
+  }
+  
   
 
   
