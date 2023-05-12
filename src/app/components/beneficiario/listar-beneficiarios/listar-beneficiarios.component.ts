@@ -22,8 +22,14 @@ export class ListarBeneficiariosComponent {
   tokenId: any;
   role: any;
   dropdownValues = CategoriaValue.values;
-  categoria: string | undefined;
+  categoria: any = [];
   form: FormGroup;  
+  isSeguidosOpen = false;
+  isOrdenarOpen = false;
+  isDropdownOpen = false;
+  isNombreOpen = false;
+  isUbiOpen = false;
+  tipoOrden: any;  
   
   constructor( private _empresaService: EmpresaService,
     private _beneficiarioService: BeneficiarioService,
@@ -106,21 +112,52 @@ export class ListarBeneficiariosComponent {
     })
   }
 
+
+  onTipoOrdenChange(event: any) {
+    this.tipoOrden = event.target.id;
+    if (this.tipoOrden === "0") {      
+      const radioButtons = document.getElementsByName("orden");
+      for (let i = 0; i < radioButtons.length; i++) {
+        (radioButtons[i] as HTMLInputElement).checked = false;
+      }
+    }
+  }
+
   onDropdownChange(selectedValue: any) {
-    this.categoria = this.dropdownValues.find(value => value.id+"" === selectedValue?.target.value)?.name;    
+    const nombreSelected =this.dropdownValues.find(value => value.id+"" === selectedValue?.target.value)?.name;
+    if (selectedValue?.target.checked) {
+      console.log("hola")
+      this.categoria.push(nombreSelected?.toLowerCase());   
+    } else {
+      const index = this.categoria.indexOf(nombreSelected?.toLowerCase());
+      if (index > -1) {
+        this.categoria.splice(index, 1);
+      }
+    }    
   }
    
   applyFilter(event: Event) {
+
   var nombre =this.form.get('nombre')?.value;
   var ubi = this.form.get('ubi')?.value
-  var followed = this.form.get('empresasSeguidas')?.value
+  var followed = this.form.get('beneficiariosSeguidas')?.value
   this.beneficiariosFiltro = this.beneficiarios.filter((beneficiario : any) => 
   { 
     const categoriaE = beneficiario.categoria?.toLowerCase();
     const ubicacionE = beneficiario.direccion?.toLowerCase();
     const nombreE = beneficiario.nombre?.toLowerCase();
   
-    const categoriaValida = this.categoria ? categoriaE.includes(this.categoria.toLowerCase()) : true;
+    if(this.tipoOrden!=="0"){
+      this.beneficiarios.sort((a : any, b :any) => {
+        if (this.tipoOrden === "1") {
+          return a.nombre.toLowerCase().localeCompare(b.nombre.toLowerCase());
+        } else if(this.tipoOrden === "-1"){
+          return b.nombre.toLowerCase().localeCompare(a.nombre.toLowerCase());
+        }      
+      });    
+    }
+          
+    const categoriaValida = this.categoria!==undefined && this.categoria.length>0 ? this.categoria.includes(categoriaE) : true;
     const ubicacionValida = ubi ? ubicacionE.includes(ubi) : true;
     const nombreValido = nombre ? nombreE.includes(nombre) : true;
     const seguidosValido = followed ? this.seguidos.some((x: any) => x.nombre === beneficiario.nombre) : true;
@@ -128,6 +165,26 @@ export class ListarBeneficiariosComponent {
     return categoriaValida && ubicacionValida && nombreValido && seguidosValido;
   } );
   }
+
+  toggleSeguidos() {
+    this.isSeguidosOpen = !this.isSeguidosOpen;
+  }
+
+  toggleOrdenar() {
+    this.isOrdenarOpen = !this.isOrdenarOpen;
+  }
+ 
+ toggleDropdown() {
+   this.isDropdownOpen = !this.isDropdownOpen;
+ }
+ 
+ toggleNombre() {
+   this.isNombreOpen = !this.isNombreOpen;
+ }
+
+ toggleUbi() {
+   this.isUbiOpen = !this.isUbiOpen;
+ }
 
 
 }

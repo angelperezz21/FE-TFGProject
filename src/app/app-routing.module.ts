@@ -25,6 +25,8 @@ const routes: Routes = [
   {path:'ListaBeneficiarios', component: ListarBeneficiariosComponent},
   {path:'ListaEmpresas', component: ListarEmpresasComponent},
   {path:'ListaDonaciones', component: ListarDonacionesComponent},
+  {path:'ListaNecesidades', component: ListarNecesitaComponent},
+  {path:'ListaRecursos', component: ListarRecursosComponent},
   {path:'Explorar', component: ExplorarComponent},
   {path:'Beneficiario/:id', component: VerBeneficiarioComponent},
   {path:'Empresa/:id', component: VerEmpresaComponent},

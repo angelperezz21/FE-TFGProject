@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class BeneficiarioService {
 
   @Output() disparadorNotificaciones = new EventEmitter<any>();
+  @Output() disparador = new EventEmitter<any>();
   
   private myAppUrl = "https://localhost:44318/";
   private myApiUrl = 'api/Beneficiario'

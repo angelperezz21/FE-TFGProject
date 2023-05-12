@@ -18,7 +18,8 @@ export class ListarNecesitaComponent implements OnInit{
   helper = new JwtHelperService();
   logged=false;
   necesidades: any;
-  necesidadesSolicitados: any;
+  necesidadesSolicitados: any;  
+  tipoOrden!: string;
 
   constructor(private _serviceListarNecesidades: ListarNecesidadesService,
       private _necesitaService: NecesitaService ) {
@@ -26,7 +27,7 @@ export class ListarNecesitaComponent implements OnInit{
 
   ngOnInit(): void {
     this._serviceListarNecesidades.disparador.subscribe(data=>{
-      this.aplicarFiltros(data.nombre,data.cantidad,data.precio);
+      this.aplicarFiltros(data.nombre,parseInt(data.precioMin), parseInt(data.precioMax),data.cantidad,data.orden);
     })
     this.obtenerNecesidades();
 
@@ -86,17 +87,35 @@ export class ListarNecesitaComponent implements OnInit{
     })
   }
 
-  aplicarFiltros(nombre:string,cantidad:string,precio:string){
+  //nombre,precioMin,precioMax,cantidad,orden
+  aplicarFiltros(nombre:string,precioMin: number,precioMax:number, cantidad:string, orden:string){
+
+    this.tipoOrden = orden;
+
     this.necesidadFiltro = this.necesita.filter((necesita : any) => 
   { 
-    const precioR = necesita.precio.toString();
+    const precioR = parseInt(necesita.precio);    
     const cantidadR = necesita.cantidad.toString();
-    const nombreR = necesita.nombre?.toLowerCase();
+    const nombreR = necesita.nombre?.toLowerCase();    
+
+    if(this.tipoOrden!=="0"){
+      this.necesita.sort((a : any, b :any) => {
+        if (this.tipoOrden === "1") {
+          return a.nombre.toLowerCase().localeCompare(b.nombre.toLowerCase());
+        } else if(this.tipoOrden === "-1"){
+          return b.nombre.toLowerCase().localeCompare(a.nombre.toLowerCase());
+        }else if(this.tipoOrden === "2"){
+          return  parseInt(b.precio) - parseInt(a.precio);
+        }else if(this.tipoOrden === "-2"){
+          return  parseInt(a.precio) - parseInt(b.precio);
+        }
+      });    
+    }
 
     const nombreValido = nombre ? nombreR.includes(nombre) : true;
-    const cantidadValida = cantidad ? cantidadR === (cantidad) : true;
-    const precioValido = precio ? precioR === (precio) : true;
-  
+    const cantidadValida = cantidad ? cantidadR === (cantidad) : true;    
+    const precioValido = precioMin!==0 || precioMax!=10000 ? precioMin <= precioR && precioMax >=precioR : true;
+    
     return nombreValido && cantidadValida && precioValido;
   } );
   } 

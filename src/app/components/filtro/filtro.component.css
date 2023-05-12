@@ -1,0 +1,82 @@
+.dropdown {
+    display: none;
+  }
+  
+  .dropdown-open {
+    display: block;
+  }
+  h2{
+    font-weight: bold;
+  }
+  h5{
+    font-family: 'Oswald', sans-serif;
+    font-weight: normal;
+  }
+   h5 :hover{
+    cursor: pointer;
+    
+   }
+  
+    .container {
+      display: flex;
+    }
+    
+    .sidebar {
+      margin-top: 30px;
+      width: 250px;
+      justify-content: center;
+      align-items: center;
+      margin-right: 30px;
+      
+    }
+    .form-check-label {
+      margin-left: 10px;
+      font-family: 'Roboto', sans-serif;
+    }
+  
+    .form-control{
+      font-family: 'Roboto', sans-serif;    
+    }
+  
+    
+    .results {
+      flex: 1;
+      padding: 10px;
+      
+    }
+  
+    .radio-buttons {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .radio-container {
+      display: flex;
+      align-items: center;
+    }
+  
+    
+    .modern-button {
+      background-color: #ff8800;
+      color: #fff;
+      border: none;
+      padding: 5px 10px; 
+      width: 50%;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .modern-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .modern-button:active {
+      background-color: #666666;
+    }
+    
+    
+  
+    

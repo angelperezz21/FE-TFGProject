@@ -1,4 +1,6 @@
 <div class="container">
+  <app-explorar></app-explorar>
+<div class="results">
     <div class="row">
       <div class="col-md-6 mb-2" *ngFor="let recurso of recursosFiltro">
         <div class="card" id="{{ recurso.id }}">
@@ -21,5 +23,6 @@
         </div>        
       </div>
     </div>
+  </div>
   </div>
   

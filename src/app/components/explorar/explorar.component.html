@@ -1,30 +1,100 @@
-<div class="form-container">
+<div class="container">
+  <div class="sidebar">
     <form [formGroup]="form">
-
-      <div class="form-group">
-        <label for="nombre">Explora:</label>
-        <select class="select form-control"  id="categoria" (change)="onDropdownChange($event); applyFilter($event); ">          
-          <option  value="Recursos">Recursos</option>
-          <option   value="Necesidades">Necesidades</option>
-        </select>
+      <div>
+        <h5  (click)="toggleOrdenar()">Ordenar por
+          <svg *ngIf="!isOrdenarOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+          </svg>
+          <svg *ngIf="isOrdenarOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+          </svg>
+        </h5>
+        <div [class.dropdown-open]="isOrdenarOpen" class="dropdown"> 
+          <div class="form-group radio-buttons">
+            <div class="radio-container">
+              <input class="form-check-input" type="radio" id="1" name="orden" [value]="1" (change)="onTipoOrdenChange($event);  applyFilter($event); applyFilter($event); ">
+              <label class="form-check-label" [attr.for]="'orden-' + 1">Nombre A-Z</label>
+            </div>
+            <div class="radio-container">
+              <input class="form-check-input" type="radio" id="-1" name="orden" [value]="2" (change)="onTipoOrdenChange($event);  applyFilter($event); applyFilter($event);">
+              <label class="form-check-label" [attr.for]="'orden-' + 2">Nombre Z-A</label>
+            </div>
+            <div class="radio-container">
+              <input class="form-check-input" type="radio" id="2" name="orden" [value]="3" (change)="onTipoOrdenChange($event);  applyFilter($event); applyFilter($event);">
+              <label class="form-check-label" [attr.for]="'orden-' + 3">Precio más alto</label>
+            </div>
+            <div class="radio-container mb-2">
+              <input class="form-check-input" type="radio" id="-2" name="orden" [value]="4" (change)="onTipoOrdenChange($event);  applyFilter($event); applyFilter($event);">
+              <label class="form-check-label" [attr.for]="'orden-' + 4">Precio más bajo</label>
+            </div>
+            <button class="modern-button" id="0"(click)="onTipoOrdenChange($event); applyFilter($event); applyFilter($event);">Borrar filtro</button>
+          </div>          
+        </div>
+      </div>  
+      <hr>
+      <div *ngIf="route==='/ListaRecursos'">
+        <h5 (click)="toggleMetodo()">Método de entrega 
+          <svg *ngIf="!isMetodoOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+          </svg>
+          <svg *ngIf="isMetodoOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+          </svg>
+        </h5>
+        <div [class.dropdown-open]="isMetodoOpen" class="dropdown"> 
+          <div *ngFor="let entrega of dropdownValues" (change)="onMetodoChange($event); applyFilter($event); " class="form-group">
+            <input class="form-check-input" type="checkbox" id="{{entrega.id }}" name="entrega" [value]="entrega.id">
+            <label class="form-check-label" [attr.for]="'entrega-' + entrega.id">{{ entrega.name }}</label>
+          </div>
+        </div>
       </div>
+      <hr *ngIf="route==='/ListaRecursos'">
+      <div>        
+        <h5 (click)="togglePrecio()">Precio
+          <svg *ngIf="!isPrecioOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+          </svg>
+          <svg *ngIf="isPrecioOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+          </svg>
+        </h5>
+        <div [class.dropdown-open]="isPrecioOpen" class="dropdown">  
+          <input type="range" class="form-range" id="customRange1" min="0" [max]=rangoMax value="0" (change)="applyFilter($event);"> 
+          <p id="rangeValue1"></p>        
+          <input type="range" class="form-range" id="customRange2" [min]=rangoMin max="10000" value="10000" (change)="applyFilter($event);">
+          <p id="rangeValue2"></p>   
+          </div>          
+      </div>
+      <hr>
+      <div >
+        <h5  (click)="toggleNombre()">Nombre
+          <svg *ngIf="!isNombreOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+          </svg>
+          <svg *ngIf="isNombreOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+          </svg>
+        </h5>
+        <div [class.dropdown-open]="isNombreOpen" class="dropdown">  
+          <input class="form-control"  formControlName="nombre" (keyup)="applyFilter($event)" type="text" id="nombre">
+        </div> 
+      </div>
+      <hr>
+      <div>
+        <h5  (click)="toggleCantidad()">Cantidad
+          <svg *ngIf="!isCantidadOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+          </svg>
+          <svg *ngIf="isCantidadOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+          </svg>
+        </h5>
+        <div [class.dropdown-open]="isCantidadOpen" class="dropdown">  
+          <input class="form-control" formControlName="cantidad" (keyup)="applyFilter($event)" type="text" id="cantidad">
+        </div> 
+      </div>         
+    </form>    
+</div>
 
 
-      <div class="form-group">
-        <label for="nombre">Nombre:</label>
-        <input type="text" formControlName="nombre" (keyup)="applyFilter($event)" class="form-control" id="nombre" placeholder="Nombre">
-      </div>
-      <div class="form-group">
-        <label for="precio">Precio Unitario:</label>
-        <input type="text" formControlName="precio" (keyup)="applyFilter($event)" class="form-control" id="precio" placeholder="1€">
-      </div>
-      <div class="form-group">
-        <label for="cantidad">Cantidad:</label>
-        <input type="text" formControlName="cantidad" (keyup)="applyFilter($event)" class="form-control" id="cantidad" placeholder="Cantidad">
-      </div>
-
-    </form>
-  </div>
-  
-<app-listar-recursos *ngIf="categoria!=='Necesidades'"></app-listar-recursos>
-<app-listar-necesita *ngIf="categoria==='Necesidades'"></app-listar-necesita>

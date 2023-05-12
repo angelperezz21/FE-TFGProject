@@ -26,12 +26,7 @@ export class ListarEmpresasComponent implements OnInit {
   form: FormGroup;  
   rangoMin!: number;
   rangoMax!: number;
-  isSeguidosOpen = false;
-  isOrdenarOpen = false;
-  isDropdownOpen = false;
-  isNombreOpen = false;
-  isUbiOpen = false;
-  tipoOrden: any;
+  tipoOrden!: string;
 
   constructor( private _empresaService: EmpresaService,
     private _beneficiarioService: BeneficiarioService,
@@ -48,6 +43,9 @@ export class ListarEmpresasComponent implements OnInit {
     this.obtenerEmpresas();
     this.obtenerMisSeguidos();
 
+    this._empresaService.disparador.subscribe(data=>{
+      this.aplicarFiltros(data.nombre,data.ubi,data.followed,data.categoriaDisp,data.orden);
+    })
 
     // const range1 = document.getElementById("customRange1") as HTMLInputElement;
     // const range2 = document.getElementById("customRange2") as HTMLInputElement;
@@ -138,44 +136,36 @@ export class ListarEmpresasComponent implements OnInit {
   }
 
   obtenerEmpresas(){
-    this._empresaService.getListaEmpresas().subscribe(data=>{
+    this._empresaService.getListaEmpresas().subscribe(data=>{      
       this.empresas=data;
-      this.empresasFiltro = data;
-      
+      this.empresasFiltro = data;      
     })
   }
 
-  onTipoOrdenChange(event: any) {
-    this.tipoOrden = event.target.id;
-    console.log(this.tipoOrden)
-  }
 
-  onDropdownChange(selectedValue: any) {
-     
-    const nombreSelected =this.dropdownValues.find(value => value.id+"" === selectedValue?.target.value)?.name;
-    if (selectedValue?.target.checked) {
-      this.categoria.push(nombreSelected?.toLowerCase());   
-    } else {
-      const index = this.categoria.indexOf(nombreSelected?.toLowerCase());
-      if (index > -1) {
-        this.categoria.splice(index, 1);
-      }
-    }
-  }
+  aplicarFiltros(nombre:string,ubi:string,followed:string, categoriaD: any, orden:string){
+  
+    this.categoria =categoriaD
+    this.tipoOrden = orden;
+    console.log(this.tipoOrden!=="0")
 
-  applyFilter(event: Event) {
-  var nombre =this.form.get('nombre')?.value;
-  var ubi = this.form.get('ubi')?.value
-  var followed = this.form.get('empresasSeguidas')?.value
   this.empresasFiltro = this.empresas.filter((empresa : any) => 
   { 
     const categoriaE = empresa.categoria?.toLowerCase();
     const ubicacionE = empresa.direccion?.toLowerCase();
     const nombreE = empresa.nombre?.toLowerCase();
-    
-    // const orden = this.empresasFiltro.sort((a : any, b :any) => (a.nombre.toLowerCase() > b.nombre.toLowerCase()) ? -1 : 1);
-    
-    const categoriaValida = this.categoria ? categoriaE.includes(this.categoria) : true;
+
+    if(this.tipoOrden!=="0"){
+      this.empresas.sort((a : any, b :any) => {
+        if (this.tipoOrden === "1") {
+          return a.nombre.toLowerCase().localeCompare(b.nombre.toLowerCase());
+        } else if(this.tipoOrden === "-1"){
+          return b.nombre.toLowerCase().localeCompare(a.nombre.toLowerCase());
+        }      
+      });    
+    }
+
+    const categoriaValida = this.categoria!==undefined && this.categoria.length>0 ? this.categoria.includes(categoriaE) : true;
     const ubicacionValida = ubi ? ubicacionE.includes(ubi) : true;
     const nombreValido = nombre ? nombreE.includes(nombre) : true;
     const seguidosValido = followed ? this.seguidos.some((x: any) => x.nombre === empresa.nombre) : true;
@@ -185,25 +175,6 @@ export class ListarEmpresasComponent implements OnInit {
   }
 
 
-   toggleSeguidos() {
-     this.isSeguidosOpen = !this.isSeguidosOpen;
-   }
-
-   toggleOrdenar() {
-     this.isOrdenarOpen = !this.isOrdenarOpen;
-   }
-  
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  }
-  
-  toggleNombre() {
-    this.isNombreOpen = !this.isNombreOpen;
-  }
-
-  toggleUbi() {
-    this.isUbiOpen = !this.isUbiOpen;
-  }
   
   
 }

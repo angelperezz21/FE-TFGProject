@@ -18,6 +18,8 @@ export class ListarRecursosComponent implements OnInit{
   id: any;
   role: any;
   logged = false;
+  metodos: any = [];
+  tipoOrden!: string;
 /**
  *
  */
@@ -26,8 +28,9 @@ export class ListarRecursosComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this._serviceListarRecursos.disparador.subscribe(data=>{
-      this.aplicarFiltros(data.nombre,data.cantidad,data.precio);
+    this._serviceListarRecursos.disparador.subscribe(data=>{      
+      console.log(data.precioMin)
+      this.aplicarFiltros(data.nombre,parseInt(data.precioMin), parseInt(data.precioMax),data.cantidad,data.metodo,data.orden);
     })
     this.obtenerRecursos();
     const token = localStorage.getItem('token');
@@ -86,18 +89,42 @@ export class ListarRecursosComponent implements OnInit{
     })
   }
 
-  aplicarFiltros(nombre:string,cantidad:string,precio:string){
+  //nombre,precioMin,precioMax,cantidad,metodo,orden
+
+  aplicarFiltros(nombre:string,precioMin: number,precioMax:number, cantidad:string,metodo:any, orden:string){
+
+    this.metodos = metodo;
+    this.tipoOrden = orden;
     this.recursosFiltro = this.recursos.filter((recurso : any) => 
   { 
-    const precioR = recurso.precio.toString();
+    const precioR = parseInt(recurso.precio);    
     const cantidadR = recurso.cantidad.toString();
     const nombreR = recurso.nombre?.toLowerCase();
+    const metodoR = recurso.metodoEntrega?.toLowerCase();
+
+    if(this.tipoOrden!=="0"){
+      this.recursos.sort((a : any, b :any) => {
+        if (this.tipoOrden === "1") {
+          return a.nombre.toLowerCase().localeCompare(b.nombre.toLowerCase());
+        } else if(this.tipoOrden === "-1"){
+          return b.nombre.toLowerCase().localeCompare(a.nombre.toLowerCase());
+        }else if(this.tipoOrden === "2"){
+          return  parseInt(b.precio) - parseInt(a.precio);
+        }else if(this.tipoOrden === "-2"){
+          return  parseInt(a.precio) - parseInt(b.precio);
+        }
+      });    
+    }
+
+    console.log(metodoR)
+    console.log(this.metodos)
 
     const nombreValido = nombre ? nombreR.includes(nombre) : true;
     const cantidadValida = cantidad ? cantidadR === (cantidad) : true;
-    const precioValido = precio ? precioR === (precio) : true;
-  
-    return nombreValido && cantidadValida && precioValido;
+    const metodoValido = this.metodos!==undefined && this.metodos.length>0 ? this.metodos.includes(metodoR) : true;
+    const precioValido = precioMin!==0 || precioMax!=10000 ? precioMin <= precioR && precioMax >=precioR : true;
+
+    return nombreValido && cantidadValida && metodoValido && precioValido;
   } );
   } 
 }
