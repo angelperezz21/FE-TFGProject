@@ -47,13 +47,11 @@ export class LoginComponent {
     this.isModalOpen = false;
     if(this.tipoUsuario === "empresa"){
       this._empresaService.contrasenyaEmpresa(this.form.get('email')?.value).subscribe(data=>{
-        console.log(data)
         this.toastr.success("Contraseña enviada con éxito")
       })
     }
     if(this.tipoUsuario==='beneficiario'){      
     this._empresaService.contrasenyaEmpresa(this.form.get('email')?.value).subscribe(data=>{
-      console.log(data)
       this.toastr.success("Contraseña enviada con éxito")
     })
     }

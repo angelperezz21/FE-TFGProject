@@ -1,27 +1,20 @@
 <div class="container">
   <app-explorar></app-explorar>
-        <div class="results">
-          <div class="row">
-            <div class="col-md-6 mb-2" *ngFor="let necesidad of necesidadFiltro">
-              <div class="card" id="{{ necesidad.id }}">
-                <div class="row g-0">
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h4 class="">{{ necesidad.nombre }}</h4>
-                      <p class="card-text">{{ necesidad.cantidad }}</p>
-                      <p class="card-text">{{ necesidad.precio }}</p>              
-                      <div class="d-flex ">
-                        <p class="card-text">{{ necesidad.descripcion }}</p>
-                        <button  class="btn btn-success ms-auto" (click)="necesidadSolicitado(necesidad) ? null : solicitarNecesidad(necesidad.id) "
-                          [disabled]="necesidadSolicitado(necesidad)" *ngIf="logged && role === 'Empresa'">
-                            {{necesidadSolicitado(necesidad) ? 'Solicitado' : 'Solicitar'}}
-                          </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class="results">
+    <div class="card-row">
+      <div class="card-wrapper" *ngFor="let necesidad of necesidadFiltro">
+        <div class="card mb-3">
+          <img [src]="necesidad.imgUrl ? 'https://localhost:44318/' + necesidad.imgUrl : 'https://localhost:44318/publicaciones/foto.jpg'">
+          <h3>{{necesidad.nombre}}</h3>
+          <p>Cantidad: {{necesidad.cantidad}}</p>
+          <p>Precio unitario: {{necesidad.precio}} €</p>                
+          <p class="mb-3" style="font-weight: bold;">Publicado hace {{tiempo(necesidad.fechaCreacionNecesidad)}}</p>
+          <a class="card-button" (click)="necesidadSolicitado(necesidad) ? null : solicitarNecesidad(necesidad.id) "
+          [ngClass]="{'boton-solicitado': necesidadSolicitado(necesidad)}"             
+           *ngIf="role === 'Empresa'">
+           {{necesidadSolicitado(necesidad) ? 'Solicitado' : 'Solicitar'}}</a>
         </div>
+      </div>
+    </div>    
+  </div>      
 </div>

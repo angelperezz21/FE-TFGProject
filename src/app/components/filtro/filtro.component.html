@@ -43,14 +43,6 @@
           </div>
         </div>
         <hr>
-        <!-- <div>        
-          <h5>Precio:</h5> 
-          <input type="range" class="form-range" id="customRange1" min="0" [max]=rangoMax value="0">
-          <p id="rangeValue1"></p>        
-          <input type="range" class="form-range" id="customRange2" [min]=rangoMin max="10000" value="10000">
-          <p id="rangeValue2"></p>    
-        </div>
-        <hr> -->
         <div >
           <h5  (click)="toggleNombre()">Nombre
             <svg *ngIf="!isNombreOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
@@ -95,7 +87,8 @@
                 <label class="form-check-label" [attr.for]="'seguidos-' + 1">Solo seguidos</label>
               </div>
             </div>          
-          </div> 
+          </div>
+          <button class="modern-button" style="margin-top:1rem;" id="0"(click)="borrarFiltros($event); applyFilter($event); applyFilter($event);">Borrar filtros</button> 
         </div>       
       </form>
     </div>

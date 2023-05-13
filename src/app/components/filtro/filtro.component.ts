@@ -77,7 +77,24 @@ export class FiltroComponent implements OnInit{
       }
     }
   }
-  
+
+  borrarFiltros(event: any) {    
+
+      const radioButtons = document.getElementsByName("orden");
+      for (let i = 0; i < radioButtons.length; i++) {
+        (radioButtons[i] as HTMLInputElement).checked = false;
+      }
+      const checkBox =  document.getElementsByName("categoria");
+      for (let i = 0; i < checkBox.length; i++) {
+        (checkBox[i] as HTMLInputElement).checked = false;
+      }
+      const seguidos =  document.getElementsByName("seguidos");
+      for (let i = 0; i < seguidos.length; i++) {
+        (seguidos[i] as HTMLInputElement).checked = false;
+      }
+      this.form.reset();
+  }
+  //
   checkUser(): boolean{
     return this.route.includes(this.role)
   }

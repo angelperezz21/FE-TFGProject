@@ -27,6 +27,7 @@ export class ListarEmpresasComponent implements OnInit {
   rangoMin!: number;
   rangoMax!: number;
   tipoOrden!: string;
+ 
 
   constructor( private _empresaService: EmpresaService,
     private _beneficiarioService: BeneficiarioService,
@@ -37,6 +38,7 @@ export class ListarEmpresasComponent implements OnInit {
         empresasSeguidas: ['', ],
         ubi: ['',],
       })
+
    }  
 
   ngOnInit(): void {
@@ -46,38 +48,6 @@ export class ListarEmpresasComponent implements OnInit {
     this._empresaService.disparador.subscribe(data=>{
       this.aplicarFiltros(data.nombre,data.ubi,data.followed,data.categoriaDisp,data.orden);
     })
-
-    // const range1 = document.getElementById("customRange1") as HTMLInputElement;
-    // const range2 = document.getElementById("customRange2") as HTMLInputElement;
-    // const rangeValue1 = document.getElementById("rangeValue1") as HTMLParagraphElement;
-    // const rangeValue2 = document.getElementById("rangeValue2") as HTMLParagraphElement;
-        
-    // let rangoMin = 0; // establecer el valor mínimo del segundo rango
-    
-    // // función que se ejecuta cuando se cambia el valor de los rangos
-    // function setRanges() {
-    //   const minRange1 = parseFloat(range1.value);
-    //   const maxRange2 = parseFloat(range2.value);
-    
-    //   // actualiza el valor mínimo del segundo rango
-    //   range2.min = minRange1.toString();
-    //   rangoMin = minRange1;
-    
-    //   // actualiza el valor máximo del primer rango
-    //   range1.max = maxRange2.toString();
-    
-    //   // muestra el valor actual de cada rango en los elementos p correspondientes
-    //   rangeValue1.textContent = `Valor: ${range1.value}`;
-    //   rangeValue2.textContent = `Valor: ${range2.value}`;
-    // }
-    
-    // range1.addEventListener("input", setRanges);
-    // range2.addEventListener("input", setRanges);
-    
-    // // muestra los valores iniciales de los rangos en los elementos p correspondientes
-    // rangeValue1.textContent = `Min: ${range1.value} €` ;
-    // rangeValue2.textContent = `Max: ${range2.value} €`;
-    
 
   }
 
@@ -147,7 +117,6 @@ export class ListarEmpresasComponent implements OnInit {
   
     this.categoria =categoriaD
     this.tipoOrden = orden;
-    console.log(this.tipoOrden!=="0")
 
   this.empresasFiltro = this.empresas.filter((empresa : any) => 
   { 
@@ -173,8 +142,10 @@ export class ListarEmpresasComponent implements OnInit {
     return  categoriaValida && ubicacionValida && nombreValido && seguidosValido;
   } );
   }
+  
+  enviarEmpresa(empresaId: number){
+    window.location.href="/Empresa/" + empresaId;
+  }
 
 
-  
-  
 }

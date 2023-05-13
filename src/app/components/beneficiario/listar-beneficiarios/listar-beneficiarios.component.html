@@ -1,137 +1,30 @@
 
-
-   <!-- <div class="container">
-    <div class="sidebar">
-      <form [formGroup]="form">
-        <div>
-          <h5  (click)="toggleOrdenar()">Ordenar por
-            <svg *ngIf="!isOrdenarOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-            </svg>
-            <svg *ngIf="isOrdenarOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-            </svg>
-          </h5>
-          <div [class.dropdown-open]="isOrdenarOpen" class="dropdown"> 
-            <div class="form-group radio-buttons">
-              <div class="radio-container">
-                <input class="form-check-input" type="radio" id="1" name="orden" [value]="1" (change)="onTipoOrdenChange($event);  applyFilter($event); applyFilter($event); ">
-                <label class="form-check-label" [attr.for]="'orden-' + 1">Nombre A-Z</label>
-              </div>
-              <div class="radio-container mb-2">
-                <input class="form-check-input" type="radio" id="-1" name="orden" [value]="2" (change)="onTipoOrdenChange($event);  applyFilter($event); applyFilter($event);">
-                <label class="form-check-label" [attr.for]="'orden-' + 2">Nombre Z-A</label>
-              </div>
-              <button class="modern-button" id="0"(click)="onTipoOrdenChange($event); applyFilter($event); applyFilter($event);">Borrar filtro</button>
-            </div>          
-          </div>
-        </div>  
-        <hr>
-        <div>
-          <h5 (click)="toggleDropdown()">Categorías 
-            <svg *ngIf="!isDropdownOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-            </svg>
-            <svg *ngIf="isDropdownOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-            </svg>
-  
-          </h5>
-          <div [class.dropdown-open]="isDropdownOpen" class="dropdown"> 
-            <div *ngFor="let categoria of dropdownValues" (change)="onDropdownChange($event); applyFilter($event); " class="form-group">
-              <input class="form-check-input" type="checkbox" id="{{categoria.id }}" name="categoria" [value]="categoria.id">
-              <label class="form-check-label" [attr.for]="'categoria-' + categoria.id">{{ categoria.name }}</label>
-            </div>
-          </div>
-        </div>
-        <hr> -->
-        <!-- <div>        
-          <h5>Precio:</h5> 
-          <input type="range" class="form-range" id="customRange1" min="0" [max]=rangoMax value="0">
-          <p id="rangeValue1"></p>        
-          <input type="range" class="form-range" id="customRange2" [min]=rangoMin max="10000" value="10000">
-          <p id="rangeValue2"></p>    
-        </div>
-        <hr> -->
-        <!-- <div >
-          <h5  (click)="toggleNombre()">Nombre
-            <svg *ngIf="!isNombreOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-            </svg>
-            <svg *ngIf="isNombreOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-            </svg>
-          </h5>
-          <div [class.dropdown-open]="isNombreOpen" class="dropdown">  
-            <input class="form-control"  formControlName="nombre" (keyup)="applyFilter($event)" type="text" id="nombre">
-          </div> 
-        </div>
-        <hr>
-        <div>
-          <h5  (click)="toggleUbi()">Ubicación
-            <svg *ngIf="!isUbiOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-            </svg>
-            <svg *ngIf="isUbiOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-            </svg>
-          </h5>
-          <div [class.dropdown-open]="isUbiOpen" class="dropdown">  
-            <input class="form-control" formControlName="ubi" (keyup)="applyFilter($event)" type="text" id="ubicación">
-          </div> 
-        </div>    
-        <hr *ngIf="logged && role === 'Empresa'">
-        <div>
-          <h5  (click)="toggleSeguidos()" *ngIf="logged && role === 'Empresa'">Seguidos
-            <svg *ngIf="!isSeguidosOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-            </svg>
-            <svg *ngIf="isSeguidosOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
-            </svg>
-          </h5>
-          <div [class.dropdown-open]="isSeguidosOpen" class="dropdown"> 
-            <div class="form-group radio-buttons">
-              <div class="radio-container">
-                <input class="form-check-input" type="checkbox" id="1" name="seguidos" [value]="1" formControlName="beneficiariosSeguidas"  (change)=" applyFilter($event);" >
-                <label class="form-check-label" [attr.for]="'seguidos-' + 1">Solo seguidos</label>
-              </div>
-            </div>          
-          </div> 
-        </div>       
-      </form>
-    </div> -->
-
 <div class="container">
   <app-filtro></app-filtro>
   <div class="results">
-    <div class="row">
-      <div class="col-md-6 mb-2" *ngFor="let beneficiario of beneficiariosFiltro">
-        <div class="card" id="{{ beneficiario.id }}">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img [src]="beneficiario.imgUrl ? 'https://localhost:44318/' + beneficiario.imgUrl : 'https://localhost:44318/uploads/user.png'" class="card-img-top float-start" alt="Tu Foto">       
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h4 class="">{{ beneficiario.nombre }}</h4>
-                <p class="card-text">{{ beneficiario.descripcion }}</p>
-                <p class="card-text">{{ beneficiario.categoria }}</p>
-                <p class="card-text">{{ beneficiario.direccion }}</p>
-                <a class="card-text" href="{{beneficiario.web}}">{{ beneficiario.web }}</a>
-                <div class="d-flex justify-content-between align-items-center">
-                  <a href="/Beneficiario/{{beneficiario.id}}" class="btn btn-primary mt-2">Más info...</a>
-                  <a *ngIf="logged && role === 'Empresa'" class="btn btn-success" 
-                    (click)="beneficiarioSeguido(beneficiario) ? dejarSeguir(beneficiario.id) : seguir(beneficiario.id)">
-                    {{ (beneficiarioSeguido(beneficiario)) ? 'Dejar de seguir' : 'Seguir' }}
-                  </a>         
-                </div>
-              </div>
-            </div>
-          </div>
+    <div class="courses-container" >
+      <div class="course" *ngFor="let beneficiario of beneficiariosFiltro">
+        <div class="course-preview">
+          <img [src]="beneficiario.imgUrl ? 'https://localhost:44318/' + beneficiario.imgUrl : 'https://localhost:44318/uploads/user.png'" class="card-img-top float-start" style="padding:1rem;object-fit: cover;width: 200px; height: 200px;" alt="Tu Foto">            
         </div>
-      </div>
+        
+        <div class="course-info">
+          <h4 class="">{{ beneficiario.nombre }}</h4>
+              <span class="d-block" style="margin-top: 5px;">{{ beneficiario.categoria }}</span>
+              <span class="d-block" style="margin-top: 5px; margin-bottom: 5px;">{{ beneficiario.direccion }}</span>
+              <a class=""  style="margin-top: 5px;" href="{{beneficiario.web}}">   {{ beneficiario.web }} </a>                                    
+        </div>
+        
+        <div class="coursebuttons" >
+          <button (click)="enviarBeneficiario(beneficiario.id)"  class="perfil-button" >Ver perfil</button>
+          <button  *ngIf="logged && role === 'Empresa'" class="seguir-button"
+            (click)="beneficiarioSeguido(beneficiario) ? dejarSeguir(beneficiario.id) : seguir(beneficiario.id)">
+            {{ (beneficiarioSeguido(beneficiario)) ? 'Dejar de seguir' : 'Seguir' }}
+          </button>   
+        </div>            
+      </div>        
     </div>
   </div>
+  
   
   

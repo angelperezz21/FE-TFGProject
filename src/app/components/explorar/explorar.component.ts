@@ -93,10 +93,22 @@ export class ExplorarComponent implements OnInit{
     rangeValue2.textContent = `Max: ${range2.value} €`;
   }
 
-  ngDoCheck() {
+  borrarFiltros(event: any) {    
 
-  
-  }
+    const radioButtons = document.getElementsByName("orden");
+    for (let i = 0; i < radioButtons.length; i++) {
+      (radioButtons[i] as HTMLInputElement).checked = false;
+    }
+    const checkBox =  document.getElementsByName("entrega");
+    for (let i = 0; i < checkBox.length; i++) {
+      (checkBox[i] as HTMLInputElement).checked = false;
+    }
+    const precio =  document.getElementsByName("precio");
+    for (let i = 0; i < precio.length; i++) {
+      (precio[i] as HTMLInputElement).value = "0";
+    }
+    this.form.reset();
+}
 
   onTipoOrdenChange(event: any) {
     this.tipoOrden = event.target.id;

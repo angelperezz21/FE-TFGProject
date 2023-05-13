@@ -60,6 +60,20 @@ export class ListarNecesitaComponent implements OnInit{
     this.logged = token !== "";
   }
 
+  tiempo(fecha: Date): string{
+    var diferenciaMs = new Date().getTime() - new Date(fecha).getTime();
+    var diferencia = Math.floor(diferenciaMs / (1000 * 60)) + " minutos" ;
+    const minutos = Math.floor(diferenciaMs / (1000 * 60));
+    if(minutos>60) {      
+      const horas = Math.floor(minutos / 60);
+      diferencia = horas + " horas";
+      if(horas>24){
+        diferencia = Math.floor(horas / 24) + " días";
+      }
+    }
+    return diferencia;
+  }
+
   obtenerNecesidades(){
     this._necesitaService.getListNecesidades().subscribe(data=>{
       this.necesita=data;

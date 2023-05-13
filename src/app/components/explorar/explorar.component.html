@@ -60,9 +60,9 @@
           </svg>
         </h5>
         <div [class.dropdown-open]="isPrecioOpen" class="dropdown">  
-          <input type="range" class="form-range" id="customRange1" min="0" [max]=rangoMax value="0" (change)="applyFilter($event);"> 
+          <input type="range" class="form-range" id="customRange1" name="rango" min="0" [max]=rangoMax value="0" (change)="applyFilter($event);"> 
           <p id="rangeValue1"></p>        
-          <input type="range" class="form-range" id="customRange2" [min]=rangoMin max="10000" value="10000" (change)="applyFilter($event);">
+          <input type="range" class="form-range" id="customRange2" name="rango"[min]=rangoMin max="10000" value="10000" (change)="applyFilter($event);">
           <p id="rangeValue2"></p>   
           </div>          
       </div>
@@ -93,7 +93,8 @@
         <div [class.dropdown-open]="isCantidadOpen" class="dropdown">  
           <input class="form-control" formControlName="cantidad" (keyup)="applyFilter($event)" type="text" id="cantidad">
         </div> 
-      </div>         
+      </div>   
+      <button class="modern-button" style="margin-top:1rem;" id="0"(click)="borrarFiltros($event); applyFilter($event); applyFilter($event);">Borrar filtros</button>       
     </form>    
 </div>
 

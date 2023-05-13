@@ -24,11 +24,6 @@ export class ListarBeneficiariosComponent {
   dropdownValues = CategoriaValue.values;
   categoria: any = [];
   form: FormGroup;  
-  isSeguidosOpen = false;
-  isOrdenarOpen = false;
-  isDropdownOpen = false;
-  isNombreOpen = false;
-  isUbiOpen = false;
   tipoOrden: any;  
   
   constructor( private _empresaService: EmpresaService,
@@ -113,28 +108,6 @@ export class ListarBeneficiariosComponent {
   }
 
 
-  onTipoOrdenChange(event: any) {
-    this.tipoOrden = event.target.id;
-    if (this.tipoOrden === "0") {      
-      const radioButtons = document.getElementsByName("orden");
-      for (let i = 0; i < radioButtons.length; i++) {
-        (radioButtons[i] as HTMLInputElement).checked = false;
-      }
-    }
-  }
-
-  onDropdownChange(selectedValue: any) {
-    const nombreSelected =this.dropdownValues.find(value => value.id+"" === selectedValue?.target.value)?.name;
-    if (selectedValue?.target.checked) {
-      console.log("hola")
-      this.categoria.push(nombreSelected?.toLowerCase());   
-    } else {
-      const index = this.categoria.indexOf(nombreSelected?.toLowerCase());
-      if (index > -1) {
-        this.categoria.splice(index, 1);
-      }
-    }    
-  }
    
   applyFilter(event: Event) {
 
@@ -166,25 +139,11 @@ export class ListarBeneficiariosComponent {
   } );
   }
 
-  toggleSeguidos() {
-    this.isSeguidosOpen = !this.isSeguidosOpen;
+  
+  enviarBeneficiario(beneficiarioId: number){
+    window.location.href="/Beneficiario/" + beneficiarioId;
   }
 
-  toggleOrdenar() {
-    this.isOrdenarOpen = !this.isOrdenarOpen;
-  }
- 
- toggleDropdown() {
-   this.isDropdownOpen = !this.isDropdownOpen;
- }
- 
- toggleNombre() {
-   this.isNombreOpen = !this.isNombreOpen;
- }
-
- toggleUbi() {
-   this.isUbiOpen = !this.isUbiOpen;
- }
 
 
 }

@@ -67,6 +67,20 @@ export class ListarRecursosComponent implements OnInit{
     })
   }
 
+  tiempo(fecha: Date): string{
+    var diferenciaMs = new Date().getTime() - new Date(fecha).getTime();
+    var diferencia = Math.floor(diferenciaMs / (1000 * 60)) + " minutos" ;
+    const minutos = Math.floor(diferenciaMs / (1000 * 60));
+    if(minutos>60) {      
+      const horas = Math.floor(minutos / 60);
+      diferencia = horas + " horas";
+      if(horas>24){
+        diferencia = Math.floor(horas / 24) + " días";
+      }
+    }
+    return diferencia;
+  }
+
   recursoSolicitado(recurso: any): boolean {        
     return this.recursosSolicitados.some((x: any) => x.id === recurso.id);    
   }
@@ -95,13 +109,14 @@ export class ListarRecursosComponent implements OnInit{
 
     this.metodos = metodo;
     this.tipoOrden = orden;
+    console.log("adios")
     this.recursosFiltro = this.recursos.filter((recurso : any) => 
   { 
     const precioR = parseInt(recurso.precio);    
     const cantidadR = recurso.cantidad.toString();
     const nombreR = recurso.nombre?.toLowerCase();
     const metodoR = recurso.metodoEntrega?.toLowerCase();
-
+    console.log("hola")
     if(this.tipoOrden!=="0"){
       this.recursos.sort((a : any, b :any) => {
         if (this.tipoOrden === "1") {
@@ -116,13 +131,12 @@ export class ListarRecursosComponent implements OnInit{
       });    
     }
 
-    console.log(metodoR)
-    console.log(this.metodos)
-
+    console.log("hola2")
     const nombreValido = nombre ? nombreR.includes(nombre) : true;
     const cantidadValida = cantidad ? cantidadR === (cantidad) : true;
     const metodoValido = this.metodos!==undefined && this.metodos.length>0 ? this.metodos.includes(metodoR) : true;
     const precioValido = precioMin!==0 || precioMax!=10000 ? precioMin <= precioR && precioMax >=precioR : true;
+    console.log("hola3")
 
     return nombreValido && cantidadValida && metodoValido && precioValido;
   } );

@@ -51,7 +51,7 @@ export class PantallaInicialComponent implements OnInit {
       }
     }
     
-    this.busqueda='/Explorar'    
+    this.busqueda='/ListaRecursos'    
     this._donacion.getTotalDonaciones().subscribe(data=>{
       this.donaciones=data;
     })

@@ -78,7 +78,7 @@
   text-decoration: none;
   background-color: #0037a4;
   color: #fff;
-  cursor: pointer;
+  cursor: pointer;  
 }
 
 .card-row::-webkit-scrollbar {

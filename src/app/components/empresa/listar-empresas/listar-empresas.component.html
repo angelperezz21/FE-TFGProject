@@ -1,33 +1,35 @@
-<div class="container">
-  <app-filtro></app-filtro>
-
-  <div class="results">
-    <div class="row">
-      <div class="col-md-6 mb-2" *ngFor="let empresa of empresasFiltro">
-        <div class="card" id="{{ empresa.id }}">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img [src]="empresa.imgUrl ? 'https://localhost:44318/' + empresa.imgUrl : 'https://localhost:44318/uploads/user.png'" class="card-img-top float-start" alt="Tu Foto">            
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h4 class="">{{ empresa.nombre }}</h4>
-                <p class="card-text">{{ empresa.descripcion }}</p>
-                <p class="card-text">{{ empresa.categoria }}</p>
-                <p class="card-text">{{ empresa.direccion }}</p>
-                <a class="card-text" href="{{empresa.web}}">{{ empresa.web }}</a>
-                <div class="d-flex justify-content-between align-items-center">
-                  <a href="/Empresa/{{empresa.id}}" class="btn btn-primary mt-2">Más info...</a>
-                  <a *ngIf="logged && role === 'Beneficiario'" class="btn btn-success" 
-                    (click)="empresaSeguida(empresa) ? dejarSeguir(empresa.id) : seguir(empresa.id)">
-                    {{ (empresaSeguida(empresa)) ? 'Dejar de seguir' : 'Seguir' }}
-                  </a>         
-                </div>
-              </div>
-            </div>
+<div class="container " >
+  <app-filtro class="filters" ></app-filtro>
+    <div class="results">
+      <div class="courses-container" >
+        <div class="course" *ngFor="let empresa of empresasFiltro">
+          <div class="course-preview">
+            <img [src]="empresa.imgUrl ? 'https://localhost:44318/' + empresa.imgUrl : 'https://localhost:44318/uploads/user.png'" class="card-img-top float-start" style="padding:1rem;object-fit: cover;width: 200px; height: 200px;" alt="Tu Foto">            
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
+          
+          <div class="course-info">
+            <h4 class="">{{ empresa.nombre }}</h4>
+                <span class="d-block" style="margin-top: 5px;">{{ empresa.categoria }}</span>
+                <span class="d-block" style="margin-top: 5px; margin-bottom: 5px;">{{ empresa.direccion }}</span>
+                <a class=""  style="margin-top: 5px;" href="{{empresa.web}}">   {{ empresa.web }} </a>                                    
+          </div>
+          
+          <div class="coursebuttons" >
+              <button (click)="enviarEmpresa(empresa.id)" class="perfil-button" >Ver perfil</button>
+              <button *ngIf="logged && role === 'Beneficiario'" class="seguir-button" 
+                        (click)="empresaSeguida(empresa) ? dejarSeguir(empresa.id) : seguir(empresa.id)">
+                        {{ (empresaSeguida(empresa)) ? 'Dejar de seguir' : 'Seguir' }}
+              </button>
+          </div>            
+        </div>        
+      </div>      
+    </div>  
 </div>
+
+
+
+
+
+
+
+
