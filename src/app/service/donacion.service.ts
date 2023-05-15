@@ -24,4 +24,13 @@ export class DonacionService {
   getTotalDonaciones():Observable <any>{
     return this.http.get(this.myAppUrl + this.myApiUrl + '/donacionesTotales')
   }
+
+  envioDonacion(idDonacion: number, httpOptions: any): Observable<any>{    
+    return this.http.put(this.myAppUrl + this.myApiUrl + '/envioDonacion/' + `${idDonacion}`,idDonacion ,httpOptions);
+  }
+
+  recibirDonacion(idDonacion: number, httpOptions: any): Observable<any>{    
+    return this.http.put(this.myAppUrl + this.myApiUrl + '/recibirDonacion/' + `${idDonacion}`, idDonacion,httpOptions);
+  }
+
 }

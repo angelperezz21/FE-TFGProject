@@ -40,6 +40,7 @@ export class VerPerfilComponent implements OnInit {
       web: ['', [Validators.required, Validators.pattern('^(http(s)?:\/\/)?([w]{3}\.)?[a-zA-Z0-9]+\.[a-zA-Z]+(\/[a-zA-Z0-9#]+\/?)*$')]],
       descripcion: ['', ],
       categoria: ['', Validators.required],
+      cif: ['', Validators.required],
       foto: ['', Validators.required]
     })
 
@@ -95,6 +96,7 @@ export class VerPerfilComponent implements OnInit {
       telefono: this.usuario.telefono,
       ubi: this.usuario.direccion,
       web: this.usuario.web,
+      cif: this.usuario.cif,
       categoria: new FormControl(this.categoriaUser),
       descripcion: this.usuario.descripcion ,
       foto: this.usuario.imgUrl
@@ -107,6 +109,7 @@ export class VerPerfilComponent implements OnInit {
     if (this.formEnabled) {
       this.form.enable();
       this.form.get('email').disable();               
+      this.form.get('cif').disable();               
     } else {
       this.form.disable();      
       this.categoriaUser=this.usuario.categoria;
@@ -117,6 +120,7 @@ export class VerPerfilComponent implements OnInit {
         telefono: this.usuario.telefono,
         ubi: this.usuario.direccion,
         web: this.usuario.web,
+        cif: this.usuario.cif,
         categoria: new FormControl(this.categoriaUser),
         descripcion: this.usuario.descripcion,
         foto: this.usuario.imgUrl
@@ -161,6 +165,7 @@ export class VerPerfilComponent implements OnInit {
       Direccion: this.form.get('ubi')?.value,
       Web: this.form.get('web')?.value,
       Categoria: this.categoriaUser,
+      CIF: this.usuario.cif,
       Contacto: this.form.get('email')?.value,
       Descripcion: this.form.get('descripcion')?.value,    
       imgUrl: this.path

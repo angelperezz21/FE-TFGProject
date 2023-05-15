@@ -1,1 +1,47 @@
-<p>listar-donaciones works!</p>
+<h1 *ngIf="donacionesPendientes.length!==0">Donaciones pendientes</h1>
+<div class="container">
+    <div class="results">        
+        <div class="card-row">
+        <div class="card-wrapper" *ngFor="let donacion of donacionesPendientes">
+            <div class="card mb-3">          
+            <h3>{{donacion.nombreRecurso}}</h3>
+            <p>Empresa: {{donacion.empresa.nombre}}</p>
+            <p class="mb-2">ONG: {{donacion.beneficiario.nombre}}</p>            
+            <a class="card-button" 
+                (click)="clickBoton(donacion.id)"                
+                [ngClass]="{'disabled': (role === 'Beneficiario' && (donacion.recibida || !donacion.enviada)) || (role === 'Empresa' && donacion.enviada)}">
+                {{ role === 'Beneficiario' && donacion.enviada ? 'Confirmar recepción' : (role === 'Empresa' && !donacion.enviada ? 'Disponible para enviar' : (role === 'Beneficiario' ? 'Esperando envío' : 'Enviado')) }}
+            </a>
+
+            </div>
+        </div>
+        </div>    
+    </div>
+    
+</div>
+
+<h1 *ngIf="donaciones.length!==0">Donaciones realizadas</h1>
+<div class="container">    
+    <div class="results">
+        <div class="card-row">
+        <div class="card-wrapper" *ngFor="let donacion of donaciones">
+            <div class="card mb-3">          
+            <h3>{{donacion.nombreRecurso}}</h3>
+            <p>Cantidad: {{donacion.cantidad}}</p>
+            <p>Valor: {{donacion.valorTotal}} €</p>
+            <p>Método entrega: {{donacion.metodoEntrega}}</p>
+            <p>Empresa: {{donacion.empresa.nombre}}</p>
+            <p class="mb-1">ONG: {{donacion.beneficiario.nombre}}</p>   
+            
+            <a *ngIf="role ==='Empresa'"class="mb-2" (click)="verCertificado(donacion.id)">Ver Certificado</a>
+            </div>
+        </div>
+        </div>    
+    </div>
+</div>
+
+<div class="container">
+    <div class="results">
+        <h1 *ngIf="donaciones.length===0 && donacionesPendientes.length===0">No tienes donaciones</h1>
+    </div>
+</div>

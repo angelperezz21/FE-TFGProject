@@ -68,4 +68,12 @@ export class BeneficiarioService {
   getTotalBeneficiarios():Observable <any>{
     return this.http.get(this.myAppUrl + this.myApiUrl + '/beneficiariosTotales')
   }
+
+  getDonaciones(idBeneficiario: number, httpOptions: any): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/listaDonaciones/' + `${idBeneficiario}`, httpOptions);
+  }
+  
+  getDonacionesPendientes(idBeneficiario: number, httpOptions: any): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/listaDonacionesPendientes/' + `${idBeneficiario}`, httpOptions);
+  }
 }

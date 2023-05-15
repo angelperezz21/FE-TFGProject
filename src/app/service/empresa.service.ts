@@ -69,6 +69,13 @@ export class EmpresaService {
     return this.http.get(this.myAppUrl + this.myApiUrl + '/empresasTotales')
   }
 
+  getDonaciones(idEmpresa: number, httpOptions: any): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/listaDonaciones/' + `${idEmpresa}`, httpOptions);
+  }
+  
+  getDonacionesPendientes(idEmpresa: number, httpOptions: any): Observable<any>{
+    return this.http.get(this.myAppUrl + this.myApiUrl + '/listaDonacionesPendientes/' + `${idEmpresa}`, httpOptions);
+  }
   
  
 }

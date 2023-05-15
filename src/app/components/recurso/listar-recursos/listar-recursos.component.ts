@@ -62,6 +62,9 @@ export class ListarRecursosComponent implements OnInit{
     this._recursoService.getListRecursos().subscribe(data=>{
       this.recursos=data;
       this.recursosFiltro = data;
+      this.recursosFiltro.sort((a:any, b:any) => {
+        return new Date(b.fechaCreacionRecurso).getTime() - new Date(a.fechaCreacionRecurso).getTime();
+      });
       console.log(data)
       
     })

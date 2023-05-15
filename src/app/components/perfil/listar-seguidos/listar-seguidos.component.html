@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-2" style="min-width: 200px; margin-top: 0.5rem;">
               <div class="card-body">
-                <button class="perfil-button" >Ver perfil</button>
+                <button class="perfil-button" (click)="enviarSeguido(seguido.id)" >Ver perfil</button>
                 <button class="seguir-button"  style="margin-top: 4rem;"
                 (click)="dejarSeguir(seguido.id)">
                 Dejar de seguir

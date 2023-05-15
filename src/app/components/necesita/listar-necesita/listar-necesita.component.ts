@@ -76,8 +76,12 @@ export class ListarNecesitaComponent implements OnInit{
 
   obtenerNecesidades(){
     this._necesitaService.getListNecesidades().subscribe(data=>{
-      this.necesita=data;
+      
+      this.necesita=data;      
       this.necesidadFiltro = data;
+      this.necesidadFiltro.sort((a:any, b:any) => {
+        return new Date(b.fechaCreacionNecesita).getTime() - new Date(a.fechaCreacionNecesita).getTime();
+      });
       console.log(data)
       
     })

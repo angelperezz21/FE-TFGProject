@@ -43,7 +43,8 @@ export class NavBarComponent implements OnInit {
         const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });  
         if(this.helper.decodeToken(token).role==='Empresa'){
           this._empresaService.getNotificaciones(this.helper.decodeToken(token).unique_name, {headers}).subscribe(data=>{
-       
+            console.log("hola")
+            console.log(data)
             this.numNotificaciones =data;
           })
         }else{          
@@ -62,9 +63,9 @@ export class NavBarComponent implements OnInit {
     
   }
 
-  cerrarSesion(){
+  cerrarSesion(): boolean{
     localStorage.setItem('token',"")
-    window.location.reload();
-    window.location.href='/Inicio';
+    window.location.reload();    
+    return true
   }
 }

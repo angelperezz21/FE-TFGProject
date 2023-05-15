@@ -8,7 +8,7 @@
           <h3>{{necesidad.nombre}}</h3>
           <p>Cantidad: {{necesidad.cantidad}}</p>
           <p>Precio unitario: {{necesidad.precio}} €</p>                
-          <p class="mb-3" style="font-weight: bold;">Publicado hace {{tiempo(necesidad.fechaCreacionNecesidad)}}</p>
+          <p class="mb-3" style="font-weight: bold;">Publicado hace {{tiempo(necesidad.fechaCreacionNecesita)}}</p>
           <a class="card-button" (click)="necesidadSolicitado(necesidad) ? null : solicitarNecesidad(necesidad.id) "
           [ngClass]="{'boton-solicitado': necesidadSolicitado(necesidad)}"             
            *ngIf="role === 'Empresa'">

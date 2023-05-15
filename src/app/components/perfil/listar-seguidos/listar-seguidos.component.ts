@@ -70,6 +70,11 @@ export class ListarSeguidosComponent implements OnInit{
     
   }
 
+  enviarSeguido(seguidoId: number){
+    if(this.role==='Empresa')window.location.href="/Beneficiario/" + seguidoId;
+    if(this.role==='Beneficiario')window.location.href="/Empresa/" + seguidoId;
+    
+  }
 
 
 }
