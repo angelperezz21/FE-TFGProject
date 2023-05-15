@@ -1,33 +1,29 @@
 <div class="container">
-    <div class="row">
-      <div class="col-md-6 mb-2" *ngFor="let recurso of recursosFiltro">
-        <div class="card" id="{{ recurso.id }}">
-          <div class="row g-0">
-            <div class="">
-              <div class="card-body">                
-                <div class="d-flex ">
-                    <h4 class="">{{ recurso.nombre }}</h4>                               
-                  </div>
-                <p class="card-text">{{ recurso.cantidad }}</p>
-                <p class="card-text">{{ recurso.precio }}</p>
-                <div class="form-container" style="display: inline-block;">
-                  <p class="prueba">{{ recurso.metodoEntrega }}</p> 
-                  <p class="prueba" *ngIf="recurso.estado===2" style="color: red;">Donación realizada</p> 
-                  <a  class="prueba btn btn-success"  *ngIf="recurso.solicitantes!==null && recurso.solicitantes!==''" (click)="openModal(recurso.id)">
-                    Aceptar solicitud
-                  </a>
-                  <app-modal *ngIf="isModalOpen" title="Aceptar solicitud" (closeModalEvent)="closeModal()" (confirm)="aceptarRecurso()">
-                    <p>Elige a la empresa a la que aceptar la solicitud</p>
-                    <select class="select form-control"  id="categoria" (change)="onDropdownChange($event);">          
-                      <option class="" *ngFor="let value of solicitantes" [value]="value.id">{{ value.nombre }}</option>
-                    </select>
-                    </app-modal>
-                </div>
-              </div>              
-            </div>            
-          </div>
-        </div>        
+<div class="results">
+  <div class="card-row">
+    <div class="card-wrapper" *ngFor="let recurso of recursos">
+      <div class="card mb-3">
+        <img [src]="recurso.imgUrl ? 'https://localhost:44318/' + recurso.imgUrl : 'assets/defaultRN.png'">
+        <h3>{{recurso.nombre}}</h3>
+        <p>Cantidad: {{recurso.cantidad}}</p>
+        <p>Precio unitario: {{recurso.precio}} €</p>
+        <p class="">Método entrega: {{recurso.metodoEntrega}}</p>
+        <a class="card-button"           
+          [ngClass]="{'deshabilitado': recurso.estado === 2,
+          'otra-clase': recurso.solicitantes === null }" (click)="openModal(recurso.id)">
+          {{ recurso.estado === 2 ? 'Donación realizada' : (recurso.solicitantes !== null  ?'Aceptar solicitud' : 'Sin solicitudes')}}
+        </a>
+
+        <app-modal *ngIf="isModalOpen" title="Aceptar solicitud" (closeModalEvent)="closeModal()" (confirm)="aceptarRecurso()">
+          <p>Elige a la empresa a la que aceptar la solicitud</p>
+          <select class="select form-control"  id="categoria" (change)="onDropdownChange($event);">          
+            <option class="" *ngFor="let value of solicitantes" [value]="value.id">{{ value.nombre }}</option>
+          </select>
+        </app-modal>
       </div>
     </div>
+  </div>
+  
+  </div>
   </div>
   

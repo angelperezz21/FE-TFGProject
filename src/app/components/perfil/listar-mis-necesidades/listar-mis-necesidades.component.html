@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="results">
+      <div class="card-row">
+        <div class="card-wrapper" *ngFor="let necesidad of necesidades">
+          <div class="card mb-3">
+            <img [src]="necesidad.imgUrl ? 'https://localhost:44318/' + necesidad.imgUrl : 'assets/defaultRN.png'">
+            <h3>{{necesidad.nombre}}</h3>
+            <p>Cantidad: {{necesidad.cantidad}}</p>
+            <p>Precio unitario: {{necesidad.precio}} €</p>
+            <p class="">Método entrega: {{necesidad.metodoEntrega}}</p>
+            <a class="card-button"           
+              [ngClass]="{'deshabilitado': necesidad.estado === 2,
+              'otra-clase': necesidad.solicitantes === null }" (click)="openModal(necesidad.id)">
+              {{ necesidad.estado === 2 ? 'Donación realizada' : (necesidad.solicitantes !== null  ?'Aceptar solicitud' : 'Sin solicitudes')}}
+            </a>
+    
+            <app-modal *ngIf="isModalOpen" title="Aceptar solicitud" (closeModalEvent)="closeModal()" (confirm)="aceptarNecesidad()">
+              <p>Elige al beneficiario al que aceptar la solicitud</p>
+              <select class="select form-control"  id="categoria" (change)="onDropdownChange($event);">          
+                <option class="" *ngFor="let value of solicitantes" [value]="value.id">{{ value.nombre }}</option>
+              </select>
+            </app-modal>
+          </div>
+        </div>
+      </div>
+      
+      </div>
+      </div>
+      

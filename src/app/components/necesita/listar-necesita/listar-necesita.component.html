@@ -4,7 +4,7 @@
     <div class="card-row">
       <div class="card-wrapper" *ngFor="let necesidad of necesidadFiltro">
         <div class="card mb-3">
-          <img [src]="necesidad.imgUrl ? 'https://localhost:44318/' + necesidad.imgUrl : 'https://localhost:44318/publicaciones/foto.jpg'">
+          <img [src]="necesidad.imgUrl ? 'https://localhost:44318/' + necesidad.imgUrl : 'assets/defaultRN.png'">
           <h3>{{necesidad.nombre}}</h3>
           <p>Cantidad: {{necesidad.cantidad}}</p>
           <p>Precio unitario: {{necesidad.precio}} €</p>                

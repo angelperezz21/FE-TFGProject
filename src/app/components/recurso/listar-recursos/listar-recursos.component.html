@@ -4,7 +4,7 @@
   <div class="card-row">
     <div class="card-wrapper" *ngFor="let recurso of recursosFiltro">
       <div class="card mb-3">
-        <img [src]="recurso.imgUrl ? 'https://localhost:44318/' + recurso.imgUrl : 'https://localhost:44318/publicaciones/foto.jpg'">
+        <img [src]="recurso.imgUrl ? 'https://localhost:44318/' + recurso.imgUrl : 'assets/defaultRN.png'">
         <h3>{{recurso.nombre}}</h3>
         <p>Cantidad: {{recurso.cantidad}}</p>
         <p>Precio unitario: {{recurso.precio}} €</p>

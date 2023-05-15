@@ -76,7 +76,7 @@
     <h3 style="margin-bottom: 2rem;">Nuevas necesidades publicadas</h3>    
     <div class="card-row">
         <div class="card mb-3" *ngFor="let necesidad of necesidades">
-            <img [src]="necesidad.imgUrl ? 'https://localhost:44318/' + necesidad.imgUrl : 'https://localhost:44318/publicaciones/foto.jpg'">
+            <img [src]="necesidad.imgUrl ? 'https://localhost:44318/' + necesidad.imgUrl : 'assets/defaultRN.png'">
             <h3>{{necesidad.nombre}}</h3>
             <p>Cantidad: {{necesidad.cantidad}}</p>
             <p class="mb-3">Precio unitario: {{necesidad.precio}} €</p>
@@ -93,7 +93,7 @@
     <h3 style="margin-bottom: 2rem;">Nuevos recursos publicados</h3>    
     <div class="card-row">
         <div class="card mb-3" *ngFor="let recurso of recursos">
-            <img [src]="recurso.imgUrl ? 'https://localhost:44318/' + recurso.imgUrl : 'https://localhost:44318/publicaciones/foto.jpg'">
+            <img [src]="recurso.imgUrl ? 'https://localhost:44318/' + recurso.imgUrl : 'assets/defaultRN.png'">
             <h3>{{recurso.nombre}}</h3>
             <p>Cantidad: {{recurso.cantidad}}</p>
             <p>Precio unitario: {{recurso.precio}} €</p>

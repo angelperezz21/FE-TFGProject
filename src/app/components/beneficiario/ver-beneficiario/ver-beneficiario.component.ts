@@ -42,6 +42,10 @@ export class VerBeneficiarioComponent implements OnInit{
           this.necesidades.push(element)
         }
       });
+
+      this.necesidades.sort((a:any, b:any) => {
+        return new Date(b.fechaCreacionNecesita).getTime() - new Date(a.fechaCreacionNecesita).getTime();
+      });
     })
 
     const token = localStorage.getItem('token');
@@ -79,6 +83,20 @@ export class VerBeneficiarioComponent implements OnInit{
     this._necesitaService.solicitarNecesidad(idNecesidad,this.idVisitante,{headers}).subscribe(data=>{
       this.misNecesidadesSolicitadas();
     });
+  }
+
+  tiempo(fecha: Date): string{
+    var diferenciaMs = new Date().getTime() - new Date(fecha).getTime();
+    var diferencia = Math.floor(diferenciaMs / (1000 * 60)) + " minutos" ;
+    const minutos = Math.floor(diferenciaMs / (1000 * 60));
+    if(minutos>60) {      
+      const horas = Math.floor(minutos / 60);
+      diferencia = horas + " horas";
+      if(horas>24){
+        diferencia = Math.floor(horas / 24) + " días";
+      }
+    }
+    return diferencia;
   }
 
 

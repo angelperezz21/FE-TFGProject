@@ -1,17 +1,16 @@
-
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { ListarRecursosService } from 'src/app/service/listar-recursos.service';
-import { RecursoService } from 'src/app/service/recurso.service';
+import { ListarNecesidadesService } from 'src/app/service/listar-necesidades.service';
+import { NecesitaService } from 'src/app/service/necesita.service';
 
 @Component({
-  selector: 'app-listar-mis-recursos',
-  templateUrl: './listar-mis-recursos.component.html',
-  styleUrls: ['./listar-mis-recursos.component.css']
+  selector: 'app-listar-mis-necesidades',
+  templateUrl: './listar-mis-necesidades.component.html',
+  styleUrls: ['./listar-mis-necesidades.component.css']
 })
-export class ListarMisRecursosComponent implements OnInit{
-  recursos: any;  
+export class ListarMisNecesidadesComponent implements OnInit{
+  necesidades: any;  
   tokenId: any;
   helper = new JwtHelperService();
   id: any;
@@ -19,17 +18,17 @@ export class ListarMisRecursosComponent implements OnInit{
   logged = false;
   isModalOpen = false;
   solicitantes: any;
-  beneficiario: any;
-  recursoId!: number;
+  empresa: any;
+  necesidadId!: number;
 /**
  *
  */
-  constructor(private _serviceListarRecursos: ListarRecursosService,
-    private _recursoService: RecursoService ) {
+  constructor(private _serviceListarNecesidades: ListarNecesidadesService,
+    private _necesidadService: NecesitaService ) {
   }
 
   ngOnInit(): void {
-    this.obtenerRecursos();
+    this.obtenerNecesidades();
     
   }
 
@@ -49,17 +48,17 @@ export class ListarMisRecursosComponent implements OnInit{
   
   onDropdownChange(selectedValue: any) {
     console.log(selectedValue?.target.value)
-    this.beneficiario = selectedValue?.target.value;
+    this.empresa = selectedValue?.target.value;
   }
 
-  openModal(idRecurso: number) {
+  openModal(idNecesidad: number) {
     this.isModalOpen = true;
-    this.recursoId = idRecurso;
+    this.necesidadId = idNecesidad;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    this._recursoService.getNotificaciones(idRecurso,{headers} ).subscribe(data=>{
+    this._necesidadService.getNotificaciones(idNecesidad,{headers} ).subscribe(data=>{
       this.solicitantes = data;  
-      this.beneficiario = data[0]['id'];
+      this.empresa = data[0]['id'];
     })
   }
 
@@ -67,26 +66,25 @@ export class ListarMisRecursosComponent implements OnInit{
     this.isModalOpen = false;
   }
 
-  obtenerRecursos(){
+  obtenerNecesidades(){
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     if(token!==null){
-      this._recursoService.getMyListRecursos(this.helper.decodeToken(token).unique_name).subscribe(data=>{
-        this.recursos=data;     
+      this._necesidadService.getMyListNecesidades(this.helper.decodeToken(token).unique_name).subscribe(data=>{
+        this.necesidades=data;             
       })
     }
   }
 
-  aceptarRecurso(){    
+  aceptarNecesidad(){    
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    console.log(this.beneficiario)
-    this._recursoService.aceptarRecurso(this.recursoId,this.beneficiario,{headers}).subscribe(data=>{
-      this.obtenerRecursos();
+    console.log(this.empresa)
+    this._necesidadService.aceptarNecesidad(this.necesidadId,this.empresa,{headers}).subscribe(data=>{
+      this.obtenerNecesidades();
     });
    
   }
-
 
 
 }

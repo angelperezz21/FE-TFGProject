@@ -34,6 +34,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ExplorarComponent } from './components/explorar/explorar.component';
 import { ListarMisRecursosComponent } from './components/perfil/listar-mis-recursos/listar-mis-recursos.component';
 import { FiltroComponent } from './components/filtro/filtro.component';
+import { ListarMisNecesidadesComponent } from './components/perfil/listar-mis-necesidades/listar-mis-necesidades.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { FiltroComponent } from './components/filtro/filtro.component';
     ExplorarComponent,
     ListarMisRecursosComponent,
     FiltroComponent,
+    ListarMisNecesidadesComponent,
   ],
   imports: [
     BrowserModule,
