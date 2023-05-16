@@ -15,7 +15,9 @@ export class LoginComponent {
   id: number | undefined;
   loginError: string | undefined;
   tipoUsuario: string | undefined;
-  isModalOpen = false;
+  isModalOpen = false;  
+  passwordVisible: boolean = false;
+
   
   constructor(private fb: FormBuilder, 
     private _loginService: LoginService,
@@ -33,6 +35,11 @@ export class LoginComponent {
   ngOnInit(): void {
 
   }
+
+  togglePasswordVisibility(): void {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
 
  
   openModal() {

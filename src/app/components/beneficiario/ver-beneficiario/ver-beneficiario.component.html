@@ -78,12 +78,15 @@
       <div class="results">
         <div class="card-row">
           <div class="card-wrapper" *ngFor="let necesidad of necesidades">
-            <div class="card mb-3">
+            <div class="card mb-3 card-hover" (mouseenter)="onCardMouseEnter(necesidad.id)" (mouseleave)="onCardMouseLeave()">
               <img [src]="necesidad.imgUrl ? 'https://localhost:44318/' + necesidad.imgUrl : 'assets/defaultRN.png'">
               <h3>{{necesidad.nombre}}</h3>
               <p>Cantidad: {{necesidad.cantidad}}</p>
               <p>Precio unitario: {{necesidad.precio}} €</p>                
               <p class="mb-3" style="font-weight: bold;">Publicado hace {{tiempo(necesidad.fechaCreacionNecesita)}}</p>
+              <div class="description" *ngIf="hoveredId === necesidad.id">
+                {{necesidad.descripcion}}
+              </div>
               <a class="card-button" (click)="necesidadSolicitado(necesidad) ? null : solicitarNecesidad(necesidad.id) "
               [ngClass]="{'boton-solicitado': necesidadSolicitado(necesidad)}"             
                *ngIf="role === 'Empresa'">

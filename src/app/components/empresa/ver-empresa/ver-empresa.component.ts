@@ -20,6 +20,7 @@ export class VerEmpresaComponent implements OnInit{
   logged = false;
   idVisitante: any;
   recursosSolicitados: any;
+  hoveredId: number | null = null;
   
   constructor(private _empresasService: EmpresaService,
     private  _recursoService: RecursoService,
@@ -70,6 +71,16 @@ export class VerEmpresaComponent implements OnInit{
     }
     this.logged = token !== "";
   }
+
+  
+  onCardMouseEnter(recursoId: number): void {
+    this.hoveredId = recursoId;
+  }
+
+  onCardMouseLeave(): void {
+    this.hoveredId = null;
+  }
+
 
   recursoSolicitado(recurso: any): boolean {        
     return this.recursosSolicitados.some((x: any) => x.id === recurso.id);    

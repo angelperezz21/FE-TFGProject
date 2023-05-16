@@ -20,6 +20,7 @@ export class ListarMisNecesidadesComponent implements OnInit{
   solicitantes: any;
   empresa: any;
   necesidadId!: number;
+  hoveredId: number | null = null;
 /**
  *
  */
@@ -45,6 +46,14 @@ export class ListarMisNecesidadesComponent implements OnInit{
     this.logged = token !== "";
   }
 
+  onCardMouseEnter(necesidadId: number): void {
+    this.hoveredId = necesidadId;
+  }
+
+  onCardMouseLeave(): void {
+    this.hoveredId = null;
+  }
+  
   
   onDropdownChange(selectedValue: any) {
     console.log(selectedValue?.target.value)

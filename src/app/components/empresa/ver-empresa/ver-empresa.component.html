@@ -7,7 +7,7 @@
         <h4 >{{empresa.nombre}}</h4> 
          
       </div>
-      <form class="formPerfil rounded p-3" style="background-color: #f8f9fa;">
+      <form class="formPerfil rounded p-3" style="background-color: #ffffff;">
         <div class="row mb-3">
           <div class="form-group col">
             <label for="nombre">{{empresa.nombre}}</label>            
@@ -54,13 +54,16 @@
       <div class="results">
         <div class="card-row">
           <div class="card-wrapper" *ngFor="let recurso of recursos">
-            <div class="card mb-3">
+            <div class="card mb-3 card-hover" (mouseenter)="onCardMouseEnter(recurso.id)" (mouseleave)="onCardMouseLeave()">
               <img [src]="recurso.imgUrl ? 'https://localhost:44318/' + recurso.imgUrl : 'assets/defaultRN.png'">
               <h3>{{recurso.nombre}}</h3>
               <p>Cantidad: {{recurso.cantidad}}</p>
               <p>Precio unitario: {{recurso.precio}} €</p>
               <p class="mb-3">Método entrega: {{recurso.metodoEntrega}}</p>
               <p class="mb-3" style="font-weight: bold;">Publicado hace {{tiempo(recurso.fechaCreacionRecurso)}}</p>
+              <div class="description" *ngIf="hoveredId === recurso.id">
+                {{recurso.descripcion}}
+              </div>
               <a class="card-button" (click)="recursoSolicitado(recurso) ? null : solicitarRecurso(recurso.id) "
               [ngClass]="{'boton-solicitado': recursoSolicitado(recurso)}"             
               *ngIf="role === 'Beneficiario'">

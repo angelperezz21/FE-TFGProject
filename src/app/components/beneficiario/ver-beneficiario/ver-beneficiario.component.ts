@@ -20,7 +20,7 @@ export class VerBeneficiarioComponent implements OnInit{
   logged = false;
   idVisitante: any;
   necesidadesSolicitados: any;
-
+  hoveredId: number | null = null;
   
   constructor(private _beneficiarioService: BeneficiarioService,
     private  _necesitaService: NecesitaService,
@@ -72,6 +72,16 @@ export class VerBeneficiarioComponent implements OnInit{
     }
     this.logged = token !== "";
   }
+
+  
+  onCardMouseEnter(necesidadId: number): void {
+    this.hoveredId = necesidadId;
+  }
+
+  onCardMouseLeave(): void {
+    this.hoveredId = null;
+  }
+  
 
   necesidadSolicitado(necesidad: any): boolean {        
     return this.necesidadesSolicitados.some((x: any) => x.id === necesidad.id);    

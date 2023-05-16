@@ -20,6 +20,7 @@ export class ListarRecursosComponent implements OnInit{
   logged = false;
   metodos: any = [];
   tipoOrden!: string;
+  hoveredId: number | null = null;
 /**
  *
  */
@@ -55,6 +56,14 @@ export class ListarRecursosComponent implements OnInit{
       }
     }
     this.logged = token !== "";
+  }
+
+  onCardMouseEnter(recursoId: number): void {
+    this.hoveredId = recursoId;
+  }
+
+  onCardMouseLeave(): void {
+    this.hoveredId = null;
   }
 
 

@@ -20,6 +20,7 @@ export class ListarNecesitaComponent implements OnInit{
   necesidades: any;
   necesidadesSolicitados: any;  
   tipoOrden!: string;
+  hoveredId: number | null = null;
 
   constructor(private _serviceListarNecesidades: ListarNecesidadesService,
       private _necesitaService: NecesitaService ) {
@@ -46,6 +47,15 @@ export class ListarNecesitaComponent implements OnInit{
   necesidadSolicitado(necesidad: any): boolean {        
     return this.necesidadesSolicitados.some((x: any) => x.id === necesidad.id);    
   }
+
+  onCardMouseEnter(necesidadId: number): void {
+    this.hoveredId = necesidadId;
+  }
+
+  onCardMouseLeave(): void {
+    this.hoveredId = null;
+  }
+  
 
   ngDoCheck() {
     const token = localStorage.getItem('token');

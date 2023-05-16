@@ -20,7 +20,8 @@ export class ListarMisRecursosComponent implements OnInit{
   isModalOpen = false;
   solicitantes: any;
   beneficiario: any;
-  recursoId!: number;
+  recursoId!: number;  
+  hoveredId: number | null = null;
 /**
  *
  */
@@ -46,6 +47,14 @@ export class ListarMisRecursosComponent implements OnInit{
     this.logged = token !== "";
   }
 
+
+  onCardMouseEnter(recursoId: number): void {
+    this.hoveredId = recursoId;
+  }
+
+  onCardMouseLeave(): void {
+    this.hoveredId = null;
+  }
   
   onDropdownChange(selectedValue: any) {
     console.log(selectedValue?.target.value)

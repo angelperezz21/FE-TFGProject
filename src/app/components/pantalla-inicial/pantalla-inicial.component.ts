@@ -25,6 +25,7 @@ export class PantallaInicialComponent implements OnInit {
   role: any;
   helper = new JwtHelperService();
   objetosSolicitados: any;
+  hoveredId: number | null = null;
   /**
    *
    */
@@ -69,6 +70,15 @@ export class PantallaInicialComponent implements OnInit {
       this.recursos=data;
       
     })
+  }
+
+
+  onCardMouseEnter(recursoId: number): void {
+    this.hoveredId = recursoId;
+  }
+
+  onCardMouseLeave(): void {
+    this.hoveredId = null;
   }
 
   onDropdownChange(selectedValue: any) {

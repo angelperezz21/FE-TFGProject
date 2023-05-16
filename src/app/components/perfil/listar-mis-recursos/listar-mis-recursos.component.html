@@ -2,12 +2,16 @@
 <div class="results">
   <div class="card-row">
     <div class="card-wrapper" *ngFor="let recurso of recursos">
-      <div class="card mb-3">
+      <div class="card mb-3 card-hover" (mouseenter)="onCardMouseEnter(recurso.id)" (mouseleave)="onCardMouseLeave()">
         <img [src]="recurso.imgUrl ? 'https://localhost:44318/' + recurso.imgUrl : 'assets/defaultRN.png'">
         <h3>{{recurso.nombre}}</h3>
         <p>Cantidad: {{recurso.cantidad}}</p>
         <p>Precio unitario: {{recurso.precio}} €</p>
         <p class="">Método entrega: {{recurso.metodoEntrega}}</p>
+        <div class="description" *ngIf="hoveredId === recurso.id">
+          {{recurso.descripcion}}
+        </div>
+    
         <a class="card-button"           
           [ngClass]="{'deshabilitado': recurso.estado === 2,
           'otra-clase': recurso.solicitantes === null }" (click)="openModal(recurso.id)">
@@ -22,7 +26,7 @@
         </app-modal>
       </div>
     </div>
-  </div>
+  </div>  
   
   </div>
   </div>
