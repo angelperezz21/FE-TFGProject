@@ -1,28 +1,37 @@
 
 <div class="container">
-  <app-filtro></app-filtro>
+  <div class="app-filtro-container">
+    <app-filtro ></app-filtro>
+  </div>
   <div class="results">
-    <div class="courses-container" >
-      <div class="course" *ngFor="let beneficiario of beneficiariosFiltro | paginate: { itemsPerPage: 4, currentPage: page }">
-        <div class="course-preview">
-          <img [src]="beneficiario.imgUrl ? 'https://localhost:44318/' + beneficiario.imgUrl : 'https://localhost:44318/uploads/user.png'" class="card-img-top float-start" style="padding:1rem;object-fit: cover;width: 200px; height: 200px;" alt="Tu Foto">            
+    <div class="row " >
+      <div class="col-md-12 mb-4" *ngFor="let beneficiario of beneficiariosFiltro | paginate: { itemsPerPage: 5, currentPage: page }">
+        <div class="card" id="{{ beneficiario.id }}" >
+          <div class="row g-0">
+            <div class="imagen col-md-2" >
+            <img [src]="beneficiario.imgUrl ? 'https://localhost:44318/' + beneficiario.imgUrl : 'https://localhost:44318/uploads/user.png'" class="card-img-top float-start" style="background-color: #f6f6f6; padding:1.5rem;object-fit: cover;width: 170px; height: 200px; justify-content: center; align-items: center;" alt="Tu Foto">            
+          
+            </div>
+            <div class="col-md-1" style="min-width: 350px;">
+              <div class="" style="margin-left: 6rem; margin-top: 1.5rem;">
+                <h4 class="">{{ beneficiario.nombre }}</h4>                
+                <p class="card-text">{{ beneficiario.categoria }}</p>
+                <p class="card-text">{{ beneficiario.direccion }}</p>
+                <a class="card-text" href="{{beneficiario.web}}">{{ beneficiario.web }}</a>         
+              </div>            
+            </div>
+            <div class="col-md-2" style="min-width: 200px; margin-top: 0.5rem;">
+              <div class="card-body">
+                <button (click)="enviarBeneficiario(beneficiario.id)"  class="perfil-button" >Ver perfil</button>
+                <button  *ngIf="logged && role === 'Empresa'" class="seguir-button"
+                  (click)="beneficiarioSeguido(beneficiario) ? dejarSeguir(beneficiario.id) : seguir(beneficiario.id)">
+                  {{ (beneficiarioSeguido(beneficiario)) ? 'Dejar de seguir' : 'Seguir' }}
+                </button>              
+              </div>
+            </div>
+          </div>
         </div>
-        
-        <div class="course-info">
-          <h4 class="">{{ beneficiario.nombre }}</h4>
-              <span class="d-block" style="margin-top: 5px;">{{ beneficiario.categoria }}</span>
-              <span class="d-block" style="margin-top: 5px; margin-bottom: 5px;">{{ beneficiario.direccion }}</span>
-              <a class=""  style="margin-top: 5px;" href="{{beneficiario.web}}">   {{ beneficiario.web }} </a>                                    
-        </div>
-        
-        <div class="coursebuttons" >
-          <button (click)="enviarBeneficiario(beneficiario.id)"  class="perfil-button" >Ver perfil</button>
-          <button  *ngIf="logged && role === 'Empresa'" class="seguir-button"
-            (click)="beneficiarioSeguido(beneficiario) ? dejarSeguir(beneficiario.id) : seguir(beneficiario.id)">
-            {{ (beneficiarioSeguido(beneficiario)) ? 'Dejar de seguir' : 'Seguir' }}
-          </button>   
-        </div>            
-      </div>        
+      </div>
     </div>
   </div>
 </div>

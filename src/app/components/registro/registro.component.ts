@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { BeneficiarioService } from 'src/app/service/beneficiario.service';
 import { EmpresaService } from 'src/app/service/empresa.service';
 import { LoginService } from 'src/app/service/login.service';
@@ -20,12 +21,14 @@ export class RegistroComponent {
   pulsado = false ;
   file: any;
   path: any;
+  loading = false;
   
   constructor(private fb: FormBuilder, 
     private _empresaService: EmpresaService, 
     private _beneficiarioService: BeneficiarioService,
     private router: Router,
-    private _loginService: LoginService) {
+    private _loginService: LoginService,
+    private toastr: ToastrService) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
       contrasenya: ['', [Validators.required,Validators.pattern(/^.{8,16}$/)]],
@@ -35,7 +38,9 @@ export class RegistroComponent {
       web: ['', [Validators.required, Validators.pattern('^(http(s)?:\/\/)?([w]{3}\.)?[a-zA-Z0-9]+\.[a-zA-Z]+(\/[a-zA-Z0-9#]+\/?)*$')]],
       tipoUsuario: ['', Validators.required],
       categoria: ['', Validators.required],
-      cif: ['', Validators.required, Validators.pattern(/^[A-Za-z]\d{7}[A-Za-z]$/)]
+      cif: ['',[Validators.required, Validators.pattern(/^[A-Za-z][0-9]{7}[A-Za-z0-9]$/)]],
+      descripcion: ['', Validators.required],
+      foto: ['']
     })
    }
 
@@ -51,6 +56,9 @@ export class RegistroComponent {
   }
 
   registro(){
+    if(this.form.valid){
+      this.loading = true;
+    }  
     this.pulsado = true;
     const user: any= {
       Email: this.form.get('email')?.value,
@@ -61,35 +69,42 @@ export class RegistroComponent {
       Web: this.form.get('web')?.value,
       Categoria: this.categoria,
       Contacto: this.form.get('email')?.value,
-      Descripcion: "",    
+      Descripcion: this.form.get('descripcion')?.value,    
       imgUrl:this.path,
       PasswordSinHash: this.form.get('contrasenya')?.value,
       CIF: this.form.get('cif')?.value
     }
-
+    
     if(this.tipoUsuario === "empresa"){
+
       this._empresaService.registro(user).subscribe(data=>{
         console.log(data)
+        this.loading=false;      
+        this.toastr.success("Registro con éxito");
          this._loginService.iniciarSesion({Email: data.email, Contrasenya: data.contrasenya, userType: 1}).subscribe(data=>{
-          console.log(data)
           localStorage.setItem('token', data.token);
           this.router.navigateByUrl('/principal');
         });
        
       },
-      (error) => {
-        console.log(error)                     
+      (error) => {         
+        this.loading=false;      
+        console.log(error)        
+        this.toastr.error(error.error);
       });
     }
     else if(this.tipoUsuario === "beneficiario"){
       this._beneficiarioService.registro(user).subscribe(data=>{
+        this.loading=false;      
         this._loginService.iniciarSesion({Email: data.email, Contrasenya: data.contrasenya, userType: 0}).subscribe(data=>{
           localStorage.setItem('token', data.token);
           this.router.navigateByUrl('/principal');
         });
       },
       (error) => {
-        console.log(error)                     
+        this.loading=false;      
+        console.log(error)        
+        this.toastr.error(error.error);                  
       });
     }     
     }

@@ -1,4 +1,4 @@
-<div class="formularioInicio">
+<div class="formularioInicio d-flex align-items-center justify-content-center max-width-800">
     <div class="col-lg">
         <div class="card-body">
             <h5 class="titulo"> Regístrate </h5>
@@ -19,93 +19,109 @@
                         </label>
                       </div>
                 </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                      <a *ngIf="this.form.get('email')?.valid && pulsado" style="color: green;">Válido</a>
-                      <a *ngIf="this.form.get('email')?.invalid && this.form.get('email')?.touched" style="color: red;">
-                        El formato es inválido</a>
-                      <div class="form-group form-group-lg" >
-                        <input formControlName="email" type="text" class="form-control" placeholder="email@gmail.com">
-                     
+                  <div class="row mb-2">
+                    <div class="col-md-4">
+                      <div class="form-group form-group-lg mt-2" >
+                        <span tooltip=" Campo requerido"  *ngIf="this.form.get('nombre')?.invalid && pulsado" placement="top">
+                          <input formControlName="nombre" [class.red-icon]="this.form.get('nombre')?.invalid && pulsado" type="text" class="form-control" placeholder="Nombre">
+                        </span>                      
+                        <input formControlName="nombre" *ngIf="!pulsado || this.form.get('nombre')?.valid" type="text" class="form-control" placeholder="Nombre">
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <a *ngIf="this.form.get('contrasenya')?.valid && pulsado" style="color: green;">Válido</a>
-                      <a *ngIf="this.form.get('contrasenya')?.invalid && this.form.get('contrasenya')?.touched" style="color: red;">
-                        Como mínimo debe tener 9 caracteres</a>
-                      <div class="form-group form-group-lg">
-                        <input formControlName="contrasenya" maxlength="16" type="text" class="form-control" placeholder="Contraseña">
+                    <div class="col-md-4">
+                      <div class="form-group form-group-lg mt-2">
+                        <span tooltip="Como mínimo debe tener 9 caracteres"  *ngIf="this.form.get('contrasenya')?.invalid && pulsado" placement="top">
+                          <input formControlName="contrasenya" [class.red-icon]="this.form.get('contrasenya')?.invalid && pulsado" maxlength="16" type="text" class="form-control" placeholder="Contraseña">
+                        </span>
+                          <input formControlName="contrasenya" *ngIf="!pulsado || this.form.get('contrasenya')?.valid" maxlength="16" type="text" class="form-control" placeholder="Contraseña">  
                       </div>
                     </div>
-                  </div>
-                  <div class="row mb-3">
-                    <div class="col-md-6">
-                      <a *ngIf="this.form.get('nombre')?.valid && pulsado" style="color: green;" >Válido</a>
-                      <a *ngIf="this.form.get('nombre')?.invalid && this.form.get('nombre')?.touched" style="color: red;">
-                        Campo requerido</a>
-                      <div class="form-group form-group-lg">
-                        <input formControlName="nombre" type="text" class="form-control" placeholder="Nombre">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <a *ngIf="this.form.get('telefono')?.valid && pulsado" style="color: green;" >Válido</a>
-                      <a *ngIf="this.form.get('telefono')?.invalid && this.form.get('telefono')?.touched" style="color: red;">
-                        Debe contener 9 dígitos</a>
-                      <div class="form-group form-group-lg">
-                        <input formControlName="telefono" maxlength="9"  class="form-control" placeholder="Teléfono">   
+                    <div class="col-md-4">                      
+                      <div class="form-group form-group-lg mt-2">
+                        <span tooltip="Formato de correo inválido"  *ngIf="this.form.get('email')?.invalid && pulsado" placement="top">
+                          <input formControlName="email" [class.red-icon]="this.form.get('email')?.invalid && pulsado" type="text" class="form-control" placeholder="email@gmail.com">
+                        </span>
+                        <input formControlName="email" *ngIf="!pulsado || this.form.get('email')?.valid" type="text" class="form-control" placeholder="email@gmail.com">
                       </div>
                     </div>
                   </div>
-                  <div class="row mb-3">
-                    <div class="col-md-6">
-                      <a *ngIf="this.form.get('direccion')?.valid && pulsado " style="color: green;" >Válido</a>
-                      <a *ngIf="this.form.get('direccion')?.invalid && this.form.get('direccion')?.touched" style="color: red;">
-                        Campo requerido</a>
-                      <div class="form-group form-group-lg">
-                        <input formControlName="direccion" type="text" class="form-control" placeholder="Dirección">
+                  <div class="row mb-2">
+                    <div class="col-md-4">
+                      <div class="form-group form-group-lg mt-2">
+                        <span tooltip=" Debe estar formado por 9 dígitos" *ngIf="this.form.get('telefono')?.invalid && pulsado" placement="top">
+                          <input formControlName="telefono" [class.red-icon]="this.form.get('telefono')?.invalid && pulsado" maxlength="9"  class="form-control" placeholder="Teléfono">   
+                        </span>
+                        <input formControlName="telefono" *ngIf="!pulsado || this.form.get('telefono')?.valid" maxlength="9"  class="form-control" placeholder="Teléfono">  
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <a *ngIf=" this.form.get('web')?.valid && pulsado" style="color: green;" >Válido</a>
-                      <a *ngIf="this.form.get('web')?.invalid && this.form.get('web')?.touched" style="color: red;">
-                        Formato inválido</a>
-                      <div class="form-group form-group-lg">
-                        <input formControlName="web"  type="text" class="form-control" placeholder="https://www.tuweb.com">
+                    <div class="col-md-4">
+                      <div class="form-group form-group-lg mt-2">
+                        <span tooltip=" Campo requerido" *ngIf="this.form.get('direccion')?.invalid && pulsado" placement="top">
+                          <input formControlName="direccion" [class.red-icon]="this.form.get('direccion')?.invalid && pulsado" type="text" class="form-control" placeholder="Dirección">
+                        </span>
+                        <input formControlName="direccion" *ngIf="!pulsado || this.form.get('direccion')?.valid" type="text" class="form-control" placeholder="Dirección">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group form-group-lg mt-2">
+                        <span tooltip="Formato inválido" *ngIf="this.form.get('web')?.invalid && pulsado" placement="top">
+                          <input formControlName="web"  [class.red-icon]="this.form.get('web')?.invalid && pulsado"  type="text" class="form-control" placeholder="https://www.tuweb.com">
+                        </span>
+                        <input formControlName="web" *ngIf="!pulsado || this.form.get('web')?.valid" type="text" class="form-control" placeholder="https://www.tuweb.com">
                       </div>
                     </div>
                   </div>
-                  <div class="row mb-3">
-                    <div class="col-md-6">
-                      <a *ngIf="this.form.get('cif')?.valid && pulsado " style="color: green;" >Válido</a>
-                      <a *ngIf="this.form.get('cif')?.invalid && this.form.get('cif')?.touched" style="color: red;">
-                        Formato inválido</a>
-                      <div class="form-group form-group-lg">
-                        <input formControlName="cif" maxlength="9" type="text" class="form-control" placeholder="CIF">
+                  <div class="row mb-2">
+                    <div class="col-md-4">
+                      <div class="form-group form-group-lg mt-2">
+                        <span tooltip="Campo requerido"  *ngIf=" this.form.get('cif')?.invalid && pulsado" placement="top">
+                          <input formControlName="cif" [class.red-icon]="this.form.get('cif')?.invalid && pulsado"  maxlength="9" type="text" class="form-control" placeholder="CIF">
+                        </span>
+                        <input formControlName="cif" *ngIf="!pulsado || this.form.get('cif')?.valid" maxlength="9" type="text" class="form-control" placeholder="CIF">
                       </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group col">
+                    <div class="col-md-4">
+                        <div class="form-group col mt-2">
                           <input type="file"   class="form-control" id="foto" formControlName="foto" value="" (change)="onFileSelected($event)">
                         </div>
                     </div>
+                    <div class="col-md-4">
+                      <div class="form-group text-center mt-2">
+                        <span tooltip=" Selecciona una categoría" *ngIf="this.form.get('categoria')?.invalid && pulsado" placement="top">
+                          <select class="btn btn-secondary dropdown-toggle text-left text-end"  [class.red-icon]="this.form.get('categoria')?.invalid && pulsado"  formControlName="categoria" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (change)="onDropdownChange($event)">
+                            <option value="" disabled selected>Categoría</option>
+                            <option class="dropdown-item" *ngFor="let value of dropdownValues" [value]="value.id">{{ value.name }}</option>
+                          </select>
+                        </span>
+                        <select class="btn btn-secondary dropdown-toggle text-left text-end" style="width: 100%;" *ngIf="!pulsado || this.form.get('categoria')?.valid"  formControlName="categoria" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (change)="onDropdownChange($event)">
+                          <option value="" disabled selected>Categoría</option>
+                          <option class="dropdown-item" *ngFor="let value of dropdownValues" [value]="value.id">{{ value.name }}</option>
+                        </select>
+                      </div>     
+                    </div>
+                   
                   </div>                  
                   <div class="row mb-3">
-                    <a *ngIf="this.form.get('categoria')?.invalid && this.form.get('categoria')?.touched" style="color: red;">
-                      Selecciona una categoría</a>
-                    <div class="form-group text-center">
-                      <select class="btn btn-secondary dropdown-toggle text-left text-end"   formControlName="categoria" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (change)="onDropdownChange($event)">
-                        <option value="" disabled selected>Categoría</option>
-                        <option class="dropdown-item" *ngFor="let value of dropdownValues" [value]="value.id">{{ value.name }}</option>
-                      </select>
-                    </div>                    
-                  </div>
-                  
-                
-                <div class="d-grid gap-2 mb-3">
-                    <button class="seguir-button" [disabled]="this.form.invalid" type="submit" (click)="registro()">
+                    <div class="form-group col mt-2">
+                      <span tooltip="Campo requerido" *ngIf="this.form.get('descripcion')?.invalid && pulsado" placement="top">
+                        <textarea type="" class="form-control" [class.red-icon]="this.form.get('descripcion')?.invalid && pulsado" id="descripcion" placeholder="Descripcion" formControlName="descripcion" ></textarea>
+                      </span>
+                      <textarea type="" class="form-control" *ngIf="!pulsado || this.form.get('descripcion')?.valid"  id="descripcion" placeholder="Descripcion" formControlName="descripcion" ></textarea>
+                    </div>
+                                   
+                  </div>                                
+                <div class="d-grid gap-2 mb- mt-2">
+                    <button class="seguir-button"  type="submit" (click)="registro()">
                         Regístrame </button>
                 </div>
             </form>
         </div>
     </div>
+    <div class="overlay" *ngIf="loading && this.form.valid">
+      <div class="text-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status"></div>
+        <span class="sr-only">Comprobando CIF y correo...</span>
+      </div>
+    </div>
 </div>
+

@@ -5,6 +5,8 @@ import { JwtModule }from '@auth0/angular-jwt';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr'
 import {NgxPaginationModule} from 'ngx-pagination';
+import { TooltipModule } from 'ng2-tooltip-directive';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -77,7 +79,8 @@ import { ListarMisNecesidadesComponent } from './components/perfil/listar-mis-ne
     JwtModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
+    TooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
