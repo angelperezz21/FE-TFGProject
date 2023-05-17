@@ -63,9 +63,9 @@ export class NavBarComponent implements OnInit {
     
   }
 
-  cerrarSesion(): boolean{
+  cerrarSesion(){
     localStorage.setItem('token',"")
-    window.location.reload();    
-    return true
+    window.location.reload();
+    window.location.href='/Inicio';
   }
 }

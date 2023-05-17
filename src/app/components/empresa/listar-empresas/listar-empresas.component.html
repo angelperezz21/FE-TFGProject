@@ -2,7 +2,7 @@
   <app-filtro class="filters" ></app-filtro>
     <div class="results">
       <div class="courses-container" >
-        <div class="course" *ngFor="let empresa of empresasFiltro">
+        <div class="course" *ngFor="let empresa of empresasFiltro | paginate: { itemsPerPage: 4, currentPage: page }">
           <div class="course-preview">
             <img [src]="empresa.imgUrl ? 'https://localhost:44318/' + empresa.imgUrl : 'https://localhost:44318/uploads/user.png'" class="card-img-top float-start" style="padding:1rem;object-fit: cover;width: 200px; height: 200px;" alt="Tu Foto">            
           </div>
@@ -22,8 +22,13 @@
               </button>
           </div>            
         </div>        
-      </div>      
+      </div>           
     </div>  
+
+</div>
+
+<div class="pagination-container">
+  <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
 </div>
 
 

@@ -1,27 +1,33 @@
-<div class="container">
-  <app-explorar></app-explorar>
-<div class="results">
-  <div class="card-row">
-    <div class="card-wrapper" *ngFor="let recurso of recursosFiltro">
-      <div class="card mb-3 card-hover" (mouseenter)="onCardMouseEnter(recurso.id)" (mouseleave)="onCardMouseLeave()">
-        <img [src]="recurso.imgUrl ? 'https://localhost:44318/' + recurso.imgUrl : 'assets/defaultRN.png'">
-        <h3>{{recurso.nombre}}</h3>
-        <p>Cantidad: {{recurso.cantidad}}</p>
-        <p>Precio unitario: {{recurso.precio}} €</p>
-        <p class="mb-3">Método entrega: {{recurso.metodoEntrega}}</p>
-        <p class="mb-3" style="font-weight: bold;">Publicado hace {{tiempo(recurso.fechaCreacionRecurso)}}</p>
-        <div class="description" *ngIf="hoveredId === recurso.id">
-          {{recurso.descripcion}}
+
+  
+  <div class="container">
+    <div class="app-explorar-container">
+      <app-explorar></app-explorar>
+    </div>
+    <div class="results">
+      <div class="card-row">
+        <div class="card-wrapper" *ngFor="let recurso of recursosFiltro | paginate: { itemsPerPage: 8, currentPage: page }">
+          <div class="card mb-3 card-hover" (mouseenter)="onCardMouseEnter(recurso.id)" (mouseleave)="onCardMouseLeave()">
+            <img [src]="recurso.imgUrl ? 'https://localhost:44318/' + recurso.imgUrl : 'assets/defaultRN.png'">
+            <h3>{{recurso.nombre}}</h3>
+            <p>Cantidad: {{recurso.cantidad}}</p>
+            <p>Precio unitario: {{recurso.precio}} €</p>
+            <p class="mb-3">Método entrega: {{recurso.metodoEntrega}}</p>
+            <p class="mb-3" style="font-weight: bold;">Publicado hace {{tiempo(recurso.fechaCreacionRecurso)}}</p>
+            <div class="description" *ngIf="hoveredId === recurso.id">
+              {{recurso.descripcion}}
+            </div>
+            <a class="card-button" (click)="recursoSolicitado(recurso) ? null : solicitarRecurso(recurso.id) "
+            [ngClass]="{'boton-solicitado': recursoSolicitado(recurso)}"             
+             *ngIf="role === 'Beneficiario'">
+            {{recursoSolicitado(recurso) ? 'Solicitado' : 'Solicitar'}}</a>
+          </div>
         </div>
-        <a class="card-button" (click)="recursoSolicitado(recurso) ? null : solicitarRecurso(recurso.id) "
-        [ngClass]="{'boton-solicitado': recursoSolicitado(recurso)}"             
-         *ngIf="role === 'Beneficiario'">
-        {{recursoSolicitado(recurso) ? 'Solicitado' : 'Solicitar'}}</a>
       </div>
     </div>
   </div>
-  
-  </div>
-  </div>
-  
 
+  <div class="pagination-container">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+  </div>
+  

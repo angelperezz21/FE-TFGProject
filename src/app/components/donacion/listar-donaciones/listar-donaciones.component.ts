@@ -17,6 +17,7 @@ export class ListarDonacionesComponent implements OnInit{
   role: any;
   donaciones: any;
   donacionesPendientes: any;
+  page!:number;
 
   constructor(private _empresaService: EmpresaService,
     private _beneficiarioService: BeneficiarioService,

@@ -1,11 +1,30 @@
 
+.container {
+  display: flex;
   
-    .container {
-      display: flex;
-    }
-    
+}
 
-    
+.app-explorar-container {
+  order: 1;
+}
+
+
+
+/* Agrega un media query para dispositivos móviles */
+@media (max-width: 767px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .app-explorar-container {
+    order: 2;
+  }
+  .results {
+
+     order: 1;
+  }
+  
+}
  
 .results {
   flex-grow: 1;
@@ -14,6 +33,7 @@
   align-items: center;   
   padding: 10px;
   margin-top: 1rem;
+   order: 2;
 }
 
 .card-row {
@@ -135,4 +155,13 @@
 .card-hover:hover .description {
   height: 100px; /* Ajusta la altura según sea necesario */
   opacity: 1;
+}
+
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Opcional: ajusta el margen superior según sea necesario */
+  margin-right: 2rem;
 }

@@ -3,7 +3,7 @@
   <app-filtro></app-filtro>
   <div class="results">
     <div class="courses-container" >
-      <div class="course" *ngFor="let beneficiario of beneficiariosFiltro">
+      <div class="course" *ngFor="let beneficiario of beneficiariosFiltro | paginate: { itemsPerPage: 4, currentPage: page }">
         <div class="course-preview">
           <img [src]="beneficiario.imgUrl ? 'https://localhost:44318/' + beneficiario.imgUrl : 'https://localhost:44318/uploads/user.png'" class="card-img-top float-start" style="padding:1rem;object-fit: cover;width: 200px; height: 200px;" alt="Tu Foto">            
         </div>
@@ -25,6 +25,12 @@
       </div>        
     </div>
   </div>
+</div>
+<div class="pagination-container">
+  <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+</div>
+
   
   
+
   

@@ -25,6 +25,7 @@ export class ListarBeneficiariosComponent {
   categoria: any = [];
   form: FormGroup;  
   tipoOrden: any;  
+  page!: number;
   
   constructor( private _empresaService: EmpresaService,
     private _beneficiarioService: BeneficiarioService,

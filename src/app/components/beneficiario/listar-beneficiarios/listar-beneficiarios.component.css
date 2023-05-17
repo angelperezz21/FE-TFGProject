@@ -1,7 +1,8 @@
+
+
 .container {
   display: flex;
   background-color: #fff;
-
 }
 
 .results {
@@ -131,3 +132,13 @@
     right: 30px;
     letter-spacing: 1px;
   }  */
+
+
+  .pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Opcional: ajusta el margen superior según sea necesario */
+    margin-right: 2rem;
+  }
+  

@@ -1,102 +1,101 @@
-<div class="container">
+<div class="perfil">
+  <div class="container">
     <div class="profile text-left mb-5" >
-      <div class="d-flex align-items-center justify-content-left gap-3 mb-3">
+      <div class="d-flex align-items-center justify-content-end gap-3" style="margin-bottom: -2rem;">
+        <h3>{{beneficiario.nombre}}</h3> 
         <div class="profile-picture mr-2">
-          <img  [src]="beneficiario.imgUrl ? 'https://localhost:44318/' + beneficiario.imgUrl : 'https://localhost:44318/uploads/user.png'" alt="Tu Foto" class="img-fluid rounded-circle">
+          <img [src]="beneficiario.imgUrl ? 'https://localhost:44318/' + beneficiario.imgUrl : 'https://localhost:44318/uploads/user.png'" alt="Tu Foto" class="img-fluid rounded-circle">
         </div>
-        <h4 >{{beneficiario.nombre}}</h4> 
-         
+        
       </div>
-      <form class="formPerfil rounded p-3" style="background-color: #f8f9fa;">
-        <div class="row mb-3">
-          <div class="form-group col">
-            <label for="nombre">{{beneficiario.nombre}}</label>            
-          </div>
-          <div class="form-group col">
-            <label for="email">{{beneficiario.email}}</label>            
-          </div>
+      
+      <div style="display:flex; gap: 2rem; ">
+        <div class="form-check">
+          <input class="form-check-input" type="radio"  checked style="display: none;" name="tipoUsuario"  id="objeto" value="objeto" >
+          <label class="apartados" for="objeto">
+              <h5>INFORMACIÓN</h5>
+          </label>
         </div>
-        <div class="row mb-3">
-            <div class="form-group col">
-              <label for="categoria">{{beneficiario.categoria}}</label>   
 
-            </div>
-            <div class="form-group col">
-              <label for="telefono">{{beneficiario.telefono}}</label>            
-            </div>
-            <div class="form-group col">
-              <label for="direccion">{{beneficiario.direccion}}</label>              
-            </div>
-        </div>
+      </div>    
+      <hr>
+      <form class="formPerfil rounded p-3" style="background-color: #ffffff;">
         <div class="row mb-3">
           <div class="form-group col">
-            <label for="nombre">{{beneficiario.web}}</label>            
+            <h6>Nombre</h6>
+            <label for="nombre" style="color: rgb(101, 100, 100)">{{beneficiario.nombre}}</label>            
           </div>
           <div class="form-group col">
-            <label for="descripcion">{{beneficiario.descripcion}}</label>            
+            <h6>Correo de contacto</h6>
+            <label for="email" style="color: rgb(101, 100, 100)">{{beneficiario.contacto}}</label>            
+          </div>
+          <div class="form-group col">
+            <h6>Categoría</h6>
+            <label for="categoria" style="color: rgb(101, 100, 100)">{{beneficiario.categoria}}</label>   
+
+          </div>
+          <div class="form-group col">
+            <h6>Teléfono</h6>
+            <label for="telefono" style="color: rgb(101, 100, 100)">+34 {{beneficiario.telefono}}</label>            
+          </div>
+        </div>
+        <div class="row mb-3">        
+            <div class="form-group col">
+              <h6>Dirección</h6>
+              <label for="direccion" style="color: rgb(101, 100, 100)">{{beneficiario.direccion}}</label>              
+            </div>
+            <div class="form-group col">
+              <h6>Dirección web</h6>
+              <a for="web" [href]="beneficiario.web" target="_blank"  style="color: rgb(101, 100, 100)">{{beneficiario.web}}</a>            
+            </div>
+          
+        </div>
+        <div class="row mb-3">         
+          <div class="form-group col">
+            <h6>Descripción</h6>
+            <label for="descripcion" style="color: rgb(101, 100, 100)">{{beneficiario.descripcion}}</label>            
           </div>
         </div>        
       </form>
-</div>
-
-<div class="other-content">    
-    <div style="display:flex; gap: 2rem; ">
-      <div class="form-check">
-        <input class="form-check-input" type="radio"  checked style="display: none;" name="tipoUsuario"  id="objeto" value="objeto" >
-        <label class="apartados" for="objeto">
-           Necesidades
-        </label>
-      </div>
-
-    </div>    
-    <hr>
-    <!-- <div class="container2">
-      <div class="row">
-        <div class="col-md-6 mb-2" *ngFor="let necesidad of necesidades">
-          <div class="card" id="{{ necesidad.id }}">
-            <div class="row g-0">
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h4 class="">{{ necesidad.nombre }}</h4>
-                  <p class="card-text">{{ necesidad.cantidad }}</p>
-                  <p class="card-text">{{ necesidad.precio }}</p>              
-                  <div class="d-flex ">
-                    <p class="card-text">{{ necesidad.descripcion }}</p>
-                    <button  class="btn btn-success ms-auto" (click)="necesidadSolicitado(necesidad) ? null : solicitarNecesidad(necesidad.id) "
-                    [disabled]="necesidadSolicitado(necesidad)" *ngIf="logged && role === 'Empresa'">
-                      {{necesidadSolicitado(necesidad) ? 'Solicitado' : 'Solicitar'}}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  </div>
+  <div class="other-content">    
+      <div style="display:flex; gap: 2rem; ">
+        <div class="form-check">
+          <input class="form-check-input" type="radio"  checked style="display: none;" name="tipoUsuario"  id="objeto" value="objeto" >
+          <label class="apartados" for="objeto">
+            <h5>NECESIDADES</h5>
+          </label>
         </div>
-      </div>
-    </div> -->
-    <div class="container2">
-      <div class="results">
-        <div class="card-row">
-          <div class="card-wrapper" *ngFor="let necesidad of necesidades">
-            <div class="card mb-3 card-hover" (mouseenter)="onCardMouseEnter(necesidad.id)" (mouseleave)="onCardMouseLeave()">
-              <img [src]="necesidad.imgUrl ? 'https://localhost:44318/' + necesidad.imgUrl : 'assets/defaultRN.png'">
-              <h3>{{necesidad.nombre}}</h3>
-              <p>Cantidad: {{necesidad.cantidad}}</p>
-              <p>Precio unitario: {{necesidad.precio}} €</p>                
-              <p class="mb-3" style="font-weight: bold;">Publicado hace {{tiempo(necesidad.fechaCreacionNecesita)}}</p>
-              <div class="description" *ngIf="hoveredId === necesidad.id">
-                {{necesidad.descripcion}}
-              </div>
-              <a class="card-button" (click)="necesidadSolicitado(necesidad) ? null : solicitarNecesidad(necesidad.id) "
-              [ngClass]="{'boton-solicitado': necesidadSolicitado(necesidad)}"             
-               *ngIf="role === 'Empresa'">
-               {{necesidadSolicitado(necesidad) ? 'Solicitado' : 'Solicitar'}}</a>
-            </div>
-          </div>
-        </div>    
+
       </div>    
+      <hr>
+      <div class="container2">
+        <div class="results">
+          <div class="card-row">
+            <div class="card-wrapper" *ngFor="let necesidad of necesidades | paginate: { itemsPerPage: 9, currentPage: page }">
+              <div class="card mb-3 card-hover" (mouseenter)="onCardMouseEnter(necesidad.id)" (mouseleave)="onCardMouseLeave()">
+                <img [src]="necesidad.imgUrl ? 'https://localhost:44318/' + necesidad.imgUrl : 'assets/defaultRN.png'">
+                <h3>{{necesidad.nombre}}</h3>
+                <p>Cantidad: {{necesidad.cantidad}}</p>
+                <p>Precio unitario: {{necesidad.precio}} €</p>                
+                <p class="mb-3" style="font-weight: bold;">Publicado hace {{tiempo(necesidad.fechaCreacionNecesita)}}</p>
+                <div class="description" *ngIf="hoveredId === necesidad.id">
+                  {{necesidad.descripcion}}
+                </div>
+                <a class="card-button" (click)="necesidadSolicitado(necesidad) ? null : solicitarNecesidad(necesidad.id) "
+                [ngClass]="{'boton-solicitado': necesidadSolicitado(necesidad)}"             
+                *ngIf="role === 'Empresa'">
+                {{necesidadSolicitado(necesidad) ? 'Solicitado' : 'Solicitar'}}</a>
+              </div>
+            </div>
+          </div>    
+        </div>    
+      </div>
+    
+        
     </div>
-  
-      
+  </div>
+  <div class="pagination-container">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
   </div>
 </div>

@@ -21,6 +21,7 @@ export class ListarMisNecesidadesComponent implements OnInit{
   empresa: any;
   necesidadId!: number;
   hoveredId: number | null = null;
+  page!: number;
 /**
  *
  */
@@ -80,7 +81,10 @@ export class ListarMisNecesidadesComponent implements OnInit{
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     if(token!==null){
       this._necesidadService.getMyListNecesidades(this.helper.decodeToken(token).unique_name).subscribe(data=>{
-        this.necesidades=data;             
+        this.necesidades=data;
+        this.necesidades.sort((a:any, b:any) => {
+          return new Date(b.fechaCreacionNecesita).getTime() - new Date(a.fechaCreacionNecesita).getTime();
+        });             
       })
     }
   }

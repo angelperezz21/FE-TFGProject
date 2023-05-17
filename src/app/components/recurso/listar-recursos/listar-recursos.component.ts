@@ -21,6 +21,7 @@ export class ListarRecursosComponent implements OnInit{
   metodos: any = [];
   tipoOrden!: string;
   hoveredId: number | null = null;
+  page!: number;
 /**
  *
  */

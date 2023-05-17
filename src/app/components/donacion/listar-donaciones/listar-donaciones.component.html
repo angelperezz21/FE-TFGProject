@@ -24,7 +24,7 @@
 <div class="container">    
     <div class="results">
         <div class="card-row">
-        <div class="card-wrapper" *ngFor="let donacion of donaciones">
+        <div class="card-wrapper" *ngFor="let donacion of donaciones | paginate: { itemsPerPage: 12, currentPage: page }">
             <div class="card mb-3">          
             <h3>{{donacion.nombreRecurso}}</h3>
             <p>Cantidad: {{donacion.cantidad}}</p>
@@ -45,3 +45,7 @@
         <h1 *ngIf="donaciones.length===0 && donacionesPendientes.length===0">No tienes donaciones</h1>
     </div>
 </div>
+
+<div class="pagination-container">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+  </div>

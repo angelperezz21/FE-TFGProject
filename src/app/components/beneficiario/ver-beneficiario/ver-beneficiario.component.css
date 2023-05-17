@@ -165,3 +165,19 @@ a.mb-2:hover {
   height: 100px; /* Ajusta la altura según sea necesario */
   opacity: 1;
 }
+
+.perfil{
+ margin: 2rem;
+  padding: 1rem;
+  background-color: rgb(252, 252, 252);
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Opcional: ajusta el margen superior según sea necesario */
+  margin-right: 2rem;
+}

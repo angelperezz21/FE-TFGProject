@@ -23,7 +23,7 @@
                     </div>
                     <div class="form-group">
                       <label for="descripcion">Descripción:</label>
-                      <textarea type=""  class="form-control" id="descripcion" placeholder="Descripción" formControlName="descripcion" ></textarea>
+                      <textarea type="" [class.red-icon]="this.form.get('descripcion')?.invalid && this.form.get('descripcion')?.touched" class="form-control" id="descripcion" placeholder="Descripción" formControlName="descripcion" ></textarea>
                     </div>
                     <div class="form-group mb-3">
                       <div class="form-group col">

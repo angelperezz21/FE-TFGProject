@@ -33,7 +33,7 @@ export class CrearEditarRecursoComponent implements OnInit{
       cantidad: ['', [Validators.required]],
       precio: ['', [Validators.required]],
       metodo: ['', [Validators.required]],
-      descripcion: ['', []],  
+      descripcion: ['', [Validators.required]],  
       foto: ['', []],      
           
     })

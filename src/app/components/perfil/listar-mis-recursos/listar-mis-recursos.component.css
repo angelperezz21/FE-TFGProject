@@ -151,3 +151,12 @@
   height: 100px; /* Ajusta la altura según sea necesario */
   opacity: 1;
 }
+
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Opcional: ajusta el margen superior según sea necesario */
+  margin-right: 2rem;
+}

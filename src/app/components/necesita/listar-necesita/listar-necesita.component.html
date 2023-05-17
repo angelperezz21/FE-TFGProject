@@ -1,8 +1,10 @@
 <div class="container">
-  <app-explorar></app-explorar>
+  <div class="app-explorar-container">
+    <app-explorar></app-explorar>
+  </div>
   <div class="results">
     <div class="card-row">
-      <div class="card-wrapper" *ngFor="let necesidad of necesidadFiltro">
+      <div class="card-wrapper" *ngFor="let necesidad of necesidadFiltro | paginate: { itemsPerPage: 8, currentPage: page }">
         <div class="card mb-3 card-hover" (mouseenter)="onCardMouseEnter(necesidad.id)" (mouseleave)="onCardMouseLeave()">
           <img [src]="necesidad.imgUrl ? 'https://localhost:44318/' + necesidad.imgUrl : 'assets/defaultRN.png'">
           <h3>{{necesidad.nombre}}</h3>
@@ -20,4 +22,8 @@
       </div>
     </div>    
   </div>      
+</div>
+
+<div class="pagination-container">
+  <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
 </div>

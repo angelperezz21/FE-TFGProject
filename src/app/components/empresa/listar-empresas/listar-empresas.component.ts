@@ -27,7 +27,7 @@ export class ListarEmpresasComponent implements OnInit {
   rangoMin!: number;
   rangoMax!: number;
   tipoOrden!: string;
- 
+  page!: number;
 
   constructor( private _empresaService: EmpresaService,
     private _beneficiarioService: BeneficiarioService,

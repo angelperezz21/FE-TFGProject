@@ -31,7 +31,7 @@ export class CrearEditarNecesitaComponent implements OnInit{
       necesita: ['', [Validators.required]],
       cantidad: ['', [Validators.required]],
       precio: ['', [Validators.required]],    
-      descripcion: ['', []],      
+      descripcion: ['', [Validators.required]],      
       foto: ['', []],      
     })
 

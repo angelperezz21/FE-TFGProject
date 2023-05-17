@@ -21,6 +21,7 @@ export class VerBeneficiarioComponent implements OnInit{
   idVisitante: any;
   necesidadesSolicitados: any;
   hoveredId: number | null = null;
+  page!: number;
   
   constructor(private _beneficiarioService: BeneficiarioService,
     private  _necesitaService: NecesitaService,

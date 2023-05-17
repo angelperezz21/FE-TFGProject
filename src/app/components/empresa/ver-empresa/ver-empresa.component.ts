@@ -21,6 +21,7 @@ export class VerEmpresaComponent implements OnInit{
   idVisitante: any;
   recursosSolicitados: any;
   hoveredId: number | null = null;
+  page!: number;
   
   constructor(private _empresasService: EmpresaService,
     private  _recursoService: RecursoService,
@@ -43,7 +44,7 @@ export class VerEmpresaComponent implements OnInit{
         }
       });
       this.recursos.sort((a:any, b:any) => {
-        return new Date(b.fechaCreacionNecesita).getTime() - new Date(a.fechaCreacionNecesita).getTime();
+        return new Date(b.fechaCreacionRecurso).getTime() - new Date(a.fechaCreacionRecurso).getTime();
       });
     })
 

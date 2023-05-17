@@ -22,6 +22,7 @@ export class ListarMisRecursosComponent implements OnInit{
   beneficiario: any;
   recursoId!: number;  
   hoveredId: number | null = null;
+  page!: number;
 /**
  *
  */
@@ -81,7 +82,10 @@ export class ListarMisRecursosComponent implements OnInit{
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     if(token!==null){
       this._recursoService.getMyListRecursos(this.helper.decodeToken(token).unique_name).subscribe(data=>{
-        this.recursos=data;     
+        this.recursos=data;   
+        this.recursos.sort((a:any, b:any) => {
+          return new Date(b.fechaCreacionRecurso).getTime() - new Date(a.fechaCreacionRecurso).getTime();
+        });
       })
     }
   }

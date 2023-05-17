@@ -21,6 +21,7 @@ export class ListarNecesitaComponent implements OnInit{
   necesidadesSolicitados: any;  
   tipoOrden!: string;
   hoveredId: number | null = null;
+  page!: number;
 
   constructor(private _serviceListarNecesidades: ListarNecesidadesService,
       private _necesitaService: NecesitaService ) {

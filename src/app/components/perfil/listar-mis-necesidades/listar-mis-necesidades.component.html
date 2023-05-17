@@ -1,7 +1,7 @@
 <div class="container">
     <div class="results">
       <div class="card-row">
-        <div class="card-wrapper" *ngFor="let necesidad of necesidades">
+        <div class="card-wrapper" *ngFor="let necesidad of necesidades | paginate: { itemsPerPage: 12, currentPage: page }">
           <div class="card mb-3 card-hover" (mouseenter)="onCardMouseEnter(necesidad.id)" (mouseleave)="onCardMouseLeave()">
             <img [src]="necesidad.imgUrl ? 'https://localhost:44318/' + necesidad.imgUrl : 'assets/defaultRN.png'">
             <h3>{{necesidad.nombre}}</h3>
@@ -28,5 +28,10 @@
       </div>
       
       </div>
+      </div>
+      
+
+      <div class="pagination-container">
+        <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
       </div>
       

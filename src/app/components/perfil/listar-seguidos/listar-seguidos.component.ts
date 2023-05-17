@@ -16,6 +16,7 @@ export class ListarSeguidosComponent implements OnInit{
   helper = new JwtHelperService();
   tokenId: any;
   role: any;
+  page!:number;
 
   constructor( private _empresaService: EmpresaService,
     private _beneficiarioService: BeneficiarioService    ) {
