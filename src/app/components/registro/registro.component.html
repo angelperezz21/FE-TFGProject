@@ -65,9 +65,9 @@
                     <div class="col-md-4">
                       <div class="form-group form-group-lg mt-2">
                         <span tooltip="Formato inválido" *ngIf="this.form.get('web')?.invalid && pulsado" placement="top">
-                          <input formControlName="web"  [class.red-icon]="this.form.get('web')?.invalid && pulsado"  type="text" class="form-control" placeholder="https://www.tuweb.com">
+                          <input formControlName="web" [class.red-icon]="this.form.get('web')?.invalid && pulsado"  type="text" class="form-control" placeholder="https://www.tuweb.com">
                         </span>
-                        <input formControlName="web" *ngIf="!pulsado || this.form.get('web')?.valid" type="text" class="form-control" placeholder="https://www.tuweb.com">
+                        <input formControlName="web" *ngIf="!pulsado || this.form.get('web')?.valid" type="text"  class="form-control" placeholder="https://www.tuweb.com">
                       </div>
                     </div>
                   </div>
@@ -86,14 +86,8 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                      <div class="form-group text-center mt-2">
-                        <span tooltip=" Selecciona una categoría" *ngIf="this.form.get('categoria')?.invalid && pulsado" placement="top">
-                          <select class="btn btn-secondary dropdown-toggle text-left text-end"  [class.red-icon]="this.form.get('categoria')?.invalid && pulsado"  formControlName="categoria" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (change)="onDropdownChange($event)">
-                            <option value="" disabled selected>Categoría</option>
-                            <option class="dropdown-item" *ngFor="let value of dropdownValues" [value]="value.id">{{ value.name }}</option>
-                          </select>
-                        </span>
-                        <select class="btn btn-secondary dropdown-toggle text-left text-end" style="width: 100%;" *ngIf="!pulsado || this.form.get('categoria')?.valid"  formControlName="categoria" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (change)="onDropdownChange($event)">
+                      <div class="form-group text-center mt-2">                                         
+                        <select class="btn btn-secondary dropdown-toggle text-left text-end" style="width: 100%;"  [class.red-icon]="this.form.get('categoria')?.invalid && pulsado"  formControlName="categoria" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (change)="onDropdownChange($event)">
                           <option value="" disabled selected>Categoría</option>
                           <option class="dropdown-item" *ngFor="let value of dropdownValues" [value]="value.id">{{ value.name }}</option>
                         </select>

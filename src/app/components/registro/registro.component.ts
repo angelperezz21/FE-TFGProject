@@ -8,6 +8,7 @@ import { EmpresaService } from 'src/app/service/empresa.service';
 import { LoginService } from 'src/app/service/login.service';
 import { CategoriaValue } from 'src/app/shared/categoria.module';
 
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -35,7 +36,7 @@ export class RegistroComponent {
       nombre: ['', [Validators.required]],
       telefono: ['', [Validators.required, Validators.pattern(/^[0-9]{9}$/)]],
       direccion: ['', [Validators.required]],
-      web: ['', [Validators.required, Validators.pattern('^(http(s)?:\/\/)?([w]{3}\.)?[a-zA-Z0-9]+\.[a-zA-Z]+(\/[a-zA-Z0-9#]+\/?)*$')]],
+      web: ['', [Validators.required]],
       tipoUsuario: ['', Validators.required],
       categoria: ['', Validators.required],
       cif: ['',[Validators.required, Validators.pattern(/^[A-Za-z][0-9]{7}[A-Za-z0-9]$/)]],

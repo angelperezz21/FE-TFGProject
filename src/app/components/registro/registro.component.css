@@ -76,7 +76,6 @@
 
 .red-icon {
   border-color: #dc3545;
-  width: 100%;
 }
 
 .seguir-button {
@@ -110,4 +109,8 @@
 
 .text-center span {
   margin-top: 0.5rem;
+}
+
+.hide-span {
+  display: none;
 }
