@@ -21,6 +21,14 @@ export class RecursoService {
     return this.http.post(this.myAppUrl + this.myApiUrl, recurso, httpOptions);
   }
 
+  deleteRecurso(id: number, httpOptions: any): Observable<any>{
+    return this.http.delete(this.myAppUrl + this.myApiUrl + '/' + `${id}`, httpOptions);
+  }
+
+  updateRecurso(id: number,recurso: any, httpOptions: any): Observable<any>{
+    return this.http.put(this.myAppUrl + this.myApiUrl + '/' + `${id}`, recurso, httpOptions);
+  }
+
   solicitarRecurso(idRecurso: number, idBeneficiario: number,httpOptions: any): Observable<any>{
     return this.http.put(this.myAppUrl + this.myApiUrl + '/solicitarRecurso/' + `${idRecurso}`,{idRecurso,idBeneficiario}, httpOptions);
   }

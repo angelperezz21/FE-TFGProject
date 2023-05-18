@@ -27,8 +27,9 @@
                     </div>
                     <div class="form-group">
                         <label for="metodo">Método Entrega:</label>
-                        <select class="form-control" [class.red-icon]="this.form.get('metodo')?.invalid && this.form.get('metodo')?.touched" id="categoria" formControlName="metodo" (change)="dropdownMetodo($event) ">
-                            <option class="dropdown-item" *ngFor="let value of dropdownValues" [value]="value.id">{{ value.name }}</option>
+                        <select class="form-control" [class.red-icon]="this.form.get('metodo')?.invalid && this.form.get('metodo')?.touched" id="categoria" (change)="dropdownMetodo($event) ">                            
+                          <option value="metodoE" *ngIf="aparecer">{{metodoE}}</option>  
+                          <option class="dropdown-item" *ngFor="let value of dropdownValues" [value]="value.name">{{ value.name }}</option>
                           </select>
                     </div>
                     <div class="form-group mb-3">
@@ -38,10 +39,14 @@
                       </div>                                          
                     </div>
                     <div class="form-group">
-                        <button class="buttonPD" [disabled]="this.form.invalid" type="submit" (click)="publicar()">
+                        <button class="buttonPD" *ngIf="recursoNumber===0" [disabled]="this.form.invalid" type="submit" (click)="publicar()">
                             Publicar </button>
+                        <button class="buttonPD mb-2" *ngIf="recursoNumber!==0"  [disabled]="!(this.form.dirty || cambiado)"  [ngClass]="{'disabled': !(this.form.dirty || cambiado)}"  type="submit" (click)="guardar()">
+                          Guardar </button>
+                      
                     </div>
-                    
+                    <button class="buttonDelete" *ngIf="recursoNumber!==0"  type="submit" (click)="eliminar(recursoNumber)">
+                      Eliminar </button>
                 </div>
               </form>
         </div>

@@ -25,6 +25,7 @@ export class VerPerfilComponent implements OnInit {
   info!:string;
   file!: File;
   path!: string;
+  aparecer=false;  
 
   constructor(private fb: FormBuilder,
     private _empresaService: EmpresaService,
@@ -113,6 +114,7 @@ export class VerPerfilComponent implements OnInit {
     } else {
       this.form.disable();      
       this.categoriaUser=this.usuario.categoria;
+      this.aparecer=true;  
       this.form.setValue({
         email: this.usuario.email,
         contrasenya: this.usuario.contrasenya,
@@ -129,7 +131,8 @@ export class VerPerfilComponent implements OnInit {
   }
 
   onDropdownChange(selectedValue: any) {
-    this.categoriaUser = selectedValue.target.value;      
+    this.categoriaUser = selectedValue.target.value;     
+    this.aparecer=false;   
    }
 
   onTipoInfo(selectedValue: any){
@@ -155,7 +158,7 @@ export class VerPerfilComponent implements OnInit {
   }
  
   usuarioModificado(){
-    console.log(this.categoriaUser)
+    console.log(this.path)
     this.usuario = {
       Id: this.usuario.id,
       Email: this.form.get('email')?.value,

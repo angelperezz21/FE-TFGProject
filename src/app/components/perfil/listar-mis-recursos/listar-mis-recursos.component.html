@@ -4,14 +4,16 @@
     <div class="card-wrapper" *ngFor="let recurso of recursos | paginate: { itemsPerPage: 12, currentPage: page }">
       <div class="card mb-3 card-hover" (mouseenter)="onCardMouseEnter(recurso.id)" (mouseleave)="onCardMouseLeave()">
         <img [src]="recurso.imgUrl ? 'https://localhost:44318/' + recurso.imgUrl : 'assets/defaultRN.png'">
-        <h3>{{recurso.nombre}}</h3>
-        <p>Cantidad: {{recurso.cantidad}}</p>
-        <p>Precio unitario: {{recurso.precio}} €</p>
-        <p class="">Método entrega: {{recurso.metodoEntrega}}</p>
-        <div class="description" *ngIf="hoveredId === recurso.id">
-          {{recurso.descripcion}}
+        <div [ngClass]="{'editar': recurso.estado === 1 }" (click)="verRecurso(recurso)">
+          <h3>{{recurso.nombre}}</h3>
+          <p>Cantidad: {{recurso.cantidad}}</p>
+          <p>Precio unitario: {{recurso.precio}} €</p>
+          <p class="">Método entrega: {{recurso.metodoEntrega}}</p>
+          <div class="description" *ngIf="hoveredId === recurso.id">
+            {{recurso.descripcion}}
+          </div>  
         </div>
-    
+
         <a class="card-button"           
           [ngClass]="{'deshabilitado': recurso.estado === 2,
           'otra-clase': recurso.solicitantes === null }" (click)="openModal(recurso.id)">

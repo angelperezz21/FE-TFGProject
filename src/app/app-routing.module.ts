@@ -32,7 +32,9 @@ const routes: Routes = [
   {path:'Beneficiario/:id', component: VerBeneficiarioComponent},
   {path:'Empresa/:id', component: VerEmpresaComponent},
   {path:'Recurso', component: CrearEditarRecursoComponent, canActivate: [VigilanteEmpresaGuard]},
+  {path:'Recurso/:id', component: CrearEditarRecursoComponent, canActivate: [VigilanteEmpresaGuard]},
   {path:'Necesita', component: CrearEditarNecesitaComponent, canActivate: [VigilanteBeneficiarioGuard]},
+  {path:'Necesita/:id', component: CrearEditarNecesitaComponent, canActivate: [VigilanteBeneficiarioGuard]},
   {path:'MiPerfil/:id', component: VerPerfilComponent, canActivate: [VigilanteGuard]},
   { path: '**',  redirectTo: 'Inicio', pathMatch: 'full' }
 ];

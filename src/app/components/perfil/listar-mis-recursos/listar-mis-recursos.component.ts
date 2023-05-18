@@ -73,6 +73,12 @@ export class ListarMisRecursosComponent implements OnInit{
     })
   }
 
+  verRecurso(recurso: any) {
+    if(recurso.estado!==2){
+      window.location.href='/Recurso/' +recurso.id;
+    }    
+  }
+
   closeModal() {
     this.isModalOpen = false;
   }
@@ -89,6 +95,7 @@ export class ListarMisRecursosComponent implements OnInit{
       })
     }
   }
+  
 
   aceptarRecurso(){    
     const token = localStorage.getItem('token');

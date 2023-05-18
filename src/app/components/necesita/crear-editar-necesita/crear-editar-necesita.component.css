@@ -1,53 +1,90 @@
 .container {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    
-  }
-  
-  .img{
-    width: 90%;
-    height: 90%;
-    object-fit: cover;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    border-radius: 40px;
-    z-index: 0;
-  }
-  
-  .form-control{
-    font-family: 'Roboto', sans-serif;
-  }
-
-  .titulo{
-    text-align: center;
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.buttonPD {
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
-  padding: 10px 0;
-  width: 100%;
-  background-color: #006eff;
+  align-items: center;
+  flex-direction: column;
+  
+}
+
+.img{
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border-radius: 40px;
+  z-index: 0;
+}
+
+.form-control{
+  font-family: 'Roboto', sans-serif;
+}
+
+
+.buttonPD {
+  margin-bottom: 10px;
+  background-color: #0c71e4;
+  border: 0;
   color: #fff;
+  border-radius: 50px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  padding: 5px 10px;
+  width: 100%;
   border-radius: 5px;
-  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-end; /* Cambio esta línea */
 }
 
 .buttonPD:hover {
-  text-decoration: none;
-  background-color: #0037a4;
+  transform: scale(1.05);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.buttonDelete {
+  margin-bottom: 10px;
+  background-color: #e40c0c;
+  border: 0;
   color: #fff;
+  border-radius: 50px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  padding: 5px 10px;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-end; /* Cambio esta línea */
 }
 
 
 
+.buttonDelete:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.titulo{
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+
 .red-icon {
-  border-color: #dc3545
+border-color: #dc3545
+}
+
+
+.disabled {
+opacity: 0.5;
+cursor: not-allowed;
+/* Otros estilos de apariencia desactivada */
 }

@@ -20,6 +20,14 @@ export class NecesitaService {
     return this.http.post(this.myAppUrl + this.myApiUrl , necesita, httpOptions);
   }
 
+  deleteNecesita(id: number, httpOptions: any): Observable<any>{
+    return this.http.delete(this.myAppUrl + this.myApiUrl + '/' + `${id}`, httpOptions);
+  }
+
+  updateNecesita(id: number,necesita: any, httpOptions: any): Observable<any>{
+    return this.http.put(this.myAppUrl + this.myApiUrl + '/' + `${id}`, necesita, httpOptions);
+  }
+
   solicitarNecesidad(idNecesidad: number, idEmpresa: number,httpOptions: any): Observable<any>{
     return this.http.put(this.myAppUrl + this.myApiUrl + '/solicitarNecesidad/' + `${idNecesidad}`,{idNecesidad,idEmpresa}, httpOptions);
   }

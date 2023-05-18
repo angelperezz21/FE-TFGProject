@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
@@ -18,11 +18,16 @@ export class CrearEditarNecesitaComponent implements OnInit{
   role!: string;
   helper = new JwtHelperService();
   form: any;
-  metodo: string | undefined;
+  metodoE: string | undefined;
   dropdownValues = MetodoValue.values;  
   file: any;
   path: any;
-  
+  necesidadModificada!: any;
+  necesidadNumber!:number;
+  aparecer = false;
+  cambiado = false;
+
+
   constructor(private fb: FormBuilder,
     private _necesitaService: NecesitaService,    
     private aRoute: ActivatedRoute,
@@ -30,10 +35,12 @@ export class CrearEditarNecesitaComponent implements OnInit{
     this.form = this.fb.group({
       necesita: ['', [Validators.required]],
       cantidad: ['', [Validators.required]],
-      precio: ['', [Validators.required]],    
+      precio: ['', [Validators.required]],  
+      metodo: ['', [Validators.required]],  
       descripcion: ['', [Validators.required]],      
       foto: ['', []],      
     })
+    this.necesidadNumber = Number(this.aRoute.snapshot.paramMap.get('id'))
 
   }
   ngOnInit(): void {
@@ -43,11 +50,34 @@ export class CrearEditarNecesitaComponent implements OnInit{
       this.id = this.tokenId.unique_name;
       this.role = this.tokenId.role;
     }
+
+    if(this.necesidadNumber!==0){      
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+      this._necesitaService.getNecesita(this.necesidadNumber, {headers} ).subscribe(data=> {
+        this.necesidadModificada = data;        
+        console.log(this.necesidadModificada.precio)
+        this.metodoE=this.necesidadModificada.metodoEntrega;
+        this.aparecer=true;
+        this.path = this.necesidadModificada.imgUrl;
+        this.form.setValue({
+          necesita: this.necesidadModificada.nombre,
+          cantidad: this.necesidadModificada.cantidad,        
+          metodo: new FormControl(this.metodoE),
+          precio: this.necesidadModificada.precio,
+          descripcion: this.necesidadModificada.descripcion,
+          foto: this.necesidadModificada.imgUrl
+        });
+      });
+
+    }
   }
 
   dropdownMetodo(selectedValue: any) {
-    this.metodo = this.dropdownValues.find(value => value.id+"" === selectedValue.target.value)?.name;    
+    this.metodoE = selectedValue.target.value;  
+    this.aparecer=false;  
+    this.cambiado = true;      
    }
+
 
 
 
@@ -74,15 +104,51 @@ export class CrearEditarNecesitaComponent implements OnInit{
       Precio: this.form.get('precio')?.value,
       Cantidad: this.form.get('cantidad')?.value,      
       Descripcion: this.form.get('descripcion')?.value,    
+      MetodoEntrega: this.metodoE, 
       IdBeneficiario: this.id,      
       imgUrl: this.path
     }    
     this._necesitaService.postNecesita(necesidad, {headers} ).subscribe(data=> {
-      console.log(data);
-      console.log("hola");
       this.toastr.info("Necesidad publicada con éxito")
       this.form.reset()}
     );
+  }
+
+  guardar(){
+    const recurso = {
+      Id: this.necesidadNumber,
+      Estado: 1,
+      Nombre: this.form.get('necesita')?.value,
+      Precio: this.form.get('precio')?.value,
+      Cantidad: this.form.get('cantidad')?.value,
+      MetodoEntrega: this.metodoE,
+      IdEmpresa: this.id,      
+      imgUrl: this.path,
+      Descripcion: this.form.get('descripcion')?.value, 
+    }
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    this._necesitaService.updateNecesita(this.necesidadNumber,recurso, {headers} ).subscribe(data=> {
+      this.toastr.success("Recurso modificado con éxito");      
+    },error=>{
+      console.log(error)
+      this.toastr.error(error.error.title); 
+    } );
+  }
+
+
+
+  eliminar(idNecesidad: number){
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+      const result = window.confirm('¿Estás seguro de que deseas eliminar la necesidad?');
+      if (result) {
+        this._necesitaService.deleteNecesita(idNecesidad, {headers} ).subscribe(data=> {
+          this.toastr.info("Necesidad eliminada con éxito");
+          window.location.href='/MiPerfil/' +this.id;
+        } );
+      }
   }
   
 }

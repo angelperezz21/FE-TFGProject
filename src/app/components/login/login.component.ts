@@ -88,15 +88,4 @@ export class LoginComponent {
     }
 
 
-  editarTarjeta(tarjeta: any){
-    
-    this.id=tarjeta.id;
-
-    this.form.patchValue({
-      titular:tarjeta.titular,
-      numeroTarjeta:tarjeta.numeroTarjeta,
-      fechaCaducidad: tarjeta.fechaCaducidad,
-      cvc: tarjeta.cvc
-    });
-  }
 }

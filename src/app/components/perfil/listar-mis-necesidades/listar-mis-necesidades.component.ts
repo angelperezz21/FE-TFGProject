@@ -99,5 +99,11 @@ export class ListarMisNecesidadesComponent implements OnInit{
    
   }
 
+  verNecesidad(necesidad: any) {
+    if(necesidad.estado!==2){
+      window.location.href='/Necesita/' +necesidad.id;
+    }    
+  }
+
 
 }

@@ -32,7 +32,7 @@
           <div class="form-group col">
             <label for="categoria">Categoría:</label>   
             <select class="form-control" id="categoria" [disabled]="!formEnabled" (change)="onDropdownChange($event);"   >
-              <option value="categoriaUser">{{categoriaUser}}</option>
+              <option value="categoriaUser" *ngIf="aparecer">{{categoriaUser}}</option>
               <option class="dropdown-item" *ngFor="let value of dropdownValues" [value]="value.name">{{ value.name }}</option>
             </select>
           </div>

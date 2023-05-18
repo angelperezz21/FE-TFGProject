@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
@@ -19,10 +19,14 @@ export class CrearEditarRecursoComponent implements OnInit{
   role!: string;
   helper = new JwtHelperService();
   form: any;
-  metodo: string | undefined;
+  metodoE: string | undefined;
   dropdownValues = MetodoValue.values;
   file: any;
   path: any;
+  recursoModificado!: any;
+  recursoNumber!:number;
+  aparecer = false;
+  cambiado = false;
   
   constructor(private fb: FormBuilder,
     private _recursoService: RecursoService,    
@@ -35,8 +39,8 @@ export class CrearEditarRecursoComponent implements OnInit{
       metodo: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],  
       foto: ['', []],      
-          
     })
+    this.recursoNumber = Number(this.aRoute.snapshot.paramMap.get('id'))
 
   }
   ngOnInit(): void {
@@ -46,13 +50,34 @@ export class CrearEditarRecursoComponent implements OnInit{
       this.id = this.tokenId.unique_name;
       this.role = this.tokenId.role;
     }
+
+    if(this.recursoNumber!==0){      
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+      this._recursoService.getRecurso(this.recursoNumber, {headers} ).subscribe(data=> {
+        this.recursoModificado = data;        
+        this.metodoE=this.recursoModificado.metodoEntrega;
+        this.aparecer=true;
+        this.path = this.recursoModificado.imgUrl;
+        this.form.setValue({
+          recurso: this.recursoModificado.nombre,
+          cantidad: this.recursoModificado.cantidad,        
+          metodo: new FormControl(this.metodoE),
+          precio: this.recursoModificado.precio,
+          descripcion: this.recursoModificado.descripcion,
+          foto: this.recursoModificado.imgUrl
+        });
+      });
+
+    }
   }
 
   dropdownMetodo(selectedValue: any) {
-    this.metodo = this.dropdownValues.find(value => value.id+"" === selectedValue.target.value)?.name;    
+    this.metodoE = selectedValue.target.value;  
+    this.aparecer=false;  
+    this.cambiado = true;  
+    console.log(this.cambiado) 
    }
 
-   
 
 
   onFileSelected(selectedValue: any){
@@ -78,7 +103,7 @@ export class CrearEditarRecursoComponent implements OnInit{
       Nombre: this.form.get('recurso')?.value,
       Precio: this.form.get('precio')?.value,
       Cantidad: this.form.get('cantidad')?.value,
-      MetodoEntrega: this.metodo,
+      MetodoEntrega: this.metodoE,
       IdEmpresa: this.id,      
       imgUrl: this.path,
       Descripcion: this.form.get('descripcion')?.value, 
@@ -86,8 +111,45 @@ export class CrearEditarRecursoComponent implements OnInit{
     this._recursoService.postRecurso(recurso, {headers} ).subscribe(data=> {
       this.toastr.info("Recurso publicado con éxito")
       this.form.reset()
-    }      
-    );
+    },error=>{
+      console.log(error)
+      this.toastr.error(error.error.title); 
+    } );
+  }
+
+
+  guardar(){
+    const recurso = {
+      Id: this.recursoNumber,
+      Estado: 1,
+      Nombre: this.form.get('recurso')?.value,
+      Precio: this.form.get('precio')?.value,
+      Cantidad: this.form.get('cantidad')?.value,
+      MetodoEntrega: this.metodoE,
+      IdEmpresa: this.id,      
+      imgUrl: this.path,
+      Descripcion: this.form.get('descripcion')?.value, 
+    }
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    this._recursoService.updateRecurso(this.recursoNumber,recurso, {headers} ).subscribe(data=> {
+      this.toastr.success("Recurso modificado con éxito");      
+    } );
+  }
+
+
+
+  eliminar(idRecurso: number){
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+      const result = window.confirm('¿Estás seguro de que deseas eliminar el recurso?');
+      if (result) {
+        this._recursoService.deleteRecurso(idRecurso, {headers} ).subscribe(data=> {
+          this.toastr.info("Recurso eliminado con éxito");
+          window.location.href='/MiPerfil/' +this.id;
+        } );
+      }
   }
   
 }
