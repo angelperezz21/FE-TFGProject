@@ -10,7 +10,7 @@ export class BeneficiarioService {
   @Output() disparadorNotificaciones = new EventEmitter<any>();
   @Output() disparador = new EventEmitter<any>();
   
-  private myAppUrl = "https://localhost:44318/";
+  private myAppUrl = "https://https://easydonation.azurewebsites.net/";
   private myApiUrl = 'api/Beneficiario'
 
   constructor(private http: HttpClient) { }

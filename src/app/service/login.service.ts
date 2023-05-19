@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class LoginService {
 
-  private myAppUrl = "https://localhost:44318/";
+  private myAppUrl = "https://easydonation.azurewebsites.net/";
   private myApiUrl = 'api/Login/login'
 
   constructor(private http: HttpClient) { }

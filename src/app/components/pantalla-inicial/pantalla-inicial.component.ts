@@ -154,7 +154,7 @@ export class PantallaInicialComponent implements OnInit {
     this.toastr.success("SUBIDO CON EXITO");
    // const options = { headers: header, responseType: 'blob' };
     this._donacion.getCertificado(6,{headers: headers}).subscribe((data)=>{        
-      window.open('https://localhost:44318/' + data.certificadoPath, '_blank');
+      window.open('https://easydonation.azurewebsites.net/' + data.certificadoPath, '_blank');
     })
   }
 }

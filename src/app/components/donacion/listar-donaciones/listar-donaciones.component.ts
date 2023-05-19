@@ -86,7 +86,7 @@ export class ListarDonacionesComponent implements OnInit{
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     this._donacionService.getCertificado(donacionId,{headers: headers}).subscribe((data)=>{    
       console.log(data)    
-      window.open('https://localhost:44318/' + data.certificadoPath, '_blank');
+      window.open('https://easydonation.azurewebsites.net/' + data.certificadoPath, '_blank');
     })
   }
 }

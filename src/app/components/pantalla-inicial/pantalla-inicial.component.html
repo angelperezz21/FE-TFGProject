@@ -77,7 +77,7 @@
     <div class="card-row">
         <div class="card mb-3" *ngFor="let necesidad of necesidades">
             <div class="card-hover" (mouseenter)="onCardMouseEnter(necesidad.id)" (mouseleave)="onCardMouseLeave()">
-                <img [src]="necesidad.imgUrl ? 'https://localhost:44318/' + necesidad.imgUrl : 'assets/defaultRN.png'">
+                <img [src]="necesidad.imgUrl ? 'https://easydonation.azurewebsites.net/' + necesidad.imgUrl : 'assets/defaultRN.png'">
                 <h3>{{necesidad.nombre}}</h3>
                 <p>Cantidad: {{necesidad.cantidad}}</p>
                 <p class="mb-3">Precio unitario: {{necesidad.precio}} €</p>
@@ -99,7 +99,7 @@
     <div class="card-row">
         <div class="card mb-3" *ngFor="let recurso of recursos">
             <div class="card-hover" (mouseenter)="onCardMouseEnter(recurso.id)" (mouseleave)="onCardMouseLeave()">
-                <img [src]="recurso.imgUrl ? 'https://localhost:44318/' + recurso.imgUrl : 'assets/defaultRN.png'">
+                <img [src]="recurso.imgUrl ? 'https://easydonation.azurewebsites.net/' + recurso.imgUrl : 'assets/defaultRN.png'">
                 <h3>{{recurso.nombre}}</h3>
                 <p>Cantidad: {{recurso.cantidad}}</p>
                 <p>Precio unitario: {{recurso.precio}} €</p>

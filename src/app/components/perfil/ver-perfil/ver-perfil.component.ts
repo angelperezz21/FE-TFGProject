@@ -61,7 +61,8 @@ export class VerPerfilComponent implements OnInit {
   
     if(this.role === 'Empresa'){
       if(this.id!=null){this._empresaService.getEmpresa(this.id,{headers}).subscribe(data=>{
-        this.usuario = data;        
+        this.usuario = data;     
+        console.log(this.usuario)   
         this.path=data.imgUrl;
         this.asignarValores()
         if(this.usuario.notificacion!==0){

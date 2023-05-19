@@ -3,7 +3,7 @@
   <div class="card-row">
     <div class="card-wrapper" *ngFor="let recurso of recursos | paginate: { itemsPerPage: 12, currentPage: page }">
       <div class="card mb-3 card-hover" (mouseenter)="onCardMouseEnter(recurso.id)" (mouseleave)="onCardMouseLeave()">
-        <img [src]="recurso.imgUrl ? 'https://localhost:44318/' + recurso.imgUrl : 'assets/defaultRN.png'">
+        <img [src]="recurso.imgUrl ? 'https://easydonation.azurewebsites.net/' + recurso.imgUrl : 'assets/defaultRN.png'">
         <div [ngClass]="{'editar': recurso.estado === 1 }" (click)="verRecurso(recurso)">
           <h3>{{recurso.nombre}}</h3>
           <p>Cantidad: {{recurso.cantidad}}</p>

@@ -2,7 +2,7 @@
   <div class="profile text-left mb-5" >
     <div class="d-flex align-items-center justify-content-left gap-3 mb-3">
       <div class="profile-picture mr-2">
-        <img  [src]="usuario.imgUrl ? 'https://localhost:44318/' + usuario.imgUrl : 'https://localhost:44318/uploads/user'" alt="Tu Foto" class="img-fluid rounded-circle">
+        <img  [src]="usuario.imgUrl ? 'https://easydonation.azurewebsites.net/' + usuario.imgUrl : 'https://easydonation.azurewebsites.net/uploads/user'" alt="Tu Foto" class="img-fluid rounded-circle">
       </div>
       <h4 >{{usuario.nombre}}</h4> 
       <a class="editar mb-1" (click)="enableForm()">

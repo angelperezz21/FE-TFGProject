@@ -10,7 +10,7 @@ export class EmpresaService {
   @Output() disparadorNotificaciones = new EventEmitter<any>();
   @Output() disparador = new EventEmitter<any>();
 
-  private myAppUrl = "https://localhost:44318/";
+  private myAppUrl = "https://easydonation.azurewebsites.net/";
   private myApiUrl = 'api/Empresa'
 
   constructor(private http: HttpClient) { }

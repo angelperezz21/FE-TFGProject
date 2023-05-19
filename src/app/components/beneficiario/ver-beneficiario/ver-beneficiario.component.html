@@ -4,7 +4,7 @@
       <div class="d-flex align-items-center justify-content-end gap-3" style="margin-bottom: -2rem;">
         <h3>{{beneficiario.nombre}}</h3> 
         <div class="profile-picture mr-2">
-          <img [src]="beneficiario.imgUrl ? 'https://localhost:44318/' + beneficiario.imgUrl : 'https://localhost:44318/uploads/user.png'" alt="Tu Foto" class="img-fluid rounded-circle">
+          <img [src]="beneficiario.imgUrl ? 'https://easydonation.azurewebsites.net/' + beneficiario.imgUrl : 'https://easydonation.azurewebsites.net/uploads/user.png'" alt="Tu Foto" class="img-fluid rounded-circle">
         </div>
         
       </div>
@@ -74,7 +74,7 @@
           <div class="card-row">
             <div class="card-wrapper" *ngFor="let necesidad of necesidades | paginate: { itemsPerPage: 9, currentPage: page }">
               <div class="card mb-3 card-hover" (mouseenter)="onCardMouseEnter(necesidad.id)" (mouseleave)="onCardMouseLeave()">
-                <img [src]="necesidad.imgUrl ? 'https://localhost:44318/' + necesidad.imgUrl : 'assets/defaultRN.png'">
+                <img [src]="necesidad.imgUrl ? 'https://easydonation.azurewebsites.net/' + necesidad.imgUrl : 'assets/defaultRN.png'">
                 <h3>{{necesidad.nombre}}</h3>
                 <p>Cantidad: {{necesidad.cantidad}}</p>
                 <p>Precio unitario: {{necesidad.precio}} €</p>                

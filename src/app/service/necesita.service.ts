@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class NecesitaService {
 
-  private myAppUrl = "https://localhost:44318/";
+  private myAppUrl = "https://easydonation.azurewebsites.net/";
   private myApiUrl = 'api/Necesita'
 
   constructor(private http: HttpClient) { }
