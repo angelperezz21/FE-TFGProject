@@ -19,7 +19,12 @@
 
 
 
-
+@media (max-width: 500) {
+  .search-container {
+  
+    width: 50px;
+  }
+}
 
 
 
@@ -123,7 +128,7 @@
   border-radius: 10px;
     
   max-width: 400px;
-  width: 100%;
+  width: 400px;
 }
 
 .search-container form {

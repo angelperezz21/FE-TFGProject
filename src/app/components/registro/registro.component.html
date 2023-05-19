@@ -21,63 +21,49 @@
                 </div>
                   <div class="row mb-2">
                     <div class="col-md-4">
-                      <div class="form-group form-group-lg mt-2" >
-                        <span tooltip=" Campo requerido"  *ngIf="this.form.get('nombre')?.invalid && pulsado" placement="top">
-                          <input formControlName="nombre" [class.red-icon]="this.form.get('nombre')?.invalid && pulsado" type="text" class="form-control" placeholder="Nombre">
-                        </span>                      
-                        <input formControlName="nombre" *ngIf="!pulsado || this.form.get('nombre')?.valid" type="text" class="form-control" placeholder="Nombre">
+                      <div class="form-group form-group-lg mt-2" >                     
+                        <input formControlName="nombre" [tooltip]="(this.form.get('contrasenya')?.invalid && pulsado) ? 'Campo requerido' : ''"
+                        [class.red-icon]="this.form.get('nombre')?.invalid && pulsado"  type="text" class="form-control" placeholder="Nombre">
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group form-group-lg mt-2">
-                        <span tooltip="Como mínimo debe tener 9 caracteres"  *ngIf="this.form.get('contrasenya')?.invalid && pulsado" placement="top">
-                          <input formControlName="contrasenya" [class.red-icon]="this.form.get('contrasenya')?.invalid && pulsado" maxlength="16" type="text" class="form-control" placeholder="Contraseña">
-                        </span>
-                          <input formControlName="contrasenya" *ngIf="!pulsado || this.form.get('contrasenya')?.valid" maxlength="16" type="text" class="form-control" placeholder="Contraseña">  
+                          <input formControlName="contrasenya" [class.red-icon]="this.form.get('contrasenya')?.invalid && pulsado" 
+                          [tooltip]="(this.form.get('contrasenya')?.invalid && pulsado) ? 'Mínimo 9 caracteres' : ''"  maxlength="16" type="text" class="form-control" placeholder="Contraseña">  
                       </div>
                     </div>
                     <div class="col-md-4">                      
                       <div class="form-group form-group-lg mt-2">
-                        <span tooltip="Formato de correo inválido"  *ngIf="this.form.get('email')?.invalid && pulsado" placement="top">
-                          <input formControlName="email" [class.red-icon]="this.form.get('email')?.invalid && pulsado" type="text" class="form-control" placeholder="email@gmail.com">
-                        </span>
-                        <input formControlName="email" *ngIf="!pulsado || this.form.get('email')?.valid" type="text" class="form-control" placeholder="email@gmail.com">
+                        <input formControlName="email" [tooltip]="(this.form.get('email')?.invalid && pulsado) ? 'Formato incorrecto' : ''" 
+                        [class.red-icon]="this.form.get('email')?.invalid && pulsado" type="text" class="form-control" placeholder="email@gmail.com">
                       </div>
                     </div>
                   </div>
                   <div class="row mb-2">
                     <div class="col-md-4">
                       <div class="form-group form-group-lg mt-2">
-                        <span tooltip=" Debe estar formado por 9 dígitos" *ngIf="this.form.get('telefono')?.invalid && pulsado" placement="top">
-                          <input formControlName="telefono" [class.red-icon]="this.form.get('telefono')?.invalid && pulsado" maxlength="9"  class="form-control" placeholder="Teléfono">   
-                        </span>
-                        <input formControlName="telefono" *ngIf="!pulsado || this.form.get('telefono')?.valid" maxlength="9"  class="form-control" placeholder="Teléfono">  
+                        <input formControlName="telefono" [tooltip]="(this.form.get('telefono')?.invalid && pulsado) ? 'Debe estar formado por 9 dígitos' : ''"  maxlength="9"  
+                        [class.red-icon]="this.form.get('telefono')?.invalid && pulsado" class="form-control" placeholder="Teléfono">  
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group form-group-lg mt-2">                        
+                        <input [tooltip]="(this.form.get('direccion')?.invalid && pulsado) ? 'Campo requerido' : ''" formControlName="direccion"  
+                        [class.red-icon]="this.form.get('direccion')?.invalid && pulsado" type="text" class="form-control" placeholder="Dirección">
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group form-group-lg mt-2">
-                        <span tooltip=" Campo requerido" *ngIf="this.form.get('direccion')?.invalid && pulsado" placement="top">
-                          <input formControlName="direccion" [class.red-icon]="this.form.get('direccion')?.invalid && pulsado" type="text" class="form-control" placeholder="Dirección">
-                        </span>
-                        <input formControlName="direccion" *ngIf="!pulsado || this.form.get('direccion')?.valid" type="text" class="form-control" placeholder="Dirección">
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group form-group-lg mt-2">
-                        <span tooltip="Formato inválido" *ngIf="this.form.get('web')?.invalid && pulsado" placement="top">
-                          <input formControlName="web" [class.red-icon]="this.form.get('web')?.invalid && pulsado"  type="text" class="form-control" placeholder="https://www.tuweb.com">
-                        </span>
-                        <input formControlName="web" *ngIf="!pulsado || this.form.get('web')?.valid" type="text"  class="form-control" placeholder="https://www.tuweb.com">
+                        <input formControlName="web" [tooltip]="(this.form.get('web')?.invalid && pulsado) ? 'Formato inválido' : ''" type="text" 
+                        [class.red-icon]="this.form.get('web')?.invalid && pulsado"  class="form-control" placeholder="https://www.tuweb.com">
                       </div>
                     </div>
                   </div>
                   <div class="row mb-2">
                     <div class="col-md-4">
                       <div class="form-group form-group-lg mt-2">
-                        <span tooltip="Campo requerido"  *ngIf=" this.form.get('cif')?.invalid && pulsado" placement="top">
-                          <input formControlName="cif" [class.red-icon]="this.form.get('cif')?.invalid && pulsado"  maxlength="9" type="text" class="form-control" placeholder="CIF">
-                        </span>
-                        <input formControlName="cif" *ngIf="!pulsado || this.form.get('cif')?.valid" maxlength="9" type="text" class="form-control" placeholder="CIF">
+                        <input formControlName="cif"[class.red-icon]="this.form.get('cif')?.invalid && pulsado" maxlength="9"
+                        [tooltip]="(this.form.get('cif')?.invalid && pulsado) ? 'Campo requerido' : ''" type="text" class="form-control" placeholder="CIF">
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -97,10 +83,8 @@
                   </div>                  
                   <div class="row mb-3">
                     <div class="form-group col mt-2">
-                      <span tooltip="Campo requerido" *ngIf="this.form.get('descripcion')?.invalid && pulsado" placement="top">
-                        <textarea type="" class="form-control" [class.red-icon]="this.form.get('descripcion')?.invalid && pulsado" id="descripcion" placeholder="Descripcion" formControlName="descripcion" ></textarea>
-                      </span>
-                      <textarea type="" class="form-control" *ngIf="!pulsado || this.form.get('descripcion')?.valid"  id="descripcion" placeholder="Descripcion" formControlName="descripcion" ></textarea>
+                      <textarea type="" class="form-control" [class.red-icon]="this.form.get('descripcion')?.invalid && pulsado" 
+                      [tooltip]="(this.form.get('descripcion')?.invalid && pulsado) ? 'Campo requerido' : ''" id="descripcion" placeholder="Descripcion" formControlName="descripcion" ></textarea>
                     </div>
                                    
                   </div>                                
