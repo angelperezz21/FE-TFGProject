@@ -69,6 +69,8 @@ export class CrearEditarNecesitaComponent implements OnInit{
         });
       });
 
+    }else{
+      this.metodoE="Avión";
     }
   }
 

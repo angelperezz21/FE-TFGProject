@@ -81,12 +81,19 @@ export class ListarDonacionesComponent implements OnInit{
       })}
   }
 
-  verCertificado(donacionId: number){
+   verCertificado(donacionId: number){
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    this._donacionService.getCertificado(donacionId,{headers: headers}).subscribe((data)=>{    
-      console.log(data)    
-      window.open('https://easydonation.azurewebsites.net/' + data.certificadoPath, '_blank');
+    this._donacionService.getCertificado(donacionId,{headers: headers}).subscribe(async (data)=>{    
+
+        const response = await fetch('https://easydonation.azurewebsites.net/' + data.certificadoPath);
+        const blob = await response.blob();
+        const urlArchivo = URL.createObjectURL(blob);
+        const enlaceDescarga = document.createElement('a');
+        enlaceDescarga.href = urlArchivo;
+        enlaceDescarga.download = 'Certificado.pdf';
+        enlaceDescarga.click();
+        URL.revokeObjectURL(urlArchivo);
     })
   }
 }

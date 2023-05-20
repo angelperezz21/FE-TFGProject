@@ -68,6 +68,8 @@ export class CrearEditarRecursoComponent implements OnInit{
         });
       });
 
+    }else{
+      this.metodoE="Avión";
     }
   }
 

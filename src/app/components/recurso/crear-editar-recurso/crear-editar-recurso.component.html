@@ -39,7 +39,7 @@
                       </div>                                          
                     </div>
                     <div class="form-group">
-                        <button class="buttonPD" *ngIf="recursoNumber===0" [disabled]="this.form.invalid" type="submit" (click)="publicar()">
+                        <button class="buttonPD" *ngIf="recursoNumber===0" [ngClass]="{'disabled' : this.form.invalid}"[disabled]="this.form.invalid" type="submit" (click)="publicar()">
                             Publicar </button>
                         <button class="buttonPD mb-2" *ngIf="recursoNumber!==0"  [disabled]="!(this.form.dirty || cambiado)"  [ngClass]="{'disabled': !(this.form.dirty || cambiado)}"  type="submit" (click)="guardar()">
                           Guardar </button>
