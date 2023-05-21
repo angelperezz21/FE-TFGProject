@@ -42,6 +42,9 @@ export class ListarBeneficiariosComponent {
     this.obtenerBeneficiarios();
     this.obtenerMisSeguidos();
     
+    this._beneficiarioService.disparador.subscribe(data=>{
+      this.aplicarFiltros(data.nombre,data.ubi,data.followed,data.categoriaDisp,data.orden);
+    })
   }
 
 
@@ -110,11 +113,11 @@ export class ListarBeneficiariosComponent {
 
 
    
-  applyFilter(event: Event) {
+  aplicarFiltros(nombre:string,ubi:string,followed:string, categoriaD: any, orden:string){
+    
+  this.categoria =categoriaD
+  this.tipoOrden = orden;
 
-  var nombre =this.form.get('nombre')?.value;
-  var ubi = this.form.get('ubi')?.value
-  var followed = this.form.get('beneficiariosSeguidas')?.value
   this.beneficiariosFiltro = this.beneficiarios.filter((beneficiario : any) => 
   { 
     const categoriaE = beneficiario.categoria?.toLowerCase();
