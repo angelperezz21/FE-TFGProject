@@ -117,26 +117,23 @@ export class CrearEditarNecesitaComponent implements OnInit{
   }
 
   guardar(){
-    const recurso = {
+    const necesidad = {
       Id: this.necesidadNumber,
       Estado: 1,
       Nombre: this.form.get('necesita')?.value,
       Precio: this.form.get('precio')?.value,
       Cantidad: this.form.get('cantidad')?.value,
       MetodoEntrega: this.metodoE,
-      IdEmpresa: this.id,      
+      IdBeneficiario: this.id,      
       imgUrl: this.path,
       Descripcion: this.form.get('descripcion')?.value, 
     }
 
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    this._necesitaService.updateNecesita(this.necesidadNumber,recurso, {headers} ).subscribe(data=> {
+    this._necesitaService.updateNecesita(this.necesidadNumber,necesidad, {headers} ).subscribe(data=> {
       this.toastr.success("Recurso modificado con éxito");      
-    },error=>{
-      console.log(error)
-      this.toastr.error(error.error.title); 
-    } );
+    });
   }
 
 
