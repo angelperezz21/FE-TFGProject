@@ -16,12 +16,14 @@ footer.show {
 .footer-links {
   color: white;
   justify-content: space-between;
+  text-decoration: none;
 }
 
 .footer-links a {
   color: white;
-  text-decoration: none;
+
 }
+
 
 .footer-links a:hover {
   text-decoration: underline;

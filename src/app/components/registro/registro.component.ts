@@ -24,6 +24,7 @@ export class RegistroComponent {
   file: any;
   path: any;
   loading = false;
+  aceptado=false;
   
   constructor(private fb: FormBuilder, 
     private _empresaService: EmpresaService, 
@@ -117,6 +118,10 @@ export class RegistroComponent {
     }
 
 
+    onMetodoChange() {     
+      this.aceptado=!this.aceptado;
+      console.log(this.aceptado)
+    }
 
     onFileSelected(selectedValue: any){
       this.file = selectedValue.target.files[0]; 

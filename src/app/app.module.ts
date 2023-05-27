@@ -38,6 +38,7 @@ import { ExplorarComponent } from './components/explorar/explorar.component';
 import { ListarMisRecursosComponent } from './components/perfil/listar-mis-recursos/listar-mis-recursos.component';
 import { FiltroComponent } from './components/filtro/filtro.component';
 import { ListarMisNecesidadesComponent } from './components/perfil/listar-mis-necesidades/listar-mis-necesidades.component';
+import { PrivacidadComponent } from './components/privacidad/privacidad.component';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { ListarMisNecesidadesComponent } from './components/perfil/listar-mis-ne
     ListarMisRecursosComponent,
     FiltroComponent,
     ListarMisNecesidadesComponent,
+    PrivacidadComponent,
   ],
   imports: [
     BrowserModule,

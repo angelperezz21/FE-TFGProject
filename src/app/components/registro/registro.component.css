@@ -114,3 +114,9 @@
 .hide-span {
   display: none;
 }
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  /* Otros estilos de apariencia desactivada */
+  }

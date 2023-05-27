@@ -17,6 +17,7 @@ import { ExplorarComponent } from './components/explorar/explorar.component';
 import { VigilanteGuard } from './service/vigilante.guard';
 import { VigilanteEmpresaGuard } from './service/vigilante-empresa.guard';
 import { VigilanteBeneficiarioGuard } from './service/vigilante-beneficiario.guard';
+import { PrivacidadComponent } from './components/privacidad/privacidad.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'Inicio', pathMatch: 'full' },
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path:'Necesita', component: CrearEditarNecesitaComponent, canActivate: [VigilanteBeneficiarioGuard]},
   {path:'Necesita/:id', component: CrearEditarNecesitaComponent, canActivate: [VigilanteBeneficiarioGuard]},
   {path:'MiPerfil/:id', component: VerPerfilComponent, canActivate: [VigilanteGuard]},
+  {path:'PoliticasDePrivacidad', component: PrivacidadComponent},
   { path: '**',  redirectTo: 'Inicio', pathMatch: 'full' }
 ];
 
