@@ -17,11 +17,17 @@
     margin-top: 10px;
 }
 
+.info{
+  padding: 1rem;
+}
 
-
-@media (max-width: 500) {
-  .search-container {
+@media (max-width: 1000px) {
+  .rectangulo-blanco{
+    width: 50%;
+    padding: 2rem;
+  }
   
+  .search-container {
     width: 50px;
   }
 }
@@ -160,7 +166,6 @@
 .rectangulo-blanco {    
   bottom: 0;
   left: -10rem;
-  width: 100%;
   height: -200px; 
   background-color: white;    
   

@@ -33,7 +33,6 @@
   flex-grow: 1;
   display: flex;
   justify-content: center; 
-  align-items: center;   
   padding: 10px;
   margin-top: 1rem;
   order: 2;
@@ -43,8 +42,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-
   margin-left: 1%;
 
 }

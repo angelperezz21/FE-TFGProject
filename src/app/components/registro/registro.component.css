@@ -120,3 +120,10 @@
   cursor: not-allowed;
   /* Otros estilos de apariencia desactivada */
   }
+
+  @media (max-width: 500px) {
+    .formularioInicio{
+      padding: 1rem;
+    }
+  }
+  
