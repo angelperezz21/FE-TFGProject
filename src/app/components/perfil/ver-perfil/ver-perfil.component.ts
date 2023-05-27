@@ -6,6 +6,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { BeneficiarioService } from 'src/app/service/beneficiario.service';
 import { EmpresaService } from 'src/app/service/empresa.service';
 import { CategoriaValue } from 'src/app/shared/categoria.module';
+import { CategoriaONGValue } from 'src/app/shared/categoriaONG.module';
 
 @Component({
   selector: 'app-ver-perfil',
@@ -18,7 +19,7 @@ export class VerPerfilComponent implements OnInit {
   role!: string;
   helper = new JwtHelperService();
   usuario: any;
-  dropdownValues = CategoriaValue.values;
+  dropdownValues: any;
   categoriaUser: string | undefined;
   form: any;
   formEnabled!: boolean;
@@ -54,6 +55,11 @@ export class VerPerfilComponent implements OnInit {
       this.tokenId =  this.helper.decodeToken(token);
       this.id = this.tokenId.unique_name;
       this.role = this.tokenId.role;
+      if(this.role==="Empresa"){
+        this.dropdownValues = CategoriaValue.values;
+      }else{
+        this.dropdownValues = CategoriaONGValue.values;
+      }
     }
 
     this.info="objeto";

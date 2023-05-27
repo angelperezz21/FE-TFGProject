@@ -110,6 +110,14 @@ export class ExplorarComponent implements OnInit{
     this.form.reset();
 }
 
+reset(){
+  if(this.route.includes("ListaNecesidades")){
+    this._serviceListarNecesidades.disparador.emit({})
+  }else if(this.route.includes("ListaRecursos")){
+    this._serviceListarRecursos.disparador.emit({})
+  }
+}
+
   onTipoOrdenChange(event: any) {
     this.tipoOrden = event.target.id;
     if (this.tipoOrden === "0") {
@@ -141,11 +149,10 @@ export class ExplorarComponent implements OnInit{
     var metodo = this.metodos;
     var orden = this.tipoOrden;
 
-
     if(this.route==='/ListaRecursos'){      
       this._serviceListarRecursos.disparador.emit({nombre,precioMin,precioMax,cantidad,metodo,orden})
     }else{
-      this._serviceListarNecesidades.disparador.emit({nombre,precioMin,precioMax,cantidad,orden})
+      this._serviceListarNecesidades.disparador.emit({nombre,precioMin,precioMax,cantidad,metodo,orden})
     }
   }
 

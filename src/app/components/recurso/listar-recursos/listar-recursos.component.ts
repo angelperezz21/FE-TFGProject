@@ -31,7 +31,6 @@ export class ListarRecursosComponent implements OnInit{
 
   ngOnInit(): void {
     this._serviceListarRecursos.disparador.subscribe(data=>{      
-      console.log(data.precioMin)
       this.aplicarFiltros(data.nombre,parseInt(data.precioMin), parseInt(data.precioMax),data.cantidad,data.metodo,data.orden);
     })
     this.obtenerRecursos();
@@ -122,14 +121,14 @@ export class ListarRecursosComponent implements OnInit{
 
     this.metodos = metodo;
     this.tipoOrden = orden;
-    console.log("adios")
+
     this.recursosFiltro = this.recursos.filter((recurso : any) => 
   { 
     const precioR = parseInt(recurso.precio);    
     const cantidadR = recurso.cantidad.toString();
     const nombreR = recurso.nombre?.toLowerCase();
     const metodoR = recurso.metodoEntrega?.toLowerCase();
-    console.log("hola")
+
     if(this.tipoOrden!=="0"){
       this.recursos.sort((a : any, b :any) => {
         if (this.tipoOrden === "1") {
@@ -144,12 +143,10 @@ export class ListarRecursosComponent implements OnInit{
       });    
     }
 
-    console.log("hola2")
     const nombreValido = nombre ? nombreR.includes(nombre) : true;
     const cantidadValida = cantidad ? cantidadR === (cantidad) : true;
     const metodoValido = this.metodos!==undefined && this.metodos.length>0 ? this.metodos.includes(metodoR) : true;
-    const precioValido = precioMin!==0 || precioMax!=10000 ? precioMin <= precioR && precioMax >=precioR : true;
-    console.log("hola3")
+    const precioValido = (precioMin!==0 && !Number.isNaN(precioMin))|| (precioMax!=10000 && !Number.isNaN(precioMin))  ? precioMin <= precioR && precioMax >=precioR : true;
 
     return nombreValido && cantidadValida && metodoValido && precioValido;
   } );

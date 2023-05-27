@@ -118,6 +118,8 @@ export class ListarEmpresasComponent implements OnInit {
     this.categoria =categoriaD
     this.tipoOrden = orden;
 
+    console.log(this.categoria)
+
   this.empresasFiltro = this.empresas.filter((empresa : any) => 
   { 
     const categoriaE = empresa.categoria?.toLowerCase();
@@ -139,6 +141,7 @@ export class ListarEmpresasComponent implements OnInit {
     const nombreValido = nombre ? nombreE.includes(nombre) : true;
     const seguidosValido = followed ? this.seguidos.some((x: any) => x.nombre === empresa.nombre) : true;
   
+    console.log(categoriaValida && ubicacionValida && nombreValido && seguidosValido)
     return  categoriaValida && ubicacionValida && nombreValido && seguidosValido;
   } );
   }

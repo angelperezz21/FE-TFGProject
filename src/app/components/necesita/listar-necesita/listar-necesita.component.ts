@@ -22,6 +22,7 @@ export class ListarNecesitaComponent implements OnInit{
   tipoOrden!: string;
   hoveredId: number | null = null;
   page!: number;
+  metodos: any = [];
 
   constructor(private _serviceListarNecesidades: ListarNecesidadesService,
       private _necesitaService: NecesitaService ) {
@@ -29,7 +30,7 @@ export class ListarNecesitaComponent implements OnInit{
 
   ngOnInit(): void {
     this._serviceListarNecesidades.disparador.subscribe(data=>{
-      this.aplicarFiltros(data.nombre,parseInt(data.precioMin), parseInt(data.precioMax),data.cantidad,data.orden);
+      this.aplicarFiltros(data.nombre,parseInt(data.precioMin), parseInt(data.precioMax),data.cantidad,data.metodo, data.orden);
     })
     this.obtenerNecesidades();
 
@@ -117,15 +118,17 @@ export class ListarNecesitaComponent implements OnInit{
   }
 
   //nombre,precioMin,precioMax,cantidad,orden
-  aplicarFiltros(nombre:string,precioMin: number,precioMax:number, cantidad:string, orden:string){
+  aplicarFiltros(nombre:string,precioMin: number,precioMax:number, cantidad:string, metodo:any, orden:string){
 
     this.tipoOrden = orden;
-
+    this.metodos = metodo;
+    
     this.necesidadFiltro = this.necesita.filter((necesita : any) => 
   { 
     const precioR = parseInt(necesita.precio);    
     const cantidadR = necesita.cantidad.toString();
-    const nombreR = necesita.nombre?.toLowerCase();    
+    const nombreR = necesita.nombre?.toLowerCase();  
+    const metodoR = necesita.metodoEntrega?.toLowerCase(); 
 
     if(this.tipoOrden!=="0"){
       this.necesita.sort((a : any, b :any) => {
@@ -143,9 +146,10 @@ export class ListarNecesitaComponent implements OnInit{
 
     const nombreValido = nombre ? nombreR.includes(nombre) : true;
     const cantidadValida = cantidad ? cantidadR === (cantidad) : true;    
-    const precioValido = precioMin!==0 || precioMax!=10000 ? precioMin <= precioR && precioMax >=precioR : true;
+    const metodoValido = this.metodos!==undefined && this.metodos.length>0 ? this.metodos.includes(metodoR) : true;
+    const precioValido = (precioMin!==0 && !Number.isNaN(precioMin))|| (precioMax!=10000 && !Number.isNaN(precioMin)) ? precioMin <= precioR && precioMax >=precioR : true;
     
-    return nombreValido && cantidadValida && precioValido;
+    return metodoValido && nombreValido && cantidadValida && precioValido ;
   } );
   } 
 }

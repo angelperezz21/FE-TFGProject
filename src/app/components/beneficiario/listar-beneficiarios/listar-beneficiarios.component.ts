@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BeneficiarioService } from 'src/app/service/beneficiario.service';
 import { EmpresaService } from 'src/app/service/empresa.service';
-import { CategoriaValue } from 'src/app/shared/categoria.module';
+import { CategoriaONGValue } from 'src/app/shared/categoriaONG.module';
 
 @Component({
   selector: 'app-listar-beneficiarios',
@@ -21,7 +21,7 @@ export class ListarBeneficiariosComponent {
   helper = new JwtHelperService();
   tokenId: any;
   role: any;
-  dropdownValues = CategoriaValue.values;
+  dropdownValues = CategoriaONGValue.values;
   categoria: any = [];
   form: FormGroup;  
   tipoOrden: any;  

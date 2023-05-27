@@ -7,6 +7,7 @@ import { BeneficiarioService } from 'src/app/service/beneficiario.service';
 import { EmpresaService } from 'src/app/service/empresa.service';
 import { LoginService } from 'src/app/service/login.service';
 import { CategoriaValue } from 'src/app/shared/categoria.module';
+import { CategoriaONGValue } from 'src/app/shared/categoriaONG.module';
 
 
 @Component({
@@ -50,6 +51,11 @@ export class RegistroComponent {
 
   onTipoUsuarioChange(event: any) {
     this.tipoUsuario = event.target.id;
+    if(this.tipoUsuario==="empresa"){
+      this.dropdownValues = CategoriaValue.values;
+    }else{
+      this.dropdownValues = CategoriaONGValue.values;
+    }
   }
   
   onDropdownChange(selectedValue: any) {

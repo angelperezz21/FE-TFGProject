@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BeneficiarioService } from 'src/app/service/beneficiario.service';
 import { EmpresaService } from 'src/app/service/empresa.service';
 import { CategoriaValue } from 'src/app/shared/categoria.module';
+import { CategoriaONGValue } from 'src/app/shared/categoriaONG.module';
 
 @Component({
   selector: 'app-filtro',
@@ -31,14 +32,27 @@ export class FiltroComponent implements OnInit{
   constructor(private fb: FormBuilder,
     private _empresa: EmpresaService,
     private _beneficiario: BeneficiarioService,
-    private router: Router) {
+    private router: Router,
+    private aRoute: ActivatedRoute) {
 
       this.form = this.fb.group({
         nombre: ['',],
         empresasSeguidas: ['', ],
         ubi: ['',],
       })
+   
+      this.aRoute.url.subscribe(urlSegments => {
+        const routeValue = urlSegments[0].path; // Obtener el valor de la ruta
+        console.log(routeValue)
+        if (routeValue === 'ListaEmpresas') {
+          this.dropdownValues = CategoriaValue.values;
+        } else if (routeValue === 'ListaBeneficiarios') {
+          this.dropdownValues = CategoriaONGValue.values;
+        }
+      });
+      
    }  
+
   ngOnInit(): void {
     const token = localStorage.getItem('token');
     if(token!==null){
@@ -49,14 +63,13 @@ export class FiltroComponent implements OnInit{
         
       }
     }
-
     this.route = this.router.url;
     this.logged = token !== "";
   }
 
    
   onDropdownChange(selectedValue: any) {     
-    const nombreSelected =this.dropdownValues.find(value => value.id+"" === selectedValue?.target.value)?.name;
+    const nombreSelected =this.dropdownValues.find((value:any) => value.id+"" === selectedValue?.target.value)?.name;
     if (selectedValue?.target.checked) {
       this.categoria.push(nombreSelected?.toLowerCase());   
     } else {
@@ -93,6 +106,14 @@ export class FiltroComponent implements OnInit{
         (seguidos[i] as HTMLInputElement).checked = false;
       }
       this.form.reset();
+  }
+
+  reset(){
+    if(this.route.includes("ListaBeneficiarios")){
+      this._beneficiario.disparador.emit({})
+    }else if(this.route.includes("ListaEmpresas")){
+      this._empresa.disparador.emit({})
+    }
   }
   //
   checkUser(): boolean{

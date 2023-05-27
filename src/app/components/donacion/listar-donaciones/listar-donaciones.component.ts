@@ -43,12 +43,10 @@ export class ListarDonacionesComponent implements OnInit{
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     if(this.role==='Beneficiario'){    
       if(this.id!=null){this._beneficiarioService.getDonaciones(this.id,{headers}).subscribe(data=>{
-        console.log(data)
         this.donaciones = data;
       })}}
     else{      
       if(this.id!=null){this._empresaService.getDonaciones(this.id,{headers}).subscribe(data=>{
-        console.log(data)
         this.donaciones = data;
       })}}
   }
@@ -73,12 +71,14 @@ export class ListarDonacionesComponent implements OnInit{
     if(this.role==='Beneficiario'){    
         this._donacionService.recibirDonacion(donacionId,{headers}).subscribe(data=>{        
         this.obtenerDonacionesPendientes();
+        this.obtenerDonaciones();   
       })}
     else{      
         this._donacionService.envioDonacion(donacionId,{headers}).subscribe(data=>{
-        this.obtenerDonacionesPendientes();     
-        this.obtenerDonaciones();   
+          this.obtenerDonacionesPendientes();     
+          this.obtenerDonaciones();  
       })}
+      
   }
 
    verCertificado(donacionId: number){

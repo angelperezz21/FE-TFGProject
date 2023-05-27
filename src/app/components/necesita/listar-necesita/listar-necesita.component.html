@@ -9,7 +9,8 @@
           <img [src]="necesidad.imgUrl ? 'https://easydonation.azurewebsites.net/' + necesidad.imgUrl : 'assets/defaultRN.png'">
           <h3>{{necesidad.nombre}}</h3>
           <p>Cantidad: {{necesidad.cantidad}}</p>
-          <p>Precio unitario: {{necesidad.precio}} €</p>                
+          <p>Precio unitario: {{necesidad.precio}} €</p>            
+          <p class="mb-3">Método entrega: {{necesidad.metodoEntrega}}</p>    
           <p class="mb-3" style="font-weight: bold;">Publicado hace {{tiempo(necesidad.fechaCreacionNecesita)}}</p>
           <div class="description" *ngIf="hoveredId === necesidad.id">
             {{necesidad.descripcion}}
