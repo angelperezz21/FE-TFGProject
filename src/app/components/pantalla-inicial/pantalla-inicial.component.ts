@@ -32,6 +32,7 @@ export class PantallaInicialComponent implements OnInit {
   /**
    *
    */
+
   constructor(private _donacion: DonacionService,
     private _empresa: EmpresaService,
     private _beneficiario: BeneficiarioService,
@@ -40,6 +41,7 @@ export class PantallaInicialComponent implements OnInit {
     private toastr: ToastrService) {
 
   }
+  
   ngOnInit(): void {
     const token = localStorage.getItem('token');
     if(token!==null){
