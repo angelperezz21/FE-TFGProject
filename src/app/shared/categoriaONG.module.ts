@@ -19,5 +19,6 @@ export class CategoriaONGValue {
         { id: 6, name: 'Derechos humanos' },
         { id: 7, name: 'Cooperación internacional' },
         { id: 8, name: 'Emprendimiento social' },
+        { id: 9, name: 'Animal' },
       ];
 }
