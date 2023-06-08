@@ -24,13 +24,7 @@
     flex-direction: column;
   }
 
-  .app-explorar-container {
-    order: 2;
-  }
-  .results {
-
-     order: 1;
-  }
+  
   
 }
  
