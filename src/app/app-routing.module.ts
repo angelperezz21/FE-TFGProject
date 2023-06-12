@@ -12,7 +12,7 @@
 //   GNU General Public License for more details.
 
 //   You should have received a copy of the GNU General Public License
-//   along with this program.  If not, see <https://www.gnu.org/licenses/>. 
+//   in the LICENSE.txt file.  If not, see <https://www.gnu.org/licenses/>. 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListarBeneficiariosComponent } from './components/beneficiario/listar-beneficiarios/listar-beneficiarios.component';
